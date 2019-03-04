@@ -1,0 +1,22 @@
+{
+  "name": "student-networking-website",
+  "version": "1.0.0",
+  "description": "A student networking platform, developped with Ionic, Node.JS and Socket.IO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenzaboussaoud8/student-networking-website.git"
+  },
+  "author": "Arthur Betito, Vincent Tessier-Couturier, Kenza Boussaoud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenzaboussaoud8/student-networking-website/issues"
+  },
+  "homepage": "https://github.com/kenzaboussaoud8/student-networking-website#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
