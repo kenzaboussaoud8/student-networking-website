@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/kenzaboussaoud8/student-networking-website#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "oauth2-server": "^3.0.1"
   }
 }
