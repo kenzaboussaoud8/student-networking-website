@@ -1,6 +1,6 @@
 // Imports
 let mysql = require('mysql');
-let config = require('./config.js');
+let config = require('../config');
 
 // Routes
 module.exports = {
