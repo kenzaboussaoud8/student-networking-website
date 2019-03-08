@@ -7,9 +7,10 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'password-lost', loadChildren: './pages/password-lost/password-lost.module#PasswordLostPageModule' },
-  { path: 'showcase', loadChildren: './pages//showcase/showcase.module#ShowcasePageModule' },
-  { path: 'myrequests', loadChildren: './pages//myrequests/myrequests.module#MyrequestsPageModule' },
-  { path: 'account', loadChildren: './pages//account/account.module#AccountPageModule' },
+  { path: 'showcase', loadChildren: './pages/showcase/showcase.module#ShowcasePageModule' },
+  { path: 'myrequests', loadChildren: './pages/myrequests/myrequests.module#MyrequestsPageModule' },
+  { path: 'account', loadChildren: './pages/account/account.module#AccountPageModule' },
+  { path: 'messenger', loadChildren: './pages/messenger/messenger.module#MessengerPageModule' },
 ];
 
 @NgModule({
