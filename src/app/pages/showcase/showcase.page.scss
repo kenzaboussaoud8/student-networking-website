@@ -1,3 +1,12 @@
+.title-ios hydrated {
+
+    margin-right: 0px;
+    padding-right: 150px;
+    height: 44px;
+    border-right-width: 50px;
+    padding-left: 0px;
+
+}
 .card-background-page {
 
     ion-card {
@@ -23,3 +32,10 @@
     }
   
   }
+  .button {
+            ion-button{
+                
+                padding-left: 170px;
+
+            }
+        }
