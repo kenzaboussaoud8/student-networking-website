@@ -1,6 +1,5 @@
-// Imports
-let mysql = require('mysql');
-let config = require('../config');
+let connection = require('../config').mysql;
+let mail = require('../config').smtp;
 
 // Routes
 module.exports = {
@@ -14,26 +13,25 @@ module.exports = {
         var birth_date = req.body.birth_date;
         var student_card = req.body.student_card;
 
-        if (email == null || first_name == null || last_name == null || password == null || birth_date == null || student_card == null){
+        if (email == null || first_name == null || last_name == null || password == null || birth_date == null || student_card == null) {
             return res.status(400).json({ 'error': 'missing parameters' });
         }
 
         // TODO verify pseudo length, mail regex, password etc.
 
-        let connection = mysql.createConnection(config);
-        
-        let sql = `SELECT email FROM Student WHERE email =` + mysql.escape(email);
+        let sql = 'SELECT email FROM User WHERE email = ' + connection.escape(email);
         connection.query(sql, (error, results, fields) => {
-        if (error) {
-            return console.error(error.message);
-        }
-        console.log(results);
+            if (error) {
+                // let sql = `INSERT INTO Student VALUES ('Learn how to insert a new row',true)`;
+            } else {
+                return res.status(400).json({ 'error': 'user already exist' });
+            }
         });
-        
+
         connection.end();
 
     },
-    login: function(req, res){
-        
+    login: function(req, res) {
+
     }
 }
