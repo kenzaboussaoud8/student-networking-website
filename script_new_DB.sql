@@ -70,7 +70,6 @@ CREATE TABLE IF NOT EXISTS `LoveAcademy`.`User` (
   `bio` VARCHAR(280) NULL,
   `profile_picture` LONGTEXT NULL,
   `role` TINYINT NOT NULL DEFAULT '0',
-  `status` ENUM('0', '1', '2') NOT NULL,
   `interest_gender` ENUM('homme', 'femme', 'les deux') NULL,
   `interest_age` VARCHAR(45) NULL,
   `interest_city_id` INT NULL,
@@ -105,6 +104,28 @@ CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Hobbies` (
   PRIMARY KEY (`id`),
   INDEX `fk_Hobbies_User1_idx` (`User_id` ASC),
   CONSTRAINT `fk_Hobbies_User1`
+    FOREIGN KEY (`User_id`)
+    REFERENCES `LoveAcademy`.`User` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `LoveAcademy`.`Acces_token`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LoveAcademy`.`Acces_token` ;
+
+CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Acces_token` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `acces_token` VARCHAR(280) NOT NULL,  
+  `status` ENUM('0', '1') NOT NULL,
+  `expires` DATETIME NULL,
+  `User_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Acces_token_User1_idx` (`User_id` ASC),
+  CONSTRAINT `fk_Acces_token_User1`
     FOREIGN KEY (`User_id`)
     REFERENCES `LoveAcademy`.`User` (`id`)
     ON DELETE NO ACTION
