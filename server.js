@@ -3,6 +3,7 @@
 const mySqlConnection = require('./dbUtils/mysqlWrapper')
 const accessTokenDBHelper = require('./dbUtils/authTokenUtil')(mySqlConnection)
 const dbUserUtils = require('./dbUtils/dbUserUtils')(mySqlConnection)
+
 //const oAuthModel = require('./authorisation/accessTokenModel')(userDBHelper, accessTokenDBHelper)
 // const oAuth2Server = require('node-oauth2-server')
 const express = require('express')

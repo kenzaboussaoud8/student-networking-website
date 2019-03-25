@@ -66,3 +66,6 @@ const smtp = async function() {
 };
 
 module.exports = { mysql: connection, smtp: smtp };
+module.exports = {
+    secret: 'withgreatpowercomesgreatresponsibility'
+  };

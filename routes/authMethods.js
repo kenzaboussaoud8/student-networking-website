@@ -1,5 +1,6 @@
 let connection = require('../config').mysql;
 let mail = require('../config').smtp;
+const bcrypt = require('bcrypt');
 
 let dbUserUtils
 
@@ -24,34 +25,47 @@ function registerUser(req, res){
 
       //check if the user exists
       if (sqlError !== null || userExists){
-        console.log()
         //message to give summary to client
         const message = sqlError !== null ? "Operation unsuccessful" : "User already exists"
 
         //detailed error message from callback
         const error =  sqlError !== null ? sqlError : "User already exists"
 
-        sendResponse(res, message, sqlError)
+        sendResponse(res, message, error)
 
-        return
       }
-
+      console.log('sql eror', sqlError)
       //register the user in the db
       dbUserUtils.saveUserInDB(req.body, dataResponseObject => {
-
         //create message for the api response
         const message =  dataResponseObject.error === null  ? "Registration was successful" : "Failed to register user"
-
         sendResponse(res, message, dataResponseObject.error)
       })
     })
   }
 
 
-function login(registerUserQuery, res){
+function login(req,res){
+    var email = req.body.email;
+    var password = req.body.password;
+    connection.query('SELECT * FROM User WHERE email = ?',[email], function (error, results, fields) {
+      // console.log('The solution is: ', results);
+      bcrypt.compare(password, results.password, function(err, res) {
 
-
-}
+        if(res) {
+          res.send({
+            "code":200,
+            "success":"Password match"
+              });
+         // Passwords match
+        } else {
+         // Passwords don't match
+         console.log('don match')
+        } 
+      });
+    
+    });
+  }
 
 //sends a response created out of the specified parameters to the client.
 //The typeOfCall is the purpose of the client's api call

@@ -42,14 +42,15 @@ module.exports = {
     console.log('Successful connection')
     //execute the query and collect the results in the callback
     connection.query(queryString, function(error, results, fields){
-  
+        console.log(queryString)
         console.log('mySql: query: error is: ', error, ' and results are: ', results);
-  
+
       //disconnect from the method
       connection.end();
   
       //send the response in the callback
       callback(createDataResponseObject(error, results))
+   
     })
   }
   
