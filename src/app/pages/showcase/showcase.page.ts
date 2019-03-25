@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-showcase',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowcasePage implements OnInit {
 
-  constructor() { }
+  username:string;
+  password:string;
+
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  login(){
+    console.log("Username: "+ this.username);
+
+    console.log("Password: "+ this.password);
+  }
+
+  goRegister(){
+    this.navCtrl.navigateForward('/register');
   }
 
 }

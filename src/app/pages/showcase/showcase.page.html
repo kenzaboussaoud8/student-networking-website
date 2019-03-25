@@ -1,20 +1,29 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-icon name="heart"></ion-icon> 
-        <ion-title _ngcontent-c0="" class="title-ios hydrated">LoveAcademy</ion-title>
-     <ion-button class="button" size="small"> Register</ion-button>
-     <ion-button class="button" size="small">Login</ion-button>
-    </ion-toolbar>
-  
-<body>
-    <ion-content class="card-background-page">
-      
-        <ion-card>
-          <img src="../assets/imgs/card-sf.png"/>
-        </ion-card>
+  <ion-toolbar>
+      <img src="../assets/imgs/logo1-1.png"/>
+      <img src="../assets/imgs/logo-1.png"/>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content class="card-background-page">
+      <ion-card>
+        <img src="../assets/imgs/Card-loveacademy.png"/>
+      </ion-card>
+    </ion-content>
+
+    <ion-content padding center text-center>
+      <ion-list>
+        <ion-item>
+          <ion-input placeholder="Username" [(ngModel)]="username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-button size="full" (click)="login()">Login</ion-button> 
+      <ion-button size="full" color="light" (click)="goRegister()">Register</ion-button>
 
       </ion-content>
-
-</body>
 
 
