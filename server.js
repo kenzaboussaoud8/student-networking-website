@@ -1,5 +1,6 @@
 // Initializing an instance of Express
 
+
 const mySqlConnection = require('./dbUtils/mysqlWrapper')
 const accessTokenDBHelper = require('./dbUtils/authTokenUtil')(mySqlConnection)
 const dbUserUtils = require('./dbUtils/dbUserUtils')(mySqlConnection)
