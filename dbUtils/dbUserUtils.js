@@ -64,18 +64,23 @@ function saveUserInDB(user, callback) {
  * @param password
  * @param callback 
  */
-function getUserFromCredentials(email) {
+function getUserFromCredentials(email, callback) {
 
     //create query using the data in the req.body to register the user in the db
     const getUserQuery = { sql: "SELECT * FROM User WHERE email = ?" };
     const dataGetUserQuery = [email];
+    console.log('email', dataGetUserQuery)
+    //holds the results  from the query
+    const sqlCallback = (dataResponseObject) => {
 
+        //calculate if user exists or assign null if results is null
+        const getUser = dataResponseObject.results
 
-    console.log('getUserFromCredentials query is: ', getUserQuery);
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, getUser)
+    }
     //execute the query to get the user
-    mySqlConnection.query(getUserQuery, "", dataGetUserQuery[0], function(result) {
-        console.log('HEY', result)
-    })
+    mySqlConnection.query(getUserQuery, sqlCallback, dataGetUserQuery[0])
 }
 
 /**
