@@ -1,13 +1,13 @@
 let connection = require('../config').mysql;
 let mail = require('../config').smtp;
+let tokenUtil = require('../dbUtils/authTokenUtil.js')
 const bcrypt = require('bcrypt');
 
 let dbUserUtils
-
+let authTokenUtil
 module.exports = injectedUserDBHelper => {
 
   dbUserUtils = injectedUserDBHelper
-
   return {
     registerUser: registerUser,
     login: login
@@ -53,24 +53,24 @@ function registerUser(req, res) {
 function login(req, res) {
   var email = req.body.email;
   var password = req.body.password;
-  connection.query('SELECT * FROM User WHERE email = ?', [email], function (error, results, fields) {
-    // console.log('The solution is: ', results);
-    bcrypt.compare(password, results.password, function (err, res) {
+  dbUserUtils.getUserFromCrentials(email, function(result){
+    console.log('user from email', result[0].password)
+      bcrypt.compare(password, result[0].password, function (err, result) {
 
-      if (res) {
-        res.send({
-          "code": 200,
-          "success": "Password match"
-        });
-        // Passwords match
-      } else {
-        // Passwords don't match
-        console.log('don match')
-      }
+      if (!result) {
+        sendResponse(res, 401, "Wrong password")
+
+    }
+    else {
+      sendResponse(res, 200, "User logged successfuly")
+    }
+    // if password ok
+
     });
-
-  });
+  })
+  
 }
+
 
 //sends a response created out of the specified parameters to the client.
 //The typeOfCall is the purpose of the client's api call
