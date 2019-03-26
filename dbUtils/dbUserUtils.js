@@ -6,14 +6,14 @@ let mySqlConnection;
 
 module.exports = injectedMySqlConnection => {
 
-  mySqlConnection = injectedMySqlConnection
+    mySqlConnection = injectedMySqlConnection
 
-  return {
+    return {
 
-    saveUserInDB: saveUserInDB,
-    getUserFromCrentials: getUserFromCrentials,
-    userExists: userExists
-  }
+        saveUserInDB: saveUserInDB,
+        getUserFromCredentials: getUserFromCredentials,
+        userExists: userExists
+    }
 }
 
 /**
@@ -22,39 +22,40 @@ module.exports = injectedMySqlConnection => {
  * @param callback
  */
 function saveUserInDB(user, callback) {
-  console.log('Saving user in database')
-  // Params
-  var email = user.email;
-  var first_name = user.first_name;
-  var last_name = user.last_name;
-  var password = user.password;
-  var birth_date = user.birth_date;
-  var student_card = user.student_card;
-  console.log('Generating a token')
-  // create a token
-  const user_token = jwt.sign({ user },
-    config.secret,
-    { expiresIn: 86400 } // expires in 24 hours  
-  );
-  console.log('Hashing password')
+    console.log('Saving user in database')
+    // Params
+    var email = user.email;
+    var first_name = user.first_name;
+    var last_name = user.last_name;
+    var password = user.password;
+    var birth_date = user.birth_date;
+    var student_card = user.student_card;
+    console.log('Generating a token')
+        // create a token
+    const user_token = jwt.sign({ user },
+        config.secret, { expiresIn: 86400 } // expires in 24 hours  
+    );
+    console.log('Hashing password')
 
-  // hashing password
-  bcrypt.hash(password, 10, function (err, hash) {
-    // Store hash in database
-    //create query using the data in the req.body to register the user in the db
-    const registerUserQuery = `INSERT INTO User(email, password, first_name, last_name, birth_date, student_card) VALUES ('${email}', '${hash}', '${first_name}', '${last_name}', '${birth_date}', '${student_card}')`
-    //execute the query to register the user
-    mySqlConnection.query(registerUserQuery, function (result) {
-      console.log('last inserted id')
-      var user_id = result.results.insertId
-      const saveTokenQuery = `INSERT INTO Access_tokens(access_token, expires, user_id) VALUES ('${user_token}', '86400', '${user_id}' )`
+    // hashing password
+    bcrypt.hash(password, 10, function(err, hash) {
+        // Store hash in database
+        //create query using the data in the req.body to register the user in the db
+        const registerUserQuery = { sql: "INSERT INTO User(email, password, first_name, last_name, birth_date, student_card) VALUES (?,?,?,?,?,?)" };
+        const dataRegisterUserQuery = [email, hash, first_name, last_name, birth_date, student_card];
+        //execute the query to register the user
+        mySqlConnection.query(registerUserQuery, function(result) {
+            console.log('last inserted id')
+            var user_id = result.results.insertId
+            const saveTokenQuery = { sql: "INSERT INTO Access_tokens(access_token, expires, user_id) VALUES (?,?,?)" };
+            const dataSaveTokenQuery = [user_token, 86400, user_id];
 
-      mySqlConnection.query(saveTokenQuery, (dataResponseObject) => {
-        callback(dataResponseObject)
-      })
-    })
+            mySqlConnection.query(saveTokenQuery, dataSaveTokenQuery, (dataResponseObject) => {
+                callback(dataResponseObject)
+            })
+        }, dataRegisterUserQuery)
 
-  });
+    });
 }
 
 /**
@@ -63,19 +64,23 @@ function saveUserInDB(user, callback) {
  * @param password
  * @param callback 
  */
-function getUserFromCrentials(email, callback) {
+function getUserFromCredentials(email, callback) {
 
-  //create query using the data in the req.body to register the user in the db
-  const getUserQuery = `SELECT * FROM User WHERE email = '${email}'`
+    //create query using the data in the req.body to register the user in the db
+    const getUserQuery = { sql: "SELECT * FROM User WHERE email = ?" };
+    const dataGetUserQuery = [email];
+    console.log('email', dataGetUserQuery)
+    //holds the results  from the query
+    const sqlCallback = (dataResponseObject) => {
 
-  console.log('getUserFromCredentials query is: ', getUserQuery);
+        //calculate if user exists or assign null if results is null
+        const getUser = dataResponseObject.results
 
-  //execute the query to get the user
-  mySqlConnection.query(getUserQuery, (dataResponseObject) => {
-
-    //pass in the error which may be null and pass the results object which we get the user from if it is not null
-    callback(dataResponseObject.results)
-  })
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, getUser)
+    }
+    //execute the query to get the user
+    mySqlConnection.query(getUserQuery, sqlCallback, dataGetUserQuery[0])
 }
 
 /**
@@ -85,21 +90,22 @@ function getUserFromCrentials(email, callback) {
  */
 function userExists(email, callback) {
 
-  //create query to check if the user already exists
-  const doesUserExistQuery = `SELECT * FROM User WHERE email = '${email}'`
+    //create query to check if the user already exists
+    const doesUserExistQuery = { sql: "SELECT * FROM User WHERE email = ?" };
+    const dataDoesUserExistQuery = [email];
+    console.log('email', dataDoesUserExistQuery)
+        //holds the results  from the query
+    const sqlCallback = (dataResponseObject) => {
 
-  //holds the results  from the query
-  const sqlCallback = (dataResponseObject) => {
+        //calculate if user exists or assign null if results is null
+        const doesUserExist = dataResponseObject.results !== null ? dataResponseObject.results.length > 0 ? true : false : null
 
-    //calculate if user exists or assign null if results is null
-    const doesUserExist = dataResponseObject.results !== null ? dataResponseObject.results.length > 0 ? true : false : null
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, doesUserExist)
+    }
 
-    //check if there are any users with this username and return the appropriate value
-    callback(dataResponseObject.error, doesUserExist)
-  }
-
-  //execute the query to check if the user exists
-  mySqlConnection.query(doesUserExistQuery, sqlCallback)
+    //execute the query to check if the user exists
+    mySqlConnection.query(doesUserExistQuery, sqlCallback, dataDoesUserExistQuery[0])
 
 
 }
