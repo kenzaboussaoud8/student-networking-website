@@ -9,12 +9,12 @@ let mySqlConnection
 
 module.exports = injectedMySqlConnection => {
 
-  mySqlConnection = injectedMySqlConnection
+    mySqlConnection = injectedMySqlConnection
 
-  return {
-   saveAccessToken: saveAccessToken,
-   getUserIDFromBearerToken: getUserIDFromBearerToken
- }
+    return {
+        saveAccessToken: saveAccessToken,
+        getUserIDFromBearerToken: getUserIDFromBearerToken
+    }
 }
 
 /**
@@ -27,14 +27,15 @@ module.exports = injectedMySqlConnection => {
  */
 function saveAccessToken(accessToken, userID, callback) {
 
-  const getUserQuery =  `INSERT INTO access_tokens (access_token, user_id) VALUES ("${accessToken}", ${userID}) ON DUPLICATE KEY UPDATE access_token = "${accessToken}";`
+    const getUserQuery = { sql: "INSERT INTO access_tokens (access_token, user_id) VALUES (?,?) ON DUPLICATE KEY UPDATE access_token = ?" };
+    const dataGetuserQuery = [accessToken, userID, accessToken];
 
-  //execute the query to get the user
-  mySqlConnection.query(getUserQuery, (dataResponseObject) => {
+    //execute the query to get the user
+    mySqlConnection.query(getUserQuery, dataGetuserQuery, (dataResponseObject) => {
 
-      //pass in the error which may be null and pass the results object which we get the user from if it is not null
-      callback(dataResponseObject.error)
-  })
+        //pass in the error which may be null and pass the results object which we get the user from if it is not null
+        callback(dataResponseObject.error)
+    })
 }
 
 /**
@@ -44,18 +45,19 @@ function saveAccessToken(accessToken, userID, callback) {
  * @param bearerToken
  * @param callback - takes the user id we if we got the userID or null to represent an error
  */
-function getUserIDFromBearerToken(bearerToken, callback){
+function getUserIDFromBearerToken(bearerToken, callback) {
 
-  //create query to get the userID from the row which has the bearerToken
-  const getUserIDQuery = `SELECT * FROM access_tokens WHERE access_token = '${bearerToken}';`
+    //create query to get the userID from the row which has the bearerToken
+    const getUserIDQuery = { sql: "SELECT * FROM access_tokens WHERE access_token = ?" };
+    const datagetUserIdQuery = [bearerToken];
 
-  //execute the query to get the userID
-  mySqlConnection.query(getUserIDQuery, (dataResponseObject) => {
+    //execute the query to get the userID
+    mySqlConnection.query(getUserIDQuery, datagetUserIdQuery, (dataResponseObject) => {
 
-      //get the userID from the results if its available else assign null
-      const userID = dataResponseObject.results != null && dataResponseObject.results.length == 1 ?
-                                                              dataResponseObject.results[0].user_id : null
+        //get the userID from the results if its available else assign null
+        const userID = dataResponseObject.results != null && dataResponseObject.results.length == 1 ?
+            dataResponseObject.results[0].user_id : null
 
-      callback(userID)
-  })
+        callback(userID)
+    })
 }
