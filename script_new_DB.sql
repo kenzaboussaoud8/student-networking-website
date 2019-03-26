@@ -113,19 +113,19 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `LoveAcademy`.`Acces_token`
+-- Table `LoveAcademy`.`Access_tokens`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `LoveAcademy`.`Acces_token` ;
+DROP TABLE IF EXISTS `LoveAcademy`.`Access_tokens` ;
 
-CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Acces_token` (
+CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Access_tokens` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `acces_token` VARCHAR(500) NOT NULL,  
+  `access_token` VARCHAR(500) NOT NULL,  
   `status` ENUM('0', '1') NOT NULL,
-  `expires` DATETIME NULL,
+  `expires` SMALLINT NULL,
   `User_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Acces_token_User1_idx` (`User_id` ASC),
-  CONSTRAINT `fk_Acces_token_User1`
+  INDEX `fk_Access_tokens_User1_idx` (`User_id` ASC),
+  CONSTRAINT `fk_Access_tokens_User1`
     FOREIGN KEY (`User_id`)
     REFERENCES `LoveAcademy`.`User` (`id`)
     ON DELETE NO ACTION
