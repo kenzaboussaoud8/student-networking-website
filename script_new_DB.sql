@@ -119,7 +119,7 @@ DROP TABLE IF EXISTS `LoveAcademy`.`Acces_token` ;
 
 CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Acces_token` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `acces_token` VARCHAR(280) NOT NULL,  
+  `acces_token` VARCHAR(500) NOT NULL,  
   `status` ENUM('0', '1') NOT NULL,
   `expires` DATETIME NULL,
   `User_id` INT NOT NULL,
@@ -174,6 +174,71 @@ CREATE TABLE IF NOT EXISTS `LoveAcademy`.`User_has_Hobbies` (
   CONSTRAINT `fk_User_has_Hobbies_Hobbies1`
     FOREIGN KEY (`Hobbies_id`)
     REFERENCES `LoveAcademy`.`Hobbies` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `LoveAcademy`.`Request`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LoveAcademy`.`Request` ;
+
+CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Request` (
+  `User_id_requester` INT NOT NULL,
+  `User_id_receiver` INT NOT NULL,
+  `status` ENUM('0', '1', '2') NOT NULL DEFAULT 0,
+  `sent_date` DATETIME NOT NULL,
+  PRIMARY KEY (`User_id_requester`, `User_id_receiver`),
+  INDEX `fk_User_has_User_User2_idx` (`User_id_receiver` ASC) VISIBLE,
+  INDEX `fk_User_has_User_User1_idx` (`User_id_requester` ASC) VISIBLE,
+  CONSTRAINT `fk_User_has_User_User1`
+    FOREIGN KEY (`User_id_requester`)
+    REFERENCES `LoveAcademy`.`User` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_User_has_User_User2`
+    FOREIGN KEY (`User_id_receiver`)
+    REFERENCES `LoveAcademy`.`User` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LoveAcademy`.`Notifications`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LoveAcademy`.`Notifications` ;
+
+CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Notifications` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `LoveAcademy`.`User_has_Notifications`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LoveAcademy`.`User_has_Notifications` ;
+
+CREATE TABLE IF NOT EXISTS `LoveAcademy`.`User_has_Notifications` (
+  `User_id` INT NOT NULL,
+  `Notifications_id` INT NOT NULL,
+  `statut` ENUM('0', '1') NOT NULL DEFAULT 0,
+  PRIMARY KEY (`User_id`, `Notifications_id`),
+  INDEX `fk_User_has_Notifications_Notifications1_idx` (`Notifications_id` ASC) VISIBLE,
+  INDEX `fk_User_has_Notifications_User1_idx` (`User_id` ASC) VISIBLE,
+  CONSTRAINT `fk_User_has_Notifications_User1`
+    FOREIGN KEY (`User_id`)
+    REFERENCES `LoveAcademy`.`User` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_User_has_Notifications_Notifications1`
+    FOREIGN KEY (`Notifications_id`)
+    REFERENCES `LoveAcademy`.`Notifications` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
