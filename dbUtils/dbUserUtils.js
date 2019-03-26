@@ -23,7 +23,7 @@ module.exports = injectedMySqlConnection => {
  */
 function saveUserInDB(user, callback) {
     console.log('Saving user in database')
-        // Params
+    // Params
     var email = user.email;
     var first_name = user.first_name;
     var last_name = user.last_name;
@@ -44,7 +44,7 @@ function saveUserInDB(user, callback) {
         const registerUserQuery = { sql: "INSERT INTO User(email, password, first_name, last_name, birth_date, student_card) VALUES (?,?,?,?,?,?)" };
         const dataRegisterUserQuery = [email, hash, first_name, last_name, birth_date, student_card];
         //execute the query to register the user
-        mySqlConnection.query(registerUserQuery, dataRegisterUserQuery, function(result) {
+        mySqlConnection.query(registerUserQuery, function(result) {
             console.log('last inserted id')
             var user_id = result.results.insertId
             const saveTokenQuery = { sql: "INSERT INTO Access_tokens(access_token, expires, user_id) VALUES (?,?,?)" };
@@ -53,7 +53,7 @@ function saveUserInDB(user, callback) {
             mySqlConnection.query(saveTokenQuery, dataSaveTokenQuery, (dataResponseObject) => {
                 callback(dataResponseObject)
             })
-        })
+        }, dataRegisterUserQuery)
 
     });
 }
