@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/kenzaboussaoud8/student-networking-website#readme",
   "dependencies": {
+    "bcrypt": "^3.0.5",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.16.0",
     "nodemailer": "^5.1.1",
     "oauth2-server": "^3.0.1"

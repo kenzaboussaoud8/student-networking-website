@@ -47,7 +47,7 @@ function saveUserInDB(user, callback) {
     mySqlConnection.query(registerUserQuery, function (result) {
       console.log('last inserted id')
       var user_id = result.results.insertId
-      const saveTokenQuery = `INSERT INTO Acces_token(acces_token, expires, user_id) VALUES ('${user_token}', '86400', '${user_id}' )`
+      const saveTokenQuery = `INSERT INTO Access_tokens(access_token, expires, user_id) VALUES ('${user_token}', '86400', '${user_id}' )`
 
       mySqlConnection.query(saveTokenQuery, (dataResponseObject) => {
         callback(dataResponseObject)
