@@ -12,7 +12,8 @@ module.exports = injectedMySqlConnection => {
 
         saveUserInDB: saveUserInDB,
         getUserFromCredentials: getUserFromCredentials,
-        userExists: userExists
+        userExists: userExists,
+        updateUser: updateUser
     }
 }
 
@@ -103,9 +104,29 @@ function userExists(email, callback) {
         //check if there are any users with this username and return the appropriate value
         callback(dataResponseObject.error, doesUserExist)
     }
-
     //execute the query to check if the user exists
     mySqlConnection.query(doesUserExistQuery, sqlCallback, dataDoesUserExistQuery[0])
+}
 
 
+function updateUser(userId, userPassword, callback) {
+    bcrypt.hash(userPassword, 10, function(err, hash) {
+
+    //create query to check if the user already exists
+    const updateUser = { sql: "UPDATE User SET password = ? , last_modif_date = (NOW()) WHERE id = ?" };
+    const data = [hash, userId]
+    console.log('user id', userId)
+        //holds the results  from the query
+    const sqlCallback = (dataResponseObject) => {
+
+        //calculate if user exists or assign null if results is null
+        const updatedUser = dataResponseObject.results !== null ? dataResponseObject.results.length > 0 ? true : false : null
+
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, updatedUser)
+    }
+
+    //execute the query to check if the user exists
+    mySqlConnection.query(updateUser, sqlCallback, data)
+})
 }
