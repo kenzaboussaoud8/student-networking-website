@@ -1,10 +1,6 @@
 // Initializing an instance of Express
 const express = require('express')
 const expressApp = express()
-// Initializing an instance ofmysql onnection
-
-const mySqlConnection = require('./mysql/mysqlWrapper')
-
 
 const bodyParser = require('body-parser')
 //set the bodyParser to parse the urlencoded post data
