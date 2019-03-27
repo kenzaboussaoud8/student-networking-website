@@ -1,20 +1,14 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
-const config = require('../config.js')
+const bcrypt = require('bcrypt'),
+    jwt = require('jsonwebtoken'),
+    config = require('../config.js'),
+    mySqlConnection = require('./mysqlWrapper.js')
 
-let mySqlConnection;
+module.exports = {
 
-module.exports = injectedMySqlConnection => {
-
-    mySqlConnection = injectedMySqlConnection
-
-    return {
-
-        saveUserInDB: saveUserInDB,
-        getUserFromCredentials: getUserFromCredentials,
-        userExists: userExists,
-        updateUser: updateUser
-    }
+    saveUserInDB: saveUserInDB,
+    getUserFromCredentials: getUserFromCredentials,
+    userExists: userExists,
+    updateUser: updateUser
 }
 
 /**
@@ -32,20 +26,20 @@ function saveUserInDB(user, callback) {
     var birth_date = user.birth_date;
     var student_card = user.student_card;
     console.log('Generating a token')
-        // create a token
+    // create a token
     const user_token = jwt.sign({ user },
         config.secret, { expiresIn: 86400 } // expires in 24 hours  
     );
     console.log('Hashing password')
 
     // hashing password
-    bcrypt.hash(password, 10, function(err, hash) {
+    bcrypt.hash(password, 10, function (err, hash) {
         // Store hash in database
         //create query using the data in the req.body to register the user in the db
         const registerUserQuery = { sql: "INSERT INTO User(email, password, first_name, last_name, birth_date, student_card) VALUES (?,?,?,?,?,?)" };
         const dataRegisterUserQuery = [email, hash, first_name, last_name, birth_date, student_card];
         //execute the query to register the user
-        mySqlConnection.query(registerUserQuery, function(result) {
+        mySqlConnection.query(registerUserQuery, function (result) {
             console.log('last inserted id')
             var user_id = result.results.insertId
             const saveTokenQuery = { sql: "INSERT INTO Access_tokens(access_token, expires, user_id) VALUES (?,?,?)" };
@@ -95,7 +89,7 @@ function userExists(email, callback) {
     const doesUserExistQuery = { sql: "SELECT * FROM User WHERE email = ?" };
     const dataDoesUserExistQuery = [email];
     console.log('email', dataDoesUserExistQuery)
-        //holds the results  from the query
+    //holds the results  from the query
     const sqlCallback = (dataResponseObject) => {
 
         //calculate if user exists or assign null if results is null
@@ -110,23 +104,23 @@ function userExists(email, callback) {
 
 
 function updateUser(userId, userPassword, callback) {
-    bcrypt.hash(userPassword, 10, function(err, hash) {
+    bcrypt.hash(userPassword, 10, function (err, hash) {
 
-    //create query to check if the user already exists
-    const updateUser = { sql: "UPDATE User SET password = ? , last_modif_date = (NOW()) WHERE id = ?" };
-    const data = [hash, userId]
-    console.log('user id', userId)
+        //create query to check if the user already exists
+        const updateUser = { sql: "UPDATE User SET password = ? , last_modif_date = (NOW()) WHERE id = ?" };
+        const data = [hash, userId]
+        console.log('user id', userId)
         //holds the results  from the query
-    const sqlCallback = (dataResponseObject) => {
+        const sqlCallback = (dataResponseObject) => {
 
-        //calculate if user exists or assign null if results is null
-        const updatedUser = dataResponseObject.results !== null ? dataResponseObject.results.length > 0 ? true : false : null
+            //calculate if user exists or assign null if results is null
+            const updatedUser = dataResponseObject.results !== null ? dataResponseObject.results.length > 0 ? true : false : null
 
-        //check if there are any users with this username and return the appropriate value
-        callback(dataResponseObject.error, updatedUser)
-    }
+            //check if there are any users with this username and return the appropriate value
+            callback(dataResponseObject.error, updatedUser)
+        }
 
-    //execute the query to check if the user exists
-    mySqlConnection.query(updateUser, sqlCallback, data)
-})
+        //execute the query to check if the user exists
+        mySqlConnection.query(updateUser, sqlCallback, data)
+    })
 }
