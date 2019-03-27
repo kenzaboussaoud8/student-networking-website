@@ -1,11 +1,5 @@
-CREATE TABLE IF NOT EXISTS School (
-city VARCHAR(25) NULL,
-department_code VARCHAR(2) NULL,
-id VARCHAR(40) NULL,
-school VARCHAR(128) NULL
-);
 
-INSERT INTO School VALUES
+INSERT INTO School ('city', 'department_code', 'idschool', 'name') VALUES
 ("Strasbourg","67","984e1db93d92f4bb800fdff77439f0b48c15bf91","Université de Strasbourg"),
 ("Paris 5e","75","fadb2ea5e7769b86c8a8ea3e408cde08831c13c0","Muséum national d'histoire naturelle"),
 ("Paris 5e","75","48b4f02bb2c4a34dc52f77c8ed8de13d3206ae8c","École normale supérieure de Paris"),
