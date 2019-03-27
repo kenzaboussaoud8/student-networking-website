@@ -1,6 +1,4 @@
-let connection = require('../config').mysql;
-let mail = require('../config').smtp;
-let tokenUtil = require('../dbUtils/authTokenUtil.js')
+let mail = require('../../config').smtp;
 const bcrypt = require('bcrypt');
 let validate = require('./utils.js')
 let dbUserUtils
