@@ -1,16 +1,16 @@
-let mail = require('../../config').smtp;
-const bcrypt = require('bcrypt');
-let validate = require('./utils.js')
-let dbUserUtils
-let authTokenUtil
-module.exports = injectedUserDBHelper => {
+const bcrypt = require('bcrypt'),
+ validate = require('./utils.js'),
+ userUtils = require('../../mysql/userUtils.js')
 
-  dbUserUtils = injectedUserDBHelper
-  return {
-    registerUser: registerUser,
-    login: login,
-    modifyPassword: modifyPassword
-  }
+
+// Router
+module.exports =  (router) => {
+
+  router.post('/register', registerUser)
+   router.post('/login', login)
+   router.put('/modifyPassword', modifyPassword)
+
+  return router
 }
 
 /* handles the api call to register the user and insert them into the users table.
@@ -23,7 +23,7 @@ function registerUser(req, res) {
   // Check obligatory fields
   if (validity.success) {
     //query db to see if the user exists already
-    dbUserUtils.userExists(req.body.email, (sqlError, userExists) => {
+    userUtils.userExists(req.body.email, (sqlError, userExists) => {
       //check if the user exists
       if (sqlError !== null || userExists) {
         sendResponse(res, 400, "User already exists")
@@ -31,7 +31,7 @@ function registerUser(req, res) {
       else {
         console.log('sql eror', sqlError)
         //register the user in the db
-        dbUserUtils.saveUserInDB(req.body, dataResponseObject => {
+        userUtils.saveUserInDB(req.body, dataResponseObject => {
           //create message for the api response
           const message = "Registration was successful"
           sendResponse(res, 200, message)
@@ -49,7 +49,7 @@ function login(req, res) {
   var email = req.body.email;
   var password = req.body.password;
   if (email && email !== '' && password && password !== '') {
-    dbUserUtils.getUserFromCredentials(email, function (error, results) {
+    userUtils.getUserFromCredentials(email, function (error, results) {
       console.log('user from email', error, results)
 
       if (results.length > 0) {
@@ -84,7 +84,7 @@ function modifyPassword(req, res){
   var newPassword = req.body.newPassword 
   var confirmPassword = req.body.confirmPassword 
   if (email && password && newPassword && confirmPassword){
-    dbUserUtils.getUserFromCredentials(email, function (err, rslt) {
+    userUtils.getUserFromCredentials(email, function (err, rslt) {
       // Check if right password
       bcrypt.compare(password, rslt[0].password, function (err, result) {
         console.log('PASS', password, rslt[0].password) 
@@ -97,7 +97,7 @@ function modifyPassword(req, res){
               if (checkedPassword ) {
                 if (newPassword == confirmPassword){
                   // Update user password
-                  dbUserUtils.updateUser(rslt[0].id, newPassword, function(err, result){
+                  userUtils.updateUser(rslt[0].id, newPassword, function(err, result){
                     sendResponse(res, 200, "Password successfully changed")
                   })
                 }
@@ -131,5 +131,4 @@ function sendResponse(res, error, message) {
       'message': message,
     })
 }
-
 
