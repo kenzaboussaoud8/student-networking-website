@@ -1,6 +1,7 @@
 
 module.exports = {
-    checkRegisteryForm : checkRegisteryForm
+    checkRegisteryForm : checkRegisteryForm,
+    checkPassword: checkPassword
 }
 
 function checkString(string) {

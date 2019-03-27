@@ -10,7 +10,8 @@ module.exports = injectedUserDBHelper => {
   dbUserUtils = injectedUserDBHelper
   return {
     registerUser: registerUser,
-    login: login
+    login: login,
+    modifyPassword: modifyPassword
   }
 }
 
@@ -78,6 +79,49 @@ function login(req, res) {
 }
 
 
+
+function modifyPassword(req, res){
+  var email = req.body.email;
+  var password = req.body.password;
+  var newPassword = req.body.newPassword 
+  var confirmPassword = req.body.confirmPassword 
+  if (email && password && newPassword && confirmPassword){
+    dbUserUtils.getUserFromCredentials(email, function (err, rslt) {
+      // Check if right password
+      bcrypt.compare(password, rslt[0].password, function (err, result) {
+        console.log('PASS', password, rslt[0].password) 
+          if (!result) {
+             sendResponse(res, 400, "Wrong password")
+          }
+          else {
+            var checkedPassword = validate.checkPassword(newPassword)
+            console.log('test',newPassword == confirmPassword)
+              if (checkedPassword ) {
+                if (newPassword == confirmPassword){
+                  // Update user password
+                  dbUserUtils.updateUser(rslt[0].id, newPassword, function(err, result){
+                    sendResponse(res, 200, "Password successfully changed")
+                  })
+                }
+                else {
+                  sendResponse(res, 400, "You haven't entered the same password")
+
+                }
+
+              }
+              else {
+                sendResponse(res, 400, "Password not safe enough")
+              }
+          }
+      })
+  })
+  }
+  else {
+    sendResponse(res, 400, "One or many required data is missing")
+
+  }
+   
+}
 //sends a response created out of the specified parameters to the client.
 //The typeOfCall is the purpose of the client's api call
 function sendResponse(res, error, message) {
