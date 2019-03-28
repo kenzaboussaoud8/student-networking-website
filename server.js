@@ -1,12 +1,19 @@
-
 // Initializing an instance of Express
-var express = require('express');
-var app = express();
+const express = require('express')
+const expressApp = express()
+
+const bodyParser = require('body-parser')
+//set the bodyParser to parse the urlencoded post data
+expressApp.use(bodyParser.urlencoded({ extended: true }))
+
+const authRoutes = require('./routes/user/userRoutes')(express.Router())
+
+//set the authRoutes for registration and & login requests
+expressApp.use('/auth', authRoutes)
 
 
-// Listenging to port
+// Listening to port
 const PORT = 8080;
-
-app.listen(PORT, function () {
-console.log('Server is running on Port', PORT);
+expressApp.listen(PORT, function() {
+    console.log('Server is running on Port', PORT);
 });
