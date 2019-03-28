@@ -47,23 +47,20 @@ function saveUserInDB(user, callback) {
       student_card
     ];
     //execute the query to register the user
-    mySqlConnection.query(
-      registerUserQuery,
-      function(result) {
+    mySqlConnection.query(registerUserQuery, function(result) {
         console.log("last inserted id");
         var user_id = result.results.insertId;
         const saveTokenQuery = {
           sql:
-            "INSERT INTO Access_tokens(access_token, expires, user_id) VALUES (?,?,?)"
+            "INSERT INTO Access_tokens(access_token, status, expires, user_id) VALUES (?,?,?,?)"
         };
-        const dataSaveTokenQuery = [user_token, 86400, user_id];
+        const dataSaveTokenQuery = [user_token, '0', '86400', user_id];
 
-        mySqlConnection.query(
-          saveTokenQuery,
-          dataSaveTokenQuery,
+        mySqlConnection.query(saveTokenQuery,
           dataResponseObject => {
             callback(dataResponseObject);
           }
+          ,dataSaveTokenQuery
         );
       },
       dataRegisterUserQuery
@@ -142,36 +139,60 @@ function updateUser(userId, userPassword, callback) {
   });
 }
 
-function updateUserInfo(body, callback) {
-    var email = body.email;
-    var bio = body.email;
-    var bio = body.email;
-    var city_id = body.city_id;
-    var school_id = body.school_id;
+function updateUserInfo(userId, body, callback) {
+  var id = userId;
+  var bio = body.bio;
+  var birth_date = body.birth_date;
+  var city_id = body.City_id;
+  var school_id = body.School_id;
+  var profile_picture = body.profile_picture;
+  var gender = body.gender;
 
   const updateUser = { sql: "UPDATE User SET " };
-
-
-  if (email) {
-    updateUser.sql += "email = " + connection.escape(email) + ", ";
+  if (birth_date) {
+    updateUser.sql += "birth_date = " + mySqlConnection.connection().escape(birth_date) + ", ";
   }
   if (bio){
-    updateUser.sql += "bio = " + connection.escape(bio) + ", ";
+    updateUser.sql += "bio = " + mySqlConnection.connection().escape(bio) + ", ";
   }
   if (city_id) {
-    updateUser.sql += "city_id = " + connection.escape(city_id) + ", ";
+    updateUser.sql += "city_id = " + mySqlConnection.connection().escape(city_id) + ", ";
   }
   if (school_id) {
-    updateUser.sql += "school_id = " + connection.escape(school_id) + ", ";
+    updateUser.sql += "school_id = " + mySqlConnection.connection().escape(school_id) + ", ";
   }
-  updateUser.sql = updateUser.slice(0, -2);
-  updateUser.sql += " WHERE id = ? "; 
+  if (profile_picture) {
+    updateUser.sql += "profile_picture = " + mySqlConnection.connection().escape(profile_picture) + ", ";
+  }
+  if (gender) {
+    updateUser.sql += "gender = " + mySqlConnection.connection().escape(gender) + ", ";
+  }
+  updateUser.sql = updateUser.sql.slice(0, -2);
+
+  updateUser.sql += " WHERE id = "+ mySqlConnection.connection().escape(id) ;
+
+  mySqlConnection.query(updateUser, function(){});
+
+}
+
+function updateHobbies(userId, body, callback) {
+  var id = userId;
+  var hobby_id = body.hobby_id;
+  var birth_date = body.birth_date;
+  
+
+  const updateUser = { sql: "UPDATE User_has_Hobbies SET hobby_id = ?" };
+ 
+
+  mySqlConnection.query(updateUser, function(){}, 
+  );
+
 }
 
 function deleteUser(userId, callback) {
     const deleted = {
       sql:
-        "DELETE User WHERE id = ?"
+        "DELETE FROM User WHERE id = ?"
     };
     const data = [userId];
     console.log("user id", userId);

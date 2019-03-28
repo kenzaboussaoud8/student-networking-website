@@ -11,7 +11,8 @@ module.exports = {
 
         saveAccessToken: saveAccessToken,
         getUserAccessToken: getUserAccessToken,
-        deleteUserAccessToken: deleteUserAccessToken
+        deleteUserAccessToken: deleteUserAccessToken,
+        getUserFromAccessToken: getUserFromAccessToken
 }
 
 /**
@@ -44,7 +45,7 @@ function saveAccessToken(accessToken, userID, callback) {
  */
 function getUserAccessToken(userId, callback) {
   //create query using the data in the req.body to register the user in the db
-  const getAccessToken= { sql: "SELECT access_token FROM access_tokens WHERE User_id = ?" };
+  const getAccessToken= { sql: "SELECT access_token FROM access_tokens WHERE user_id = ?" };
   const dataGetAccessToken = [userId];
   console.log("user id", dataGetAccessToken);
   //holds the results  from the query
@@ -62,7 +63,7 @@ function getUserAccessToken(userId, callback) {
 
 function deleteUserAccessToken(userId, callback) {
   //create query using the data in the req.body to register the user in the db
-  const getAccessToken= { sql: "DELETE access_token FROM access_tokens WHERE User_id = ?" };
+const getAccessToken= { sql: "DELETE FROM Access_tokens WHERE User_id = ?" };
   const dataGetAccessToken = [userId];
   console.log("user id", dataGetAccessToken);
   //holds the results  from the query
@@ -75,4 +76,21 @@ function deleteUserAccessToken(userId, callback) {
   };
   //execute the query to get the user
   mySqlConnection.query(getAccessToken, sqlCallback, dataGetAccessToken[0]);
+}
+
+function getUserFromAccessToken(userToken, callback) {
+  //create query using the data in the req.body to register the user in the db
+  const userTokenQuery = { sql: "SELECT * FROM User JOIN Access_tokens ON Access_tokens.user_id = User.id WHERE access_token =?" };
+  const userTokenData = [userToken];
+  console.log("userToken", userTokenData);
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const getUserId = dataResponseObject.results;
+
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, getUserId);
+  };
+  //execute the query to get the user
+  mySqlConnection.query(userTokenQuery, sqlCallback, userTokenData[0]);
 }
