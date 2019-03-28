@@ -1,20 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Register</ion-title>
+    <ion-title>Inscription</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding center text-center>
     <ion-list>
       <ion-item>
-        <ion-input placeholder="Username" [(ngModel)]="username"></ion-input>
+        <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>
+          <ion-input placeholder="Prénom" [(ngModel)]="first_name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input placeholder="Nom" [(ngModel)]="last_name"></ion-input>
+          </ion-item>
+      <ion-item>
+        <ion-input placeholder="Mot de passe" type="password" [(ngModel)]="password"></ion-input>
       </ion-item>
+      <ion-item>
+          <ion-input placeholder="Date de naissance" [(ngModel)]="birth_date"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input placeholder="Carte étudiant" [(ngModel)]="student_card"></ion-input>
+          </ion-item>
     </ion-list>
 
-    <ion-button size="full" (click)="Register()">Register</ion-button>
-    <ion-button size="full" color="light" (click)="goShowcase()">Back</ion-button>
+    <ion-button size="full" (click)="Register()">S'inscrire</ion-button>
+    <ion-button size="full" color="light" (click)="goShowcase()">Retour</ion-button>
 
     </ion-content>

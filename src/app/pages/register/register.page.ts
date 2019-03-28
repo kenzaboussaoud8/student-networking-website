@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController, /*NavParams*/ } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -8,10 +8,14 @@ import { NavController, NavParams } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
 
-  username:string;
+  email:string;
+  first_name:string;
+  last_name:string;
   password:string;
+  birth_date:string;
+  student_card:string;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  constructor(public navCtrl: NavController, /*public navParams: NavParams*/) { }
 
   ngOnInit() {
   }
@@ -22,7 +26,7 @@ export class RegisterPage implements OnInit {
   }
 
   Register(){
-    if(this.username.length==0 || this.password.length==0){
+    if(this.email.length == 0 || this.first_name.length == 0 || this.last_name.length == 0 || this.password.length == 0 || this.birth_date.length == 0 || this.birth_date.length == 0){
       alert("Please fill all fields");
     }
   }

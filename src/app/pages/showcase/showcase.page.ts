@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
 })
 export class ShowcasePage implements OnInit {
 
-  username:string;
+  email:string;
   password:string;
 
   constructor(public navCtrl: NavController) { }
@@ -17,7 +17,7 @@ export class ShowcasePage implements OnInit {
   }
 
   login(){
-    console.log("Username: "+ this.username);
+    console.log("Email: "+ this.email);
 
     console.log("Password: "+ this.password);
   }
