@@ -7,14 +7,11 @@ module.exports = {
   saveUserInDB: saveUserInDB,
   getUserFromCredentials: getUserFromCredentials,
   userExists: userExists,
-  updateUser: updateUser
+  updateUser: updateUser,
+  updateUserInfo: updateUserInfo,
+  deleteUser: deleteUser
 };
 
-/**
- *
- * @param user - user object
- * @param callback
- */
 function saveUserInDB(user, callback) {
   console.log("Saving user in database");
   // Params
@@ -74,12 +71,6 @@ function saveUserInDB(user, callback) {
   });
 }
 
-/**
- *
- * @param username
- * @param password
- * @param callback
- */
 function getUserFromCredentials(email, callback) {
   //create query using the data in the req.body to register the user in the db
   const getUserQuery = { sql: "SELECT * FROM User WHERE email = ?" };
@@ -97,11 +88,6 @@ function getUserFromCredentials(email, callback) {
   mySqlConnection.query(getUserQuery, sqlCallback, dataGetUserQuery[0]);
 }
 
-/**
- *
- * @param username
-
- */
 function userExists(email, callback) {
   //create query to check if the user already exists
   const doesUserExistQuery = { sql: "SELECT * FROM User WHERE email = ?" };
@@ -180,4 +166,30 @@ function updateUserInfo(body, callback) {
   }
   updateUser.sql = updateUser.slice(0, -2);
   updateUser.sql += " WHERE id = ? "; 
+}
+
+function deleteUser(userId, callback) {
+    const deleted = {
+      sql:
+        "DELETE User WHERE id = ?"
+    };
+    const data = [userId];
+    console.log("user id", userId);
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+      //calculate if user exists or assign null if results is null
+      const deletedUser =
+        dataResponseObject.results !== null
+          ? dataResponseObject.results.length > 0
+            ? true
+            : false
+          : null;
+
+      //check if there are any users with this username and return the appropriate value
+      callback(dataResponseObject.error, deletedUser);
+    };
+
+    //execute the query to check if the user exists
+    mySqlConnection.query(deleted, sqlCallback, data);
+  
 }
