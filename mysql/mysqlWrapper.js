@@ -4,12 +4,13 @@
 
 module.exports = {
 
-    query: query
+    query: query,
+    connection: initConnection
 }
-
 const mysql = require('mysql')
 
 let connection = null
+
 
 /**
  * Initialize connection to the db
@@ -22,6 +23,7 @@ function initConnection() {
         database: 'LoveAcademy',
         port: '8889'
     });
+    return connection
 }
 
 /**
