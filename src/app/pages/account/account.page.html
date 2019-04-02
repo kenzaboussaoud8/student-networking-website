@@ -7,8 +7,59 @@
     </ion-toolbar>
   </ion-header>
 
-<ion-content padding>
+  <ion-avatar>
+      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+    </ion-avatar>
+    <ion-label>Name</ion-label>
+    <ion-label>Firstname</ion-label>
+    <ion-label>Email: xxxxxxxxgmail.com</ion-label>
+    <ion-text>Mot de passe: <ion-button size="small" (click)="goPassword_lost()">Modifier</ion-button></ion-text>
+    <ion-item>
+        <ion-label position="stacked">Bio :</ion-label>
+        <ion-textarea  autocapitalize="true" placeholder="Décrivez-vous...." value="" type="text" [(ngModel)]="bio"></ion-textarea>
+      </ion-item>
+    <ion-list-header>Sexe :</ion-list-header>
+    <ion-list>
+        <ion-item>
+          <ion-label>Homme</ion-label>
+          <ion-toggle [(ngModel)]="man"></ion-toggle>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label>Femme</ion-label>
+          <ion-toggle [(ngModel)]="woman"></ion-toggle>
+        </ion-item>
+      </ion-list>
+    <ion-list-header>Votre école</ion-list-header>
+  
+    <ion-item>
+      <ion-label>Ecole</ion-label>
+      <ion-select placeholder="Select One">
+        <ion-select-option value="school">xxxxxxx</ion-select-option>
+      </ion-select>
+    </ion-item>
+      <ion-list-header>Votre ville</ion-list-header>
+    
+      <ion-item>
+        <ion-label>Ville</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="city">xxxxxxx</ion-select-option>
+        </ion-select>
+      </ion-item>
+        <ion-list-header>Notifications :</ion-list-header>
+        <ion-list>
+            <ion-item>
+              <ion-label>Sur Love Academy</ion-label>
+              <ion-toggle [(ngModel)]="notification_all"></ion-toggle>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label>Email</ion-label>
+              <ion-toggle [(ngModel)]="notification_email"></ion-toggle>
+            </ion-item>
 
-    <img src="../assets/imgs/Sans-titre-1.png"/>
-
-</ion-content>
+            <ion-item>
+                <ion-label>Bureau et Mobile</ion-label>
+                <ion-toggle [(ngModel)]="notification_desk_mobile"></ion-toggle>
+              </ion-item>
+          </ion-list>

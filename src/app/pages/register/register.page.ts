@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, /*NavParams*/ } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +14,7 @@ export class RegisterPage implements OnInit {
   birth_date:string;
   student_card:string;
   
-  constructor(public navCtrl: NavController, /*public navParams: NavParams*/) { }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -31,8 +30,5 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  goShowcase(){
-    this.navCtrl.navigateBack('/showcase');
-  }
 
 }

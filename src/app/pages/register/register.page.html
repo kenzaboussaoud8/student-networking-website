@@ -1,8 +1,11 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Inscription</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-title>Inscription</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content padding center text-center>
     <ion-list>
@@ -27,6 +30,5 @@
     </ion-list>
 
     <ion-button size="full" (click)="Register()">S'inscrire</ion-button>
-    <ion-button size="full" color="light" (click)="goShowcase()">Retour</ion-button>
 
     </ion-content>

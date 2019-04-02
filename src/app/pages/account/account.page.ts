@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountPage implements OnInit {
 
-  constructor() { }
+  man:string
+  women:string
+  bio:string
+
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  goPassword_lost(){
+    this.navCtrl.navigateForward('/password-lost');
   }
 
 }
