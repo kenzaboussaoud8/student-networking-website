@@ -7,7 +7,7 @@ module.exports = {
   saveUserInDB: saveUserInDB,
   getUserFromCredentials: getUserFromCredentials,
   userExists: userExists,
-  updateUser: updateUser,
+  updateUserPassword: updateUserPassword,
   updateUserInfo: updateUserInfo,
   deleteUser: deleteUser
 };
@@ -111,7 +111,7 @@ function userExists(email, callback) {
   );
 }
 
-function updateUser(userId, userPassword, callback) {
+function updateUserPassword(userId, userPassword, callback) {
   bcrypt.hash(userPassword, 10, function(err, hash) {
     //create query to check if the user already exists
     const updateUser = {
@@ -146,7 +146,9 @@ function updateUserInfo(userId, body, callback) {
   var city_id = body.City_id;
   var school_id = body.School_id;
   var profile_picture = body.profile_picture;
-  var gender = body.gender;
+  var interest_gender = body.interest_gender;
+  var interest_age = body.interest_age;
+  var interest_city_id = body.interest_city_id;
 
   const updateUser = { sql: "UPDATE User SET " };
   if (birth_date) {
@@ -167,28 +169,37 @@ function updateUserInfo(userId, body, callback) {
   if (gender) {
     updateUser.sql += "gender = " + mySqlConnection.connection().escape(gender) + ", ";
   }
+  if (interest_gender) {
+    updateUser.sql += "interest_gender = " + mySqlConnection.connection().escape(interest_gender) + ", ";
+  }
+  if (interest_age) {
+    updateUser.sql += "interest_age = " + mySqlConnection.connection().escape(interest_age) + ", ";
+  }
+  if (interest_city_id) {
+    updateUser.sql += "interest_city_id = " + mySqlConnection.connection().escape(interest_city_id) + ", ";
+  }
+
   updateUser.sql = updateUser.sql.slice(0, -2);
 
   updateUser.sql += " WHERE id = "+ mySqlConnection.connection().escape(id) ;
 
-  mySqlConnection.query(updateUser, function(){});
-
-}
-
-function updateHobbies(userId, body, callback) {
-  var id = userId;
-  var hobby_id = body.hobby_id;
-  var birth_date = body.birth_date;
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const updatedUser =
+      dataResponseObject.results.affectedRows > 0
+          ? true
+          : false;
+        console.log('update', updatedUser)
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, updatedUser);
+  };
   
-
-  const updateUser = { sql: "UPDATE User_has_Hobbies SET hobby_id = ?" };
- 
-
-  mySqlConnection.query(updateUser, function(){}, 
-  );
+  mySqlConnection.query(updateUser,sqlCallback);
 
 }
 
+ 
 function deleteUser(userId, callback) {
     const deleted = {
       sql:
