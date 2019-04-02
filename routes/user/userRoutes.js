@@ -9,19 +9,19 @@ const bcrypt = require("bcrypt"),
 module.exports = router => {
   router.post("/register", registerUser);
   router.post("/login", login);
-  router.put("/modifyPassword/:token", modifyPassword);
-  router.put("/modifyUserInfo/:token", modifyUserInfo);
-  router.put("/modifyUserInterests/:token", modifyUserInterests);
-  router.delete("/logout/:token", logout);
-  router.delete("/deleteAccount/:token", deleteAccount);
-  router.get("/profils/:token", getProfiles);
+  router.put("/modifyPassword", modifyPassword);
+  router.put("/modifyUserInfo/", modifyUserInfo);
+  router.put("/modifyUserInterests", modifyUserInterests);
+  router.delete("/logout", logout);
+  router.delete("/deleteAccount", deleteAccount);
+  router.get("/profils", getProfiles);
   // router.put("/modifyPicture", modifyPicture);
   // router.delete("/deletePicture", deletePicture);
+  // router.post("/sendRequest", sendRequest);
   // router.post("/acceptRequest", acceptRequest);
   // router.delete("/refuseRequest", refuseRequest);
   // router.post("/lostPassword", lostPassword);
-  // router.post("/blockuser", blockUser);
-  // router.delete("/deleteContact", blockUser);
+  // router.delete("/deleteContact", deleteContact);
 
   return router;
 };
@@ -114,8 +114,8 @@ function login(req, res) {
 
 function modifyPassword(req, res) {
   // Recovering user id from access token
-  var userToken = req.params.token
-  tokenUtils.getUserFromAccessToken(userToken, function(err, result){
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, result){
     const userId = result[0].id;
     const StoredUserPassword = result[0].password;
     // 
@@ -134,7 +134,7 @@ function modifyPassword(req, res) {
             if (checkedPassword) {
               if (newPassword == confirmPassword) {
                 // Update user password
-                userUtils.updateUser(userId, newPassword, function() {
+                userUtils.updateUserPassword(userId, newPassword, function() {
                   sendResponse(res, 200, "Password successfully changed");
                 });
               } else {
@@ -155,11 +155,18 @@ function modifyPassword(req, res) {
 
 function modifyUserInfo(req, res) {
    // Recovering user id from access token
-   var userToken = req.params.token
-   tokenUtils.getUserFromAccessToken(userToken, function(err, result){
+   var token = req.headers['authorization'].replace('Bearer ', '');
+   tokenUtils.getUserFromAccessToken(token, function(err, result){
      const userId = result[0].User_id;
-      userUtils.updateUserInfo(userId, req.body, function(result){
-        sendResponse(res, 200, "Successfully changed");
+      userUtils.updateUserInfo(userId, req.body, function(err, result){
+        if (result){
+          sendResponse(res, 200, "Successfully changed");
+
+        }
+          else {
+            sendResponse(res, 400, "Wrong token");
+
+          }
 
       })
  
@@ -170,10 +177,10 @@ function modifyUserInfo(req, res) {
 
 function modifyUserInterests() {
      // Recovering user id from access token
-     var userToken = req.params.token
-     tokenUtils.getUserFromAccessToken(userToken, function(err, result){
+     var token = req.headers['authorization'].replace('Bearer ', '');
+     tokenUtils.getUserFromAccessToken(token, function(err, result){
        const userId = result[0].User_id;
-        userUtils.updateUserInterests(userId, req.body, function(result){
+        userUtils.updateUserInterests(userId, req.body, function(){
           sendResponse(res, 200, "Successfully changed");
   
         })
@@ -181,14 +188,13 @@ function modifyUserInterests() {
      })
 }
 
-
-
 function logout(req, res) {
-  tokenUtils.getUserFromAccessToken(req.params.token, function(err, rslt) {
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
     if (rslt.length <= 0) {
       sendResponse(res, 400, "Token does not exist");
     } else {
-      tokenUtils.deleteUserAccessToken(rslt[0].User_id, function(err, result) {
+      tokenUtils.deleteUserAccessToken(rslt[0].User_id, function() {
         sendResponse(res, 200, "Logged off");
       });
     }
@@ -197,11 +203,12 @@ function logout(req, res) {
 
 
 function deleteAccount(req, res) {
-  tokenUtils.getUserFromAccessToken(req.params.token, function(err, rslt) {
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
     if (rslt.length <= 0) {
       sendResponse(res, 400, "Token does not exist");
     } else {
-      userUtils.deleteUser(rslt[0].User_id, function(err, result) {
+      userUtils.deleteUser(rslt[0].User_id, function() {
         sendResponse(res, 200, "Account deleted");
       });
     }
