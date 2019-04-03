@@ -133,14 +133,14 @@ DROP TABLE IF EXISTS `LoveAcademy`.`Hobbies` ;
 CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Hobbies` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `User_id` INT NOT NULL,
+  `User_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Hobbies_User1_idx` (`User_id` ASC),
-  CONSTRAINT `fk_Hobbies_User1`
-    FOREIGN KEY (`User_id`)
-    REFERENCES `LoveAcademy`.`User` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `fk_Hobbies_User1_idx` (`User_id` ASC))
+ -- CONSTRAINT `fk_Hobbies_User1`
+ -- FOREIGN KEY (`User_id`)
+ -- REFERENCES `LoveAcademy`.`User` (`id`)
+ -- ON DELETE NO ACTION
+ -- ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Access_tokens` (
   CONSTRAINT `fk_Access_tokens_User1`
     FOREIGN KEY (`User_id`)
     REFERENCES `LoveAcademy`.`User` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
