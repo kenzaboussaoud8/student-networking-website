@@ -22,9 +22,9 @@ module.exports = router => {
   router.delete("/logout", logout);
   router.delete("/deleteAccount", deleteAccount);
   router.get("/profils", getProfiles);
-  // router.post("/sendRequest", sendRequest);
-  // router.post("/acceptRequest", acceptRequest);
-  // router.delete("/refuseRequest", refuseRequest);
+  router.post("/sendRequest", sendRequest);
+  router.post("/acceptRequest", acceptRequest);
+  router.post("/rejectRequest", rejectRequest);
   // router.post("/lostPassword", lostPassword);
   // router.delete("/deleteContact", deleteContact);
 
@@ -238,7 +238,51 @@ function deleteAccount(req, res) {
 handles the api call to allow a user to send a contact request to another user
 */
 function sendRequest(req, res){
+  var user_id_receiver = req.body.user_id_receiver;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.sendRequest(rslt[0].User_id, user_id_receiver,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
+}
 
+/* 
+handles the api call to accept or reject a contact request
+*/
+function acceptRequest(req, res){
+  var requestId = req.body.requestId;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.acceptRequest(requestId,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
+}
+
+/* 
+handles the api call to accept or reject a contact request
+*/
+function rejectRequest(req, res){
+  var requestId = req.body.requestId;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.rejectRequest(requestId,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
 }
 
 
