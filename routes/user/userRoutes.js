@@ -1,39 +1,46 @@
+/*
+This file contains all necessary (MYSQL related) routes  for our application
+
+TODO : lost password route
+       get profiles : algorithm
+*/
+
 const bcrypt = require("bcrypt"),
   validate = require("./utils.js"),
   userUtils = require("../../mysql/userUtils.js"),
   tokenUtils = require("../../mysql/authTokenUtils.js"),
-  config = require("../../config")
+  config = require("../../config"),
   jwt = require("jsonwebtoken");
 
 // Router
 module.exports = router => {
   router.post("/register", registerUser);
   router.post("/login", login);
-  router.put("/modifyPassword/:token", modifyPassword);
-  router.put("/modifyUserInfo/:token", modifyUserInfo);
-  router.put("/modifyUserInterests/:token", modifyUserInterests);
-  router.delete("/logout/:token", logout);
-  router.delete("/deleteAccount/:token", deleteAccount);
-  router.get("/profils/:token", getProfiles);
-  // router.put("/modifyPicture", modifyPicture);
-  // router.delete("/deletePicture", deletePicture);
-  // router.post("/acceptRequest", acceptRequest);
-  // router.delete("/refuseRequest", refuseRequest);
+  router.put("/modifyPassword", modifyPassword);
+  router.put("/modifyUserInfo/", modifyUserInfo);
+  router.put("/modifyUserInterests", modifyUserInterests);
+  router.delete("/logout", logout);
+  router.delete("/deleteAccount", deleteAccount);
+  router.get("/profils", getProfiles);
+  router.post("/sendRequest", sendRequest);
+  router.put("/acceptRequest", acceptRequest);
+  router.put("/rejectRequest", rejectRequest);
+  router.delete("/deleteRequest", deleteRequest);
+  router.put("/blockContact", blockContact);
   // router.post("/lostPassword", lostPassword);
-  // router.post("/blockuser", blockUser);
-  // router.delete("/deleteContact", blockUser);
 
   return router;
 };
 
 
 /* handles the api call to register the user and insert them into the users table.
-  The req body should contain :  */
+  The req body should contain : email, password, birth_date, student_card,
+  first_name, last_name
+ */
 function registerUser(req, res) {
   var body = req.body;
   console.log(`authRoutesMethods: registerUser: req.body is:`, body);
   var validity = validate.checkRegisteryForm(body);
-
   // Check obligatory fields
   if (validity.success) {
     //query db to see if the user exists already
@@ -42,7 +49,6 @@ function registerUser(req, res) {
       if (sqlError !== null || userExists) {
         sendResponse(res, 400, "User already exists");
       } else {
-        console.log("sql eror", sqlError);
         //register the user in the db
         userUtils.saveUserInDB(req.body, dataResponseObject => {
           //create message for the api response
@@ -56,6 +62,9 @@ function registerUser(req, res) {
   }
 }
 
+/* handles the api call to login the user and assigning a token to them.
+  The req body should contain : email, password
+*/
 function login(req, res) {
   // Recover credentials from the request's body
   var email = req.body.email;
@@ -77,8 +86,8 @@ function login(req, res) {
             // if the right password is entered, user gets handed an access token to be stored in db
             tokenUtils.getUserAccessToken(results[0].id, function(err, result) {
               console.log("UserAccess", result);
-              const UserAccess = result[0].access_token
               if (result.length > 0) {
+                const UserAccess = result[0].access_token
                 // log user
                 sendResponse(res, 200, {message:"User logged successful" ,
                 token: UserAccess});
@@ -92,6 +101,7 @@ function login(req, res) {
                 // save it in database
                 tokenUtils.saveAccessToken(userToken,userId, function(err,result
                 ) {
+                  console.log('token saved?', result)
                   // logs
                   console.log("saved access token in db");
                   sendResponse(res, 200, {message:"User logged successful" ,
@@ -112,10 +122,13 @@ function login(req, res) {
   }
 }
 
+/* handles the api call to change user's password
+  The req body should contain : old password, new password, password confirmation
+*/
 function modifyPassword(req, res) {
   // Recovering user id from access token
-  var userToken = req.params.token
-  tokenUtils.getUserFromAccessToken(userToken, function(err, result){
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, result){
     const userId = result[0].id;
     const StoredUserPassword = result[0].password;
     // 
@@ -125,16 +138,14 @@ function modifyPassword(req, res) {
     if (password && newPassword && confirmPassword) {
         // Check if right password
         bcrypt.compare(password, StoredUserPassword, function(err, result) {
-          console.log("PASS", password, StoredUserPassword);
           if (!result) {
             sendResponse(res, 400, "Wrong password");
           } else {
             var checkedPassword = validate.checkPassword(newPassword);
-            console.log("test", newPassword == confirmPassword);
             if (checkedPassword) {
               if (newPassword == confirmPassword) {
                 // Update user password
-                userUtils.updateUser(userId, newPassword, function() {
+                userUtils.updateUserPassword(userId, newPassword, function() {
                   sendResponse(res, 200, "Password successfully changed");
                 });
               } else {
@@ -153,27 +164,38 @@ function modifyPassword(req, res) {
 
 }
 
+/* 
+handles the api call to update user information
+*/
 function modifyUserInfo(req, res) {
    // Recovering user id from access token
-   var userToken = req.params.token
-   tokenUtils.getUserFromAccessToken(userToken, function(err, result){
+   var token = req.headers['authorization'].replace('Bearer ', '');
+   tokenUtils.getUserFromAccessToken(token, function(err, result){
      const userId = result[0].User_id;
-      userUtils.updateUserInfo(userId, req.body, function(result){
-        sendResponse(res, 200, "Successfully changed");
+      userUtils.updateUserInfo(userId, req.body, function(err, result){
+        if (result){
+          sendResponse(res, 200, "Successfully changed");
+
+        }
+          else {
+            sendResponse(res, 400, "Wrong token");
+
+          }
 
       })
  
    })
  
 }
-
-
-function modifyUserInterests() {
+/* 
+handles the api call to update user interests (uses the same method as precedent route)
+*/
+function modifyUserInterests(req, res) {
      // Recovering user id from access token
-     var userToken = req.params.token
-     tokenUtils.getUserFromAccessToken(userToken, function(err, result){
+     var token = req.headers['authorization'].replace('Bearer ', '');
+     tokenUtils.getUserFromAccessToken(token, function(err, result){
        const userId = result[0].User_id;
-        userUtils.updateUserInterests(userId, req.body, function(result){
+        userUtils.updateUserInfo(userId, req.body, function(){
           sendResponse(res, 200, "Successfully changed");
   
         })
@@ -181,37 +203,129 @@ function modifyUserInterests() {
      })
 }
 
-
-
+/* 
+handles the api call to logout the user == retrieving their access token
+*/
 function logout(req, res) {
-  tokenUtils.getUserFromAccessToken(req.params.token, function(err, rslt) {
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
     if (rslt.length <= 0) {
       sendResponse(res, 400, "Token does not exist");
     } else {
-      tokenUtils.deleteUserAccessToken(rslt[0].User_id, function(err, result) {
+      tokenUtils.deleteUserAccessToken(rslt[0].User_id, function() {
         sendResponse(res, 200, "Logged off");
       });
     }
   });
 }
 
-
+/* 
+handles the api call to delete a user account
+*/
 function deleteAccount(req, res) {
-  tokenUtils.getUserFromAccessToken(req.params.token, function(err, rslt) {
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
     if (rslt.length <= 0) {
       sendResponse(res, 400, "Token does not exist");
     } else {
-      userUtils.deleteUser(rslt[0].User_id, function(err, result) {
+      userUtils.deleteUser(rslt[0].User_id, function() {
         sendResponse(res, 200, "Account deleted");
       });
     }
   });
 }
 
+/* 
+handles the api call to allow a user to send a contact request to another user
+*/
+function sendRequest(req, res){
+  var user_id_receiver = req.body.user_id_receiver;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.sendRequest(rslt[0].User_id, user_id_receiver,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
+}
+
+/* 
+handles the api call to accept a contact request
+*/
+function acceptRequest(req, res){
+  var requestId = req.body.requestId;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.acceptRequest(requestId,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
+}
+
+/* 
+handles the api call to reject a contact request
+*/
+function rejectRequest(req, res){
+  var requestId = req.body.requestId;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.rejectRequest(requestId,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
+}
+
+/* 
+handles the api call to accept or reject a contact request
+*/
+function deleteRequest(req, res){
+  var requestId = req.body.requestId;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.deleteRequest(requestId,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
+}
+
+/* 
+handles the api call to accept or reject a contact request
+*/
+function blockContact(req, res){
+  var requestId = req.body.requestId;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.blockContact(requestId,  function() {
+        sendResponse(res, 200, "Contact blocked");
+      });
+    }
+  });
+}
+
+
 function getProfiles() {}
 
-//sends a response created out of the specified parameters to the client.
-//The typeOfCall is the purpose of the client's api call
+/*
+sends a response created out of the specified parameters to the client.
+*/
 function sendResponse(res, error, message) {
   res.status(error).json({
     error: error,
