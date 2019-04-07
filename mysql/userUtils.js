@@ -208,18 +208,11 @@ function updateUserInfo(userId, body, callback) {
 
 function updateUserHobby(userId, body, callback) {
   var id = userId;
-  var hobby_id = body.Hobbies_id;
+  var hobby_id = body.Hobby_id;
+  data = [Number(hobby_id), id]
+  console.log(data)
+  const updateHobbyQuery = { sql: "INSERT INTO User_has_Hobbies (Hobbies_id, User_id) VALUES(?,?)" };
 
-
-  const updateUser = { sql: "UPDATE User_has_Hobbies SET " };
-  if (hobby_id) {
-    updateUser.sql += "Hobbies_id = " + mySqlConnection.connection().escape(hobby_id) + ", ";
-  }
-
-
-  updateUser.sql = updateUser.sql.slice(0, -2);
-
-  updateUser.sql += " WHERE User_id = "+ mySqlConnection.connection().escape(id) ;
 
   //holds the results  from the query
   const sqlCallback = dataResponseObject => {
@@ -233,7 +226,7 @@ function updateUserHobby(userId, body, callback) {
     callback(dataResponseObject.error, updatedUser);
   };
   
-  mySqlConnection.query(updateUser,sqlCallback);
+  mySqlConnection.query(updateHobbyQuery, sqlCallback, data);
 
 }
  
