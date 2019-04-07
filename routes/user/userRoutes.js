@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt"),
   validate = require("./utils.js"),
   userUtils = require("../../mysql/userUtils.js"),
   tokenUtils = require("../../mysql/authTokenUtils.js"),
-  config = require("../../config")
+  config = require("../../config"),
   jwt = require("jsonwebtoken");
 
 // Router
@@ -15,8 +15,6 @@ module.exports = router => {
   router.delete("/logout", logout);
   router.delete("/deleteAccount", deleteAccount);
   router.get("/profils", getProfiles);
-  // router.put("/modifyPicture", modifyPicture);
-  // router.delete("/deletePicture", deletePicture);
   // router.post("/sendRequest", sendRequest);
   // router.post("/acceptRequest", acceptRequest);
   // router.delete("/refuseRequest", refuseRequest);
@@ -77,8 +75,8 @@ function login(req, res) {
             // if the right password is entered, user gets handed an access token to be stored in db
             tokenUtils.getUserAccessToken(results[0].id, function(err, result) {
               console.log("UserAccess", result);
-              const UserAccess = result[0].access_token
               if (result.length > 0) {
+                const UserAccess = result[0].access_token
                 // log user
                 sendResponse(res, 200, {message:"User logged successful" ,
                 token: UserAccess});
@@ -92,6 +90,7 @@ function login(req, res) {
                 // save it in database
                 tokenUtils.saveAccessToken(userToken,userId, function(err,result
                 ) {
+                  console.log('token saved?', result)
                   // logs
                   console.log("saved access token in db");
                   sendResponse(res, 200, {message:"User logged successful" ,
@@ -174,13 +173,13 @@ function modifyUserInfo(req, res) {
  
 }
 
-
-function modifyUserInterests() {
+function modifyUserInterests(req, res) {
      // Recovering user id from access token
      var token = req.headers['authorization'].replace('Bearer ', '');
      tokenUtils.getUserFromAccessToken(token, function(err, result){
+       console.log('user ID', result)
        const userId = result[0].User_id;
-        userUtils.updateUserInterests(userId, req.body, function(){
+        userUtils.updateUserInfo(userId, req.body, function(){
           sendResponse(res, 200, "Successfully changed");
   
         })
@@ -200,7 +199,6 @@ function logout(req, res) {
     }
   });
 }
-
 
 function deleteAccount(req, res) {
   var token = req.headers['authorization'].replace('Bearer ', '');

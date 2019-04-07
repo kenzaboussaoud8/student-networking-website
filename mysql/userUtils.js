@@ -146,6 +146,7 @@ function updateUserInfo(userId, body, callback) {
   var city_id = body.City_id;
   var school_id = body.School_id;
   var profile_picture = body.profile_picture;
+  var gender = body.gender;
   var interest_gender = body.interest_gender;
   var interest_age = body.interest_age;
   var interest_city_id = body.interest_city_id;
