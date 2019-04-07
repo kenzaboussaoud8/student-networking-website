@@ -1,9 +1,9 @@
 /*
 This file contains all necessary (MYSQL related) routes  for our application
+
+TODO : lost password route
+       get profiles : algorithm
 */
-
-
-
 
 const bcrypt = require("bcrypt"),
   validate = require("./utils.js"),
@@ -27,7 +27,6 @@ module.exports = router => {
   router.put("/rejectRequest", rejectRequest);
   router.delete("/deleteRequest", deleteRequest);
   router.put("/blockContact", blockContact);
-
   // router.post("/lostPassword", lostPassword);
 
   return router;
