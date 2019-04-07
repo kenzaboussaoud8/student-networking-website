@@ -133,14 +133,7 @@ DROP TABLE IF EXISTS `LoveAcademy`.`Hobbies` ;
 CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Hobbies` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `User_id` INT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Hobbies_User1_idx` (`User_id` ASC))
- -- CONSTRAINT `fk_Hobbies_User1`
- -- FOREIGN KEY (`User_id`)
- -- REFERENCES `LoveAcademy`.`User` (`id`)
- -- ON DELETE NO ACTION
- -- ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -219,10 +212,13 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `LoveAcademy`.`Request` ;
 
 CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Request` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `User_id_requester` INT NOT NULL,
   `User_id_receiver` INT NOT NULL,
-  `status` ENUM('0', '1', '2') NOT NULL DEFAULT '0',
+  `status` ENUM('0', '1', '2', '3') NOT NULL DEFAULT '0',
   `sent_date` DATETIME NOT NULL,
+  `last_modified` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
   PRIMARY KEY (`User_id_requester`, `User_id_receiver`),
   INDEX `fk_User_has_User_User2_idx` (`User_id_receiver` ASC),
   INDEX `fk_User_has_User_User1_idx` (`User_id_requester` ASC),
