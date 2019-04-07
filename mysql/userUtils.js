@@ -27,6 +27,8 @@ function saveUserInDB(user, callback) {
   var password = user.password;
   var birth_date = user.birth_date;
   var student_card = user.student_card;
+  var gender = user.gender;
+
   console.log("Generating a token");
   // create a token
   const user_token = jwt.sign(
@@ -42,7 +44,7 @@ function saveUserInDB(user, callback) {
     //create query using the data in the req.body to register the user in the db
     const registerUserQuery = {
       sql:
-        "INSERT INTO User(email, password, first_name, last_name, birth_date, student_card) VALUES (?,?,?,?,?,?)"
+        "INSERT INTO User(email, password, first_name, last_name, birth_date, student_card, gender) VALUES (?,?,?,?,?,?,?)"
     };
     const dataRegisterUserQuery = [
       email,
@@ -50,7 +52,8 @@ function saveUserInDB(user, callback) {
       first_name,
       last_name,
       birth_date,
-      student_card
+      student_card,
+      gender
     ];
     //execute the query to register the user
     mySqlConnection.query(registerUserQuery, function(result) {
@@ -210,7 +213,6 @@ function updateUserHobby(userId, body, callback) {
   var id = userId;
   var hobby_id = body.Hobby_id;
   data = [Number(hobby_id), id]
-  console.log(data)
   const updateHobbyQuery = { sql: "INSERT INTO User_has_Hobbies (Hobbies_id, User_id) VALUES(?,?)" };
 
 
