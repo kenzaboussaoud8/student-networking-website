@@ -1,3 +1,10 @@
+/*
+This file contains all necessary (MYSQL related) routes  for our application
+*/
+
+
+
+
 const bcrypt = require("bcrypt"),
   validate = require("./utils.js"),
   userUtils = require("../../mysql/userUtils.js"),
@@ -26,12 +33,13 @@ module.exports = router => {
 
 
 /* handles the api call to register the user and insert them into the users table.
-  The req body should contain :  */
+  The req body should contain : email, password, birth_date, student_card,
+  first_name, last_name
+ */
 function registerUser(req, res) {
   var body = req.body;
   console.log(`authRoutesMethods: registerUser: req.body is:`, body);
   var validity = validate.checkRegisteryForm(body);
-
   // Check obligatory fields
   if (validity.success) {
     //query db to see if the user exists already
@@ -40,7 +48,6 @@ function registerUser(req, res) {
       if (sqlError !== null || userExists) {
         sendResponse(res, 400, "User already exists");
       } else {
-        console.log("sql eror", sqlError);
         //register the user in the db
         userUtils.saveUserInDB(req.body, dataResponseObject => {
           //create message for the api response
@@ -54,6 +61,9 @@ function registerUser(req, res) {
   }
 }
 
+/* handles the api call to login the user and assigning a token to them.
+  The req body should contain : email, password
+*/
 function login(req, res) {
   // Recover credentials from the request's body
   var email = req.body.email;
@@ -111,6 +121,9 @@ function login(req, res) {
   }
 }
 
+/* handles the api call to change user's password
+  The req body should contain : old password, new password, password confirmation
+*/
 function modifyPassword(req, res) {
   // Recovering user id from access token
   var token = req.headers['authorization'].replace('Bearer ', '');
@@ -124,12 +137,10 @@ function modifyPassword(req, res) {
     if (password && newPassword && confirmPassword) {
         // Check if right password
         bcrypt.compare(password, StoredUserPassword, function(err, result) {
-          console.log("PASS", password, StoredUserPassword);
           if (!result) {
             sendResponse(res, 400, "Wrong password");
           } else {
             var checkedPassword = validate.checkPassword(newPassword);
-            console.log("test", newPassword == confirmPassword);
             if (checkedPassword) {
               if (newPassword == confirmPassword) {
                 // Update user password
@@ -152,6 +163,9 @@ function modifyPassword(req, res) {
 
 }
 
+/* 
+handles the api call to update user information
+*/
 function modifyUserInfo(req, res) {
    // Recovering user id from access token
    var token = req.headers['authorization'].replace('Bearer ', '');
@@ -172,12 +186,13 @@ function modifyUserInfo(req, res) {
    })
  
 }
-
+/* 
+handles the api call to update user interests (uses the same method as precedent route)
+*/
 function modifyUserInterests(req, res) {
      // Recovering user id from access token
      var token = req.headers['authorization'].replace('Bearer ', '');
      tokenUtils.getUserFromAccessToken(token, function(err, result){
-       console.log('user ID', result)
        const userId = result[0].User_id;
         userUtils.updateUserInfo(userId, req.body, function(){
           sendResponse(res, 200, "Successfully changed");
@@ -187,6 +202,9 @@ function modifyUserInterests(req, res) {
      })
 }
 
+/* 
+handles the api call to logout the user == retrieving their access token
+*/
 function logout(req, res) {
   var token = req.headers['authorization'].replace('Bearer ', '');
   tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
@@ -200,6 +218,9 @@ function logout(req, res) {
   });
 }
 
+/* 
+handles the api call to delete a user account
+*/
 function deleteAccount(req, res) {
   var token = req.headers['authorization'].replace('Bearer ', '');
   tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
@@ -213,10 +234,20 @@ function deleteAccount(req, res) {
   });
 }
 
+/* 
+handles the api call to allow a user to send a contact request to another user
+*/
+function sendRequest(req, res){
+
+}
+
+
+
 function getProfiles() {}
 
-//sends a response created out of the specified parameters to the client.
-//The typeOfCall is the purpose of the client's api call
+/*
+sends a response created out of the specified parameters to the client.
+*/
 function sendResponse(res, error, message) {
   res.status(error).json({
     error: error,
