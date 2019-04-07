@@ -6,10 +6,12 @@
     structure : http://localhost:8080/auth/ + route
    
 // HOW TO: Database configuration :
- - 1 Copier code de script_new_DB.sql
- - 2 Sur phpmyadmin coller et exécuter le code dans l'onglet SQL
- - 3 cliquer sur onglet importer de PMA(PhpMyAdmin)
- - 4 importer dans l'ordre : department.sql, cities.sql, school.sql
- - 5 copier le code de Script.sql et éxecutez le dans l'onglet sql de PMA
+ Run in this order : 
+ - 1 script_new_DB.sql
+ - 2 department.sql
+ - 3 cities.sql
+ - 4 schools.sql
+ - 5 hobbies.sql
+ - 6 Script.sql 
 
  END
