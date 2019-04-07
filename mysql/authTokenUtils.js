@@ -28,12 +28,18 @@ function saveAccessToken(accessToken, userID, callback) {
     const getUserQuery = { sql: "INSERT INTO access_tokens (access_token, user_id) VALUES (?,?) ON DUPLICATE KEY UPDATE access_token = ?" };
     const dataGetuserQuery = [accessToken, userID, accessToken];
 
-    //execute the query to get the user
-    mySqlConnection.query(getUserQuery, dataGetuserQuery, (dataResponseObject) => {
 
-        //pass in the error which may be null and pass the results object which we get the user from if it is not null
-        callback(dataResponseObject.error)
-    })
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const saveToken = dataResponseObject.results;
+
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, saveToken);
+  };
+
+    //execute the query to get the user
+    mySqlConnection.query(getUserQuery, sqlCallback, dataGetuserQuery)
 }
 
 /**
