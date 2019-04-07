@@ -314,8 +314,8 @@ function blockContact(req, res){
     if (rslt.length <= 0) {
       sendResponse(res, 400, "Token does not exist");
     } else {
-      userUtils.deleteRequest(requestId,  function() {
-        sendResponse(res, 200, "Request sent");
+      userUtils.blockContact(requestId,  function() {
+        sendResponse(res, 200, "Contact blocked");
       });
     }
   });

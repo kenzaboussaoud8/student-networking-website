@@ -337,7 +337,7 @@ function blockContact(requestId, callback){
     sql:
       "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
   };
-  const data = [requestId, '3'];
+  const data = ['3', requestId];
   //holds the results  from the query
   const sqlCallback = dataResponseObject => {
     //calculate if user exists or assign null if results is null
