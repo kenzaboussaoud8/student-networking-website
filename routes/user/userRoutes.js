@@ -23,10 +23,12 @@ module.exports = router => {
   router.delete("/deleteAccount", deleteAccount);
   router.get("/profils", getProfiles);
   router.post("/sendRequest", sendRequest);
-  router.post("/acceptRequest", acceptRequest);
-  router.post("/rejectRequest", rejectRequest);
+  router.put("/acceptRequest", acceptRequest);
+  router.put("/rejectRequest", rejectRequest);
+  router.delete("/deleteRequest", deleteRequest);
+  router.put("/blockContact", blockContact);
+
   // router.post("/lostPassword", lostPassword);
-  // router.delete("/deleteContact", deleteContact);
 
   return router;
 };
@@ -252,7 +254,7 @@ function sendRequest(req, res){
 }
 
 /* 
-handles the api call to accept or reject a contact request
+handles the api call to accept a contact request
 */
 function acceptRequest(req, res){
   var requestId = req.body.requestId;
@@ -269,7 +271,7 @@ function acceptRequest(req, res){
 }
 
 /* 
-handles the api call to accept or reject a contact request
+handles the api call to reject a contact request
 */
 function rejectRequest(req, res){
   var requestId = req.body.requestId;
@@ -285,6 +287,39 @@ function rejectRequest(req, res){
   });
 }
 
+/* 
+handles the api call to accept or reject a contact request
+*/
+function deleteRequest(req, res){
+  var requestId = req.body.requestId;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.deleteRequest(requestId,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
+}
+
+/* 
+handles the api call to accept or reject a contact request
+*/
+function blockContact(req, res){
+  var requestId = req.body.requestId;
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      userUtils.deleteRequest(requestId,  function() {
+        sendResponse(res, 200, "Request sent");
+      });
+    }
+  });
+}
 
 
 function getProfiles() {}
