@@ -9,7 +9,12 @@ module.exports = {
   userExists: userExists,
   updateUserPassword: updateUserPassword,
   updateUserInfo: updateUserInfo,
-  deleteUser: deleteUser
+  deleteUser: deleteUser,
+  sendRequest: sendRequest,
+  acceptRequest: acceptRequest,
+  rejectRequest: rejectRequest,
+  deleteRequest: deleteRequest,
+  blockContact: blockContact
 };
 
 function saveUserInDB(user, callback) {
@@ -146,6 +151,7 @@ function updateUserInfo(userId, body, callback) {
   var city_id = body.City_id;
   var school_id = body.School_id;
   var profile_picture = body.profile_picture;
+  var gender = body.gender;
   var interest_gender = body.interest_gender;
   var interest_age = body.interest_age;
   var interest_city_id = body.interest_city_id;
@@ -223,5 +229,130 @@ function deleteUser(userId, callback) {
 
     //execute the query to check if the user exists
     mySqlConnection.query(deleted, sqlCallback, data);
+  
+}
+
+
+function sendRequest(userId, userIdReceiver, callback){
+  var requestSentQuery = "INSERT INTO Request(User_id_requester, User_id_receiver, status, sent_date ) VALUES (?,?,?,NOW())"
+
+  var data = [userId, userIdReceiver, '0']
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const request =
+      dataResponseObject.results !== null
+        ? dataResponseObject.results.length > 0
+          ? true
+          : false
+        : null;
+
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, request);
+  };
+
+  //execute the query to check if the user exists
+  mySqlConnection.query(requestSentQuery, sqlCallback, data);
+  
+}
+
+function acceptRequest(requestId, callback){
+  const acceptRequestQuery = {
+    sql:
+      "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
+  };
+  const data = [requestId, '1'];
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const request =
+      dataResponseObject.results !== null
+        ? dataResponseObject.results.length > 0
+          ? true
+          : false
+        : null;
+
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, request);
+  };
+
+  //execute the query to check if the user exists
+  mySqlConnection.query(acceptRequestQuery, sqlCallback, data);
+  
+}
+
+function rejectRequest(requestId, callback){
+  const rejectRequestQuery = {
+    sql:
+      "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
+  };
+  const data = [requestId, '2'];
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const request =
+      dataResponseObject.results !== null
+        ? dataResponseObject.results.length > 0
+          ? true
+          : false
+        : null;
+
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, request);
+  };
+
+  //execute the query to check if the user exists
+  mySqlConnection.query(rejectRequestQuery, sqlCallback, data);
+  
+}
+
+
+function deleteRequest(requestId, callback){
+  const deleteRequestQuery = {
+    sql:
+      "DELETE FROM Request WHERE id = ?"
+  };
+  const data = [requestId];
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const request =
+      dataResponseObject.results !== null
+        ? dataResponseObject.results.length > 0
+          ? true
+          : false
+        : null;
+
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, request);
+  };
+
+  //execute the query to check if the user exists
+  mySqlConnection.query(deleteRequestQuery, sqlCallback, data);
+  
+}
+
+function blockContact(requestId, callback){
+  const blockContactQuery = {
+    sql:
+      "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
+  };
+  const data = ['3', requestId];
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const request =
+      dataResponseObject.results !== null
+        ? dataResponseObject.results.length > 0
+          ? true
+          : false
+        : null;
+
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, request);
+  };
+
+  //execute the query to check if the user exists
+  mySqlConnection.query(blockContactQuery, sqlCallback, data);
   
 }
