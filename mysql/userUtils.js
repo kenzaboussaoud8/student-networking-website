@@ -9,6 +9,7 @@ module.exports = {
   userExists: userExists,
   updateUserPassword: updateUserPassword,
   updateUserInfo: updateUserInfo,
+  updateUserHobby: updateUserHobby,
   deleteUser: deleteUser,
   sendRequest: sendRequest,
   acceptRequest: acceptRequest,
@@ -205,6 +206,36 @@ function updateUserInfo(userId, body, callback) {
 
 }
 
+function updateUserHobby(userId, body, callback) {
+  var id = userId;
+  var hobby_id = body.Hobbies_id;
+
+
+  const updateUser = { sql: "UPDATE User_has_Hobbies SET " };
+  if (hobby_id) {
+    updateUser.sql += "Hobbies_id = " + mySqlConnection.connection().escape(hobby_id) + ", ";
+  }
+
+
+  updateUser.sql = updateUser.sql.slice(0, -2);
+
+  updateUser.sql += " WHERE User_id = "+ mySqlConnection.connection().escape(id) ;
+
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const updatedUser =
+      dataResponseObject.results.affectedRows > 0
+          ? true
+          : false;
+        console.log('update', updatedUser)
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, updatedUser);
+  };
+  
+  mySqlConnection.query(updateUser,sqlCallback);
+
+}
  
 function deleteUser(userId, callback) {
     const deleted = {

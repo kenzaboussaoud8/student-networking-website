@@ -204,6 +204,23 @@ function modifyUserInterests(req, res) {
 }
 
 /* 
+handles the api call to update user hobbies
+*/
+function modifyUserHobbies(req, res) {
+  // Recovering user id from access token
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, result){
+    const userId = result[0].User_id;
+     userUtils.updateUserHobby(userId, req.body, function(){
+       sendResponse(res, 200, "Hobby successfully changed");
+
+     })
+
+  })
+}
+
+
+/* 
 handles the api call to logout the user == retrieving their access token
 */
 function logout(req, res) {
