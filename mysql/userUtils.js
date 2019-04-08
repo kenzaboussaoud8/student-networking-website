@@ -15,7 +15,8 @@ module.exports = {
   acceptRequest: acceptRequest,
   rejectRequest: rejectRequest,
   deleteRequest: deleteRequest,
-  blockContact: blockContact
+  blockContact: blockContact,
+  getMatchingProfiles: getMatchingProfiles
 };
 
 function saveUserInDB(user, callback) {
@@ -215,7 +216,6 @@ function updateUserHobby(userId, body, callback) {
   data = [Number(hobby_id), id]
   const updateHobbyQuery = { sql: "INSERT INTO User_has_Hobbies (Hobbies_id, User_id) VALUES(?,?)" };
 
-
   //holds the results  from the query
   const sqlCallback = dataResponseObject => {
     //calculate if user exists or assign null if results is null
@@ -381,4 +381,91 @@ function blockContact(requestId, callback){
   //execute the query to check if the user exists
   mySqlConnection.query(blockContactQuery, sqlCallback, data);
   
+}
+
+
+function getMatchingProfiles(user, callback){
+  // get user's information
+  var id = user.User_id;
+  console.log('matching user id:', id);
+  // GENDER
+  var gender = user.gender;
+  var interest_gender = user.interest_gender;
+  // AGE
+  var birth_date = user.birth_date;
+  var interest_age_interval = user.interest_age.split('-');
+  var min_age = Number(interest_age_interval[0]);
+  var max_age = Number(interest_age_interval[1]);
+  // calculate min and max birthdate from min and max ages
+  var interest_birthdate_min = new Date(Date.now() - min_age*365*60*24*60*1000) 
+  var interest_birthdate_max = new Date(Date.now() - max_age*365*60*24*60*1000)
+
+  var age = calculateAge(birth_date)
+  console.log('my age', age)
+  console.log('min', interest_birthdate_min)
+  console.log('max', interest_birthdate_max)
+
+  // LOCALISATION
+  var city_id = user.City_id;
+  var interest_city_id = user.interest_city_id;
+
+  // Hobbies
+ 
+  
+  console.log('hobby', hobby)
+  const getUserQuery = { sql: "SELECT * FROM User WHERE " };
+  // Matching genders
+  if (gender) {
+    getUserQuery.sql += "gender = " + mySqlConnection.connection().escape(interest_gender) + "AND ";
+    getUserQuery.sql += "interest_gender = " + mySqlConnection.connection().escape(gender) + "AND ";
+  }
+  // Matching ages
+  if (birth_date){
+    getUserQuery.sql += "birth_date BETWEEN " + mySqlConnection.connection().escape(interest_birthdate_max) + "AND "
+    + mySqlConnection.connection().escape(interest_birthdate_min) + "AND ";
+  }
+  // Matching cities
+  if (city_id) {
+    getUserQuery.sql += "city_id = " + mySqlConnection.connection().escape(interest_city_id) + " AND ";
+    getUserQuery.sql += "interest_city_id = " + mySqlConnection.connection().escape(city_id)+ " AND ";
+  }
+  // Matching hobbies
+  var hobby = getUserHobby(id, function(err, res){
+    hobby_id = res[0].Hobbies_id;
+    if (hobby_id) {
+      getUserQuery.sql += "Hobbies_id = " + mySqlConnection.connection().escape(hobby_id);
+        //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const matchingUser = dataResponseObject.results
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, matchingUser);
+  };
+ 
+  mySqlConnection.query(getUserQuery, sqlCallback);
+    }
+  })
+ 
+
+}
+
+function getUserHobby(userId, callback){
+  var userId = userId;
+  var data = [userId]
+  const getHobbyQuery = { sql: "SELECT * FROM User_has_hobbies WHERE User_id = ? " };
+  //holds the results  from the query
+  const sqlCallback = dataResponseObject => {
+    //calculate if user exists or assign null if results is null
+    const matchingUser = dataResponseObject.results;
+    //check if there are any users with this username and return the appropriate value
+    callback(dataResponseObject.error, matchingUser);
+  };
+  
+  mySqlConnection.query(getHobbyQuery, sqlCallback, data);
+}
+
+function calculateAge(birthday) { // birthday is a date
+  var ageDifMs = Date.now() - birthday.getTime();
+  var ageDate = new Date(ageDifMs); // miliseconds from epoch
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
