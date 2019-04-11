@@ -10,6 +10,9 @@ const routes: Routes = [
   { path: 'myrequests', loadChildren: './pages/myrequests/myrequests.module#MyrequestsPageModule' },
   { path: 'account', loadChildren: './pages/account/account.module#AccountPageModule' },
   { path: 'messenger', loadChildren: './pages/messenger/messenger.module#MessengerPageModule' },
+  { path: 'accountpreference', loadChildren: './pages/accountpreference/accountpreference.module#AccountpreferencePageModule' },
+
+
 ];
 
 @NgModule({

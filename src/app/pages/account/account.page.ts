@@ -21,4 +21,8 @@ export class AccountPage implements OnInit {
     this.navCtrl.navigateForward('/password-lost');
   }
 
+  goaccountpreference(){
+    this.navCtrl.navigateForward('/accountpreference');
+  }
+
 }
