@@ -46,14 +46,12 @@ function query(queryString, callback, data = "") {
     connection.query(queryString, data, function(error, results, fields) {
         console.log(queryString)
         console.log('mySql: query: error is: ', error, ' and results are: ', results);
-
-        //disconnect from the method
-        connection.end();
-
         //send the response in the callback
         callback(createDataResponseObject(error, results))
 
     })
+     //disconnect from the method
+     connection.end();
 }
 
 /**

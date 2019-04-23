@@ -21,7 +21,7 @@ module.exports = router => {
   router.put("/modifyUserInterests", modifyUserInterests);
   router.delete("/logout", logout);
   router.delete("/deleteAccount", deleteAccount);
-  router.get("/profils", getProfiles);
+  router.get("/profiles", getProfiles);
   router.post("/sendRequest", sendRequest);
   router.put("/acceptRequest", acceptRequest);
   router.put("/rejectRequest", rejectRequest);
@@ -340,7 +340,21 @@ function blockContact(req, res){
 }
 
 
-function getProfiles() {}
+function getProfiles(req, res) {
+  var token = req.headers['authorization'].replace('Bearer ', '');
+  tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+    if (rslt.length <= 0) {
+      sendResponse(res, 400, "Token does not exist");
+    } else {
+      var user = rslt[0]
+      userUtils.getMatchingProfiles(user, function(err, result){
+      })
+
+    
+    }
+  });
+
+}
 
 /*
 sends a response created out of the specified parameters to the client.
