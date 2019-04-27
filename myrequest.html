@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <title>Love Academy</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+.bouton18 {
+	width:60px;
+	height:60px;
+  background:#fff;
+  border-color: gray;
+	font:bold 13px Arial;
+	border-radius:50%;
+	border:none;
+	color:#cc0000;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  display: inline-block;
+  margin-left: 450px;
+  margin-top: 150px;
+
+
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+
+/* CORE STYLES */
+:root {
+  --primary-color: rgba(13, 110, 139, 0.75);
+  --overlay-color: rgba(24, 39, 51 , 0.85);
+  --menu-speed: 0.75s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.4;
+}
+
+.container {
+  max-width: 960px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 3rem;
+}
+
+.showcase {
+  background: var(--primary-color);
+  color: #fff;
+  height: 100vh;
+  position: relative;
+}
+
+.showcase:before {
+  content: '';
+  background: url('https://images.pexels.com/photos/533923/pexels-photo-533923.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center/cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.showcase .showcase-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+.showcase h1 {
+  font-size: 4rem;
+}
+
+.showcase p {
+  font-size: 1.3rem;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  transition: opacity 1s ease-in-out;
+  text-decoration: none;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+/* MENU STYLES */
+.menu-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.menu-wrap .toggler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+}
+
+.menu-wrap .hamburger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  padding: 1rem;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hamburger Line */
+.menu-wrap .hamburger > div {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+/* Hamburger Lines - Top & Bottom */
+.menu-wrap .hamburger > div::before,
+.menu-wrap .hamburger > div::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  width: 100%;
+  height: 2px;
+  background: inherit;
+}
+
+/* Moves Line Down */
+.menu-wrap .hamburger > div::after {
+  top: 10px;
+}
+
+/* Toggler Animation */
+.menu-wrap .toggler:checked + .hamburger > div {
+  transform: rotate(135deg);
+}
+
+/* Turns Lines Into X */
+.menu-wrap .toggler:checked + .hamburger > div:before,
+.menu-wrap .toggler:checked + .hamburger > div:after {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+/* Rotate On Hover When Checked */
+.menu-wrap .toggler:checked:hover + .hamburger > div {
+  transform: rotate(225deg);
+}
+
+/* Show Menu */
+.menu-wrap .toggler:checked ~ .menu {
+  visibility: visible;
+}
+
+.menu-wrap .toggler:checked ~ .menu > div {
+  transform: scale(1);
+  transition-duration: var(--menu-speed);
+}
+
+.menu-wrap .toggler:checked ~ .menu > div > div {
+  opacity: 1;
+  transition:  opacity 0.4s ease 0.4s;
+}
+
+.menu-wrap .menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-wrap .menu > div {
+  background: var(--overlay-color);
+  border-radius: 50%;
+  width: 200vw;
+  height: 200vw;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  transition: all 0.4s ease;
+}
+
+.menu-wrap .menu > div > div {
+  text-align: center;
+  max-width: 90vw;
+  max-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.menu-wrap .menu > div > div > ul > li {
+  list-style: none;
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.menu-wrap .menu > div > div > ul > li > a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+
+
+
+
+
+</style>
+
+   
+  </head>
+  <body>
+
+    <header style="height: 200px;" >
+      
+        <div style="padding-left: 600px;">
+            <img src="./asset/images/logo.png" alt="Love" />
+
+
+      </header>
+
+      <div class="menu-wrap">
+          <input type="checkbox" class="toggler">
+          <div class="hamburger"><div></div></div>
+          <div class="menu">
+            <div>
+              <div>
+                <ul>
+                  <li><a href="#">Acceuil</a></li>
+                  <li><a href="#">Messagerie</a></li>
+                  <li><a href="#">Demandes</a></li>
+                  <li><a href="#">Mon compte</a></li>
+                  <li><a href="#">Deconnexion</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>    
+        
+        
+
+        <h1 style="text-decoration: underline; margin-left: 150px;">Mes demandes</h1>
+            
+
+      <div class="card">
+          <img src="./asset/images/avatar-1606916_960_720.png" style="width:100%">
+          <h1>John Doe, 25 ans</h1>
+          <p class="title">Paris, Imie</p>
+          <p>Aime le chocolat</p>
+          
+          <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
+          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+        </div>
+
+
+        <div class="card">
+            <img src="./asset/images/Avatar_girl_face.png" style="width:100%">
+            <h1>Jane Doe, 22 ans</h1>
+            <p class="title">Paris, Imie</p>
+            <p>Aime le chocolat</p>
+            <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
+          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+          </div>
+
+          <div class="card">
+              <img src="./asset/images/Avatar_girl_face.png" style="width:100%">
+              <h1>Jane Doe, 26ans</h1>
+              <p class="title">Paris, Imie</p>
+              <p>Aime le chocolat</p>
+              <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
+          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+            </div>
+
+            <div class="card">
+                <img src="./asset/images/avatar-1606916_960_720.png" style="width:100%">
+                <h1>John Doe, 23 ans</h1>
+                <p class="title">Paris, Imie</p>
+                <p>Aime le chocolat</p>
+                <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
+          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+              </div>
+
+
+  
+          
+      
+        
+
+</body>
+
+</html>
