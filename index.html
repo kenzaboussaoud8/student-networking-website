@@ -1,6 +1,12 @@
-<!doctype html>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
 <html lang="fr">
   <head>
+    <link rel="icon" type="image/png" href="/asset/images/heart_logo.png" />
     <title>Love Academy</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -16,8 +22,9 @@
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
         <div class="container">
           
+          <img src="/asset/images/heart_logo.png" alt="logo" style="width:64px; height:64px;" /> 
           <a class="navbar-brand" href="#">
-            <strong>Love Academy</strong>
+            <strong> Love Academy</strong>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,7 +53,7 @@
       <!-- Full Page Intro -->
       <div class="view" style="background-image: url('/asset/images/Date-love.jpeg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
         <!-- Mask & flexbox options-->
-        <div class="mask rgba-gradient align-items-center">
+        <div class="d-flex justify-content-center align-items-center align-self-center align-content-center mask rgba-gradient">
           <!-- Content -->
           <div class="container">
             <!--Grid row-->
@@ -64,7 +71,7 @@
               <!--Grid column-->
               <div class="col-md-6 col-xl-5 mb-5 mt-5">
                 <!--Form-->
-                <div class="card wow fadeInRight" data-wow-delay="0.3s">
+                <div class="card wow fadeInRight mask rgba-gradient" data-wow-delay="0.3s">
                   <div class="card-body">
                     <!--Header-->
                     <div class="text-center">
@@ -138,9 +145,8 @@
       </div>
     </main>
     <!--Main Layout-->
-
+    <script>
+        new WOW().init();
+    </script>
 </body>
-<script>
-    new WOW().init();
-</script>
 </html>
