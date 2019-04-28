@@ -56,13 +56,48 @@ article, aside, footer, header, hgroup, main, nav, section {
   }
 }
 
+html,
+body,
+.view_index {
+  height: 100%;
+}
+
+.testalign{
+  align-items: center !important;
+}
+
+@media (max-width: 740px) {
+  html,
+  body,
+  .view_index {
+    height: 1000px;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  html,
+  body,
+  .view_index {
+    height: 650px;
+  }
+}
+
+h6 {
+  line-height: 1.7;
+}
+
 body,html{
   height: 100%;
   margin: 0;
   background: #7F7FD5;
-     background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
-      background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+  background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+  background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
 }
+
+/* .rgba-gradient {
+  background: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%) !important;
+  background: -webkit-gradient(linear, 45deg, from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%)) !important;
+  background: linear-gradient(to 45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%) !important;
+} */
 
 .chat{
   margin-top: auto;

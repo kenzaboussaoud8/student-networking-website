@@ -14,9 +14,17 @@ $(document).ready(function() {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    $('#action_menu_btn').click(function(){
+        $('.action_menu').toggle();
+    });
     
 
     $(".file-upload").on('change', function(){
         readURL(this);
     });
+});
+
+$(document).ready(function(){
+    
 });
