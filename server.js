@@ -2,13 +2,17 @@
 const express = require('express')
 const expressApp = express()
 const bodyParser = require('body-parser')
+const http = require('http')
 // Set the bodyParser to parse the urlencoded post data
 expressApp.use(bodyParser.urlencoded({ extended: true }))
 
 const authRoutes = require('./routes/user/userRoutes')(express.Router())
+const chatRoutes = require('./routes/user/chatRoutes')(express.Router())
 
 // Set the authRoutes for registration and & login requests
-expressApp.use('/auth', authRoutes)
+expressApp.use('/', authRoutes)
+expressApp.use('/', chatRoutes)
+
 
 // Setting up the connexion to the mongo database
 const  mongoose  = require("mongoose");
@@ -18,11 +22,6 @@ mongoose.Promise  = require("bluebird");
 // Requiring socket.io
 const io = require("socket.io")
 const socket = io(http);
-
-// Connecting to the mongo database
-const chat = require("./mongo/chat")
-const  url  =  "mongodb://localhost:8080/chat";
-const  connect  =  mongoose.connect(url, { useNewUrlParser: true  });
 
 
 // Set the server to listen to messages
@@ -45,6 +44,7 @@ socket.on("connection", socket  =>  {
     });
     });
 });
+
 // Listening to port
 const PORT = 8080;
 expressApp.listen(PORT, function() {
