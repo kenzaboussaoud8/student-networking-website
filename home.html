@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 <style>
 
 .bouton18 {
@@ -279,7 +280,14 @@ body {
   transition: color 0.4s ease;
 }
 
+#background {
 
+  background-image:url("./asset/images/Date-love.jpeg");
+  background-position: center;
+  
+}
+
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
 
 
 
@@ -289,35 +297,41 @@ body {
   </head>
   <body>
 
-    <header style="height: 200px;" >
+    <header style="height: 60px;border-style: outset;border-color: #66B2FF;border-width: 1px;">
+
+    
       
         <div style="padding-left: 600px;">
-            <img src="./asset/images/logo.png" alt="Love" />
+            <img src="./asset/images/heart_logo.png" style="width: 70px;margin-left: 260px;position: absolute;bottom: 445px;top: -5;top: 0px;"/>
+            <img src="./asset/images/account.png" alt="profile" style="width: 45px;margin-left: 1220px;margin-top: 7px;position: absolute;" /></div>
 
+      
 
+            <div class="menu-wrap">
+                <input type="checkbox" class="toggler">
+                <div class="hamburger"><div></div></div>
+                <div class="menu">
+                  <div id="background">
+                    <div >
+
+                        
+                      <ul style=" font-family: monospace;">
+                        
+                        <li><a href="#">Acceuil</a></li>
+                        <li><a href="#">Messagerie</a></li>
+                        <li><a href="#">Demandes</a></li>
+                        <li><a href="#">Mon compte</a></li>
+                        <li><a href="#">Deconnexion</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div> 
       </header>
-
-      <div class="menu-wrap">
-          <input type="checkbox" class="toggler">
-          <div class="hamburger"><div></div></div>
-          <div class="menu">
-            <div>
-              <div>
-                <ul>
-                  <li><a href="#">Acceuil</a></li>
-                  <li><a href="#">Messagerie</a></li>
-                  <li><a href="#">Demandes</a></li>
-                  <li><a href="#">Mon compte</a></li>
-                  <li><a href="#">Deconnexion</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>    
-        
+  
         
 
-        <h1 style="text-decoration: underline; margin-left: 150px;">Profils Suggérés</h1>
+        <h1 style=" margin-left: 150px; margin-top: 150px; font-family: 'Comfortaa', cursive;">Profils Suggérés</h1>
             
 
       <div class="card">
@@ -361,7 +375,15 @@ body {
 
   
           
-      
+              <footer  style="margin-top: 400px; background-color: #66B2FF;" >
+
+                  <p style="padding-top: 20px; padding-left: 600px; display: inline-block;">Copyright KVA Corp</p>
+    
+                  <p  style="padding-left: 150px; display: inline-block;""><a href="#">CGU</a></p>
+    
+                  <p style="padding-left: 150px; display: inline-block;""><a href="#">Mentions légales</a></p>
+    
+                </footer>
         
 
 </body>
