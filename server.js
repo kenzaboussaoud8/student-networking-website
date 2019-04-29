@@ -19,6 +19,10 @@ expressApp.use('/auth', authRoutes)
 // set the server to listen to messages
 socket.on("connection", (socket) =>{
     console.log("user is connected");
+    // event for each time a user closes the tab
+    socket.on("disconnect", ()=>{
+        console.log("Disconnected")
+    })
 })
 
 // Listening to port
