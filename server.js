@@ -2,15 +2,28 @@
 const express = require('express')
 const expressApp = express()
 
+// Requiring socket.io
+const io = require("socket.io")
+const socket = io(http);
+
 const bodyParser = require('body-parser')
-//set the bodyParser to parse the urlencoded post data
+// Set the bodyParser to parse the urlencoded post data
 expressApp.use(bodyParser.urlencoded({ extended: true }))
 
 const authRoutes = require('./routes/user/userRoutes')(express.Router())
 
-//set the authRoutes for registration and & login requests
+// Set the authRoutes for registration and & login requests
 expressApp.use('/auth', authRoutes)
 
+
+// set the server to listen to messages
+socket.on("connection", (socket) =>{
+    console.log("user is connected");
+    // event for each time a user closes the tab
+    socket.on("disconnect", ()=>{
+        console.log("Disconnected")
+    })
+})
 
 // Listening to port
 const PORT = 8080;
