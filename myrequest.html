@@ -5,6 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Add Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Add icon library -->
@@ -23,17 +25,6 @@
 	color:#cc0000;
 }
 
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  display: inline-block;
-  margin-left: 450px;
-  margin-top: 150px;
-
-
-}
 
 .title {
   color: grey;
@@ -289,103 +280,124 @@ body {
 
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
 
+</style>   
+</head>
 
-
-</style>
-
-   
-  </head>
   <body>
+      <header style="height: 60px;border-style: outset;border-color: #66B2FF;border-width: 1px;">
 
-    <header style="height: 60px;border-style: outset;border-color: #66B2FF;border-width: 1px;">
+      <div style="padding-left: 600px;">
+          <h1 style=" font-family: 'Comfortaa', cursive; text-align: center; width: 725px;">Love Academy</h1>
+          <img src="./asset/images/account.png" alt="profile" style="width: 45px;margin-left: 1220px;margin-top: 0px;position: absolute;top: 6px;" /></div>
 
     
-      
-        <div style="padding-left: 600px;">
-            <img src="./asset/images/heart_logo.png" style="width: 70px;margin-left: 260px;position: absolute;bottom: 445px;top: -5;top: 0px;"/>
-            <img src="./asset/images/account.png" alt="profile" style="width: 45px;margin-left: 1220px;margin-top: 7px;position: absolute;" /></div>
 
-      
+          <div class="menu-wrap">
+              <input type="checkbox" class="toggler">
+              <div class="hamburger"><div></div></div>
+              <div class="menu">
+                <div id="background">
+                  <div >
 
-            <div class="menu-wrap">
-                <input type="checkbox" class="toggler">
-                <div class="hamburger"><div></div></div>
-                <div class="menu">
-                  <div id="background">
-                    <div >
-
-                        
-                      <ul style=" font-family: monospace;">
-                        
-                        <li><a href="#">Acceuil</a></li>
-                        <li><a href="#">Messagerie</a></li>
-                        <li><a href="#">Demandes</a></li>
-                        <li><a href="#">Mon compte</a></li>
-                        <li><a href="#">Deconnexion</a></li>
-                      </ul>
-                    </div>
+                      
+                    <ul style=" font-family: monospace;">
+                      
+                      <li><a href="#">Acceuil</a></li>
+                      <li><a href="#">Messagerie</a></li>
+                      <li><a href="#">Demandes</a></li>
+                      <li><a href="#">Mon compte</a></li>
+                      <li><a href="#">Deconnexion</a></li>
+                    </ul>
                   </div>
                 </div>
-              </div> 
-      </header>
+              </div>
+            </div> 
+    </header>
+    <!-- Header -->
+<header class=" text-center py-5 mb-4">
+    <div class="container">
+    <h1 style=" font-family: 'Comfortaa', cursive;">Mes demandes</h1>
+    </div>
+  </header>
   
-        
-
-        <h1 style=" margin-left: 150px; margin-top: 150px; font-family: 'Comfortaa', cursive;">Mes demandes</h1>
-            
-
-      <div class="card">
-          <img src="./asset/images/avatar-1606916_960_720.png" style="width:100%">
-          <h1>John Doe, 25 ans</h1>
-          <p class="title">Paris, Imie</p>
-          <p>Aime le chocolat</p>
-          
-          <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
-          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
-        </div>
-
-
-        <div class="card">
-            <img src="./asset/images/Avatar_girl_face.png" style="width:100%">
-            <h1>Jane Doe, 22 ans</h1>
-            <p class="title">Paris, Imie</p>
-            <p>Aime le chocolat</p>
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <!-- Team Member 1 -->
+      <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-0 shadow">
+          <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-0">Team Member</h5>
+            <div class="card-text text-black-50">Web Developer</div>
             <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
           <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
           </div>
-
-          <div class="card">
-              <img src="./asset/images/Avatar_girl_face.png" style="width:100%">
-              <h1>Jane Doe, 26ans</h1>
-              <p class="title">Paris, Imie</p>
-              <p>Aime le chocolat</p>
-              <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
+        </div>
+      </div>
+      <!-- Team Member 2 -->
+      <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-0 shadow">
+          <img src="https://source.unsplash.com/9UVmlIb0wJU/500x350" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-0">Team Member</h5>
+            <div class="card-text text-black-50">Web Developer</div>
+            <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
           <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
-            </div>
-
-            <div class="card">
-                <img src="./asset/images/avatar-1606916_960_720.png" style="width:100%">
-                <h1>John Doe, 23 ans</h1>
-                <p class="title">Paris, Imie</p>
-                <p>Aime le chocolat</p>
-                <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
+          </div>
+        </div>
+      </div>
+      <!-- Team Member 3 -->
+      <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-0 shadow">
+          <img src="https://source.unsplash.com/sNut2MqSmds/500x350" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-0">Team Member</h5>
+            <div class="card-text text-black-50">Web Developer</div>
+            <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
           <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
-              </div>
+          </div>
+        </div>
+      </div>
+      <!-- Team Member 4 -->
+      <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-0 shadow">
+          <img src="https://source.unsplash.com/ZI6p3i9SbVU/500x350" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-0">Team Member</h5>
+            <div class="card-text text-black-50">Web Developer</div>
+            <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
+          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  
+  </div>
+  <!-- /.container -->
+            
+
+     
 
 
   
           
-              <footer  style="margin-top: 400px; background-color: #66B2FF;" >
+              <footer  style="margin-top: 50px; background-color: #66B2FF;" >
 
-                <p style=" font-family: 'Comfortaa', cursive; padding-top: 20px; padding-left: 600px; display: inline-block;">Copyright KVA Corp</p>
-  
-                <p  style=" font-family: 'Comfortaa', cursive; padding-left: 150px; display: inline-block;""><a href="#">CGU</a></p>
-  
-                <p style=" font-family: 'Comfortaa', cursive; padding-left: 150px; display: inline-block;""><a href="#">Mentions légales</a></p>
-  
-              </footer>
+                  <p style=" font-family: 'Comfortaa', cursive; padding-top: 20px; padding-left: 600px; display: inline-block;">Copyright KVA Corp</p>
+    
+                  <p  style=" font-family: 'Comfortaa', cursive; padding-left: 150px; display: inline-block;""><a href="#">CGU</a></p>
+    
+                  <p style=" font-family: 'Comfortaa', cursive; padding-left: 150px; display: inline-block;""><a href="#">Mentions légales</a></p>
+    
+                </footer>
         
 
 </body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </html>
