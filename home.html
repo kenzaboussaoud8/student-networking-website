@@ -11,20 +11,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
 <style>
 
-.bouton18 {
-	width:60px;
-	height:60px;
-  background:#fff;
-  border-color: gray;
-	font:bold 13px Arial;
-	border-radius:50%;
-	border:none;
-	color:#cc0000;
-}
-
+@import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative');
 
 .title {
   color: grey;
@@ -280,15 +272,75 @@ body {
 
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
 
+@import url('https://fonts.googleapis.com/css?family=Kalam');
+
+
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+/* Global */
+
+.line-1{
+    position: relative;
+    top: 50%;  
+    width: 24em;
+    margin: 0 auto;
+    border-right: 2px solid rgba(255,255,255,.75);
+    font-size: 180%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);    
+}
+
+/* Animation */
+.anim-typewriter{
+  animation: typewriter 4s steps(44) 1s 1 normal both,
+             blinkTextCursor 500ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 24em;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}
+
+.bouton18 {
+	width:60px;
+	height:60px;
+  background:#fff;
+  border-color: gray;
+	font:bold 13px Arial;
+	border-radius:50%;
+	border:none;
+	color: lightskyblue;
+}
+.bouton17 {
+	width:60px;
+	height:60px;
+  background:#fff;
+  border-color: gray;
+	font:bold 13px Arial;
+	border-radius:50%;
+	border:none;
+	color: darkseagreen;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Assistant');
+
 </style>   
 </head>
 
   <body>
-      <header style="height: 60px;border-style: outset;border-color: #66B2FF;border-width: 1px;">
+
+    <!-- Header  -->
+      <header  style="height: 60px;border-style: outset;border-color: #66B2FF; border-width: 1px;">
 
       <div style="padding-left: 600px;">
-          <h1 style=" font-family: 'Comfortaa', cursive; text-align: center; width: 725px;">Love Academy</h1>
-          <img src="./asset/images/account.png" alt="profile" style="width: 45px;margin-left: 1220px;margin-top: 0px;position: absolute;top: 6px;" /></div>
+          <img src="./asset/images/logo.png" style="width: 210px; margin-left: 225px; padding-left: 0px;" /></div>
+          <img src="./asset/images/account.png" alt="profile" style="width: 45px;margin-left: 1840px;margin-top: 0px;position: absolute;top: 6px;" /></div>
 
     
 
@@ -313,25 +365,26 @@ body {
               </div>
             </div> 
     </header>
-    <!-- Header -->
+    <!-- Header 2 -->
+    <section style="background: #fbf9fa">
 <header class=" text-center py-5 mb-4">
-    <div class="container">
-    <h1 style=" font-family: 'Comfortaa', cursive;">Profils Suggérés</h1>
-    </div>
+   
+    <h1 class="line-1 anim-typewriter" style=" font-size: 50px; margin-top: 50px; font-family: 'Assistant', sans-serif;">Profils Suggérés</h1>
+    
   </header>
   
   <!-- Page Content -->
-  <div class="container">
+  <div  class="container">
     <div class="row">
       <!-- Team Member 1 -->
       <div class="col-xl-6 col-md-6 mb-4">
         <div class="card border-0 shadow">
           <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="...">
           <div class="card-body text-center">
-            <h5 class="card-title mb-0">Team Member</h5>
-            <div class="card-text text-black-50">Web Developer</div>
+            <h5 class="card-title mb-0">John Doe, 25 ans</h5>
+            <div class="card-text text-black-50">Paris, Imie</div>
             <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
-          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+          <button class="bouton17"><i class="fa fa-times fa-5x"></i></button>
           </div>
         </div>
       </div>
@@ -340,10 +393,10 @@ body {
         <div class="card border-0 shadow">
           <img src="https://source.unsplash.com/9UVmlIb0wJU/500x350" class="card-img-top" alt="...">
           <div class="card-body text-center">
-            <h5 class="card-title mb-0">Team Member</h5>
-            <div class="card-text text-black-50">Web Developer</div>
+            <h5 class="card-title mb-0">John Doe, 25 ans</h5>
+            <div class="card-text text-black-50">Paris, Imie</div>
             <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
-          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+          <button class="bouton17"><i class="fa fa-times fa-5x"></i></button>
           </div>
         </div>
       </div>
@@ -352,10 +405,10 @@ body {
         <div class="card border-0 shadow">
           <img src="https://source.unsplash.com/sNut2MqSmds/500x350" class="card-img-top" alt="...">
           <div class="card-body text-center">
-            <h5 class="card-title mb-0">Team Member</h5>
-            <div class="card-text text-black-50">Web Developer</div>
+            <h5 class="card-title mb-0">John Doe, 25 ans</h5>
+            <div class="card-text text-black-50">Paris, Imie</div>
             <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
-          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+          <button class="bouton17"><i class="fa fa-times fa-5x"></i></button>
           </div>
         </div>
       </div>
@@ -364,10 +417,10 @@ body {
         <div class="card border-0 shadow">
           <img src="https://source.unsplash.com/ZI6p3i9SbVU/500x350" class="card-img-top" alt="...">
           <div class="card-body text-center">
-            <h5 class="card-title mb-0">Team Member</h5>
-            <div class="card-text text-black-50">Web Developer</div>
+            <h5 class="card-title mb-0">John Doe, 25 ans</h5>
+            <div class="card-text text-black-50">Paris, Imie</div>
             <button class="bouton18" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>
-          <button class="bouton18"><i class="fa fa-times fa-5x"></i></button>
+          <button class="bouton17"><i class="fa fa-times fa-5x"></i></button>
           </div>
         </div>
       </div>
@@ -383,7 +436,7 @@ body {
 
   
           
-              <footer  style="margin-top: 50px; background-color: #66B2FF;" >
+              <footer  style="margin-top: 50px; background-color: lightskyblue;" >
 
                   <p style=" font-family: 'Comfortaa', cursive; padding-top: 20px; padding-left: 600px; display: inline-block;">Copyright KVA Corp</p>
     
@@ -392,6 +445,7 @@ body {
                   <p style=" font-family: 'Comfortaa', cursive; padding-left: 150px; display: inline-block;""><a href="#">Mentions légales</a></p>
     
                 </footer>
+              </section>
         
 
 </body>
