@@ -17,27 +17,37 @@
 </head>
 
 <body>
-    <header>
+    <header style="height: auto;">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
-            <div class="container">
-                <img src="/asset/images/heart_logo.png" alt="logo" style="width:64px; height:64px;" />
-                <a class="navbar-brand" href="#">
-                    <strong> Love Academy</strong>
-                </a>
+            <div class="container-fluid">
+                <div class="menu-wrap">
+                    <input type="checkbox" class="toggler">
+                    <div class="hamburger">
+                        <div></div>
+                    </div>
+                    <div class="menu">
+                        <div>
+                            <div>
+                                <ul>
+                                    <li><a href="#">Acceuil</a></li>
+                                    <li><a href="#">Messagerie</a></li>
+                                    <li><a href="#">Demandes</a></li>
+                                    <li><a href="#">Mon compte</a></li>
+                                    <li><a href="#">Deconnexion</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="active">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
+                    <div class="mx-auto">
+                        <img src="/asset/images/heart_logo.png" alt="logo" style="width:64px; height:64px;" />
+                    </div>
+
+                    <ul class="navbar-nav justify-content-end">
                         <li>
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="#">Profil</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="#">Infos</a>
+                            <a href="#"><img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar rounded-circle img-thumbnail" alt="avatar" style="height:60px;"></a>
                         </li>
                     </ul>
                 </div>
@@ -45,10 +55,10 @@
         </nav>
         <!-- Navbar -->
     </header>
-    <main>
-        <div class="container-fluid h-100">
-            <div class="row justify-content-center h-100">
-                <div class="col-md-4 col-xl-3 chat">
+    <main class="mt-auto h-100">
+        <div class="row" style="height:100%;">
+            <div class="row align-items-center" style="width:100%">
+                <div class="col-2 offset-2 chat">
                     <div class="card mb-sm-3 mb-md-0 contacts_card">
 
                         <!-- Search Profil -->
@@ -97,7 +107,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-8 col-xl-6 chat">
+                <div class="col-6 chat">
                     <div class="card">
                         <!-- Header Chat-->
                         <div class="card-header msg_head">
@@ -167,6 +177,11 @@
             </div>
         </div>
     </main>
+    <footer class="mt-auto" style="background-color: #66B2FF;">
+        <p style="padding-top: 20px; padding-left: 600px; display: inline-block;">Copyright KVA Corp</p>
+        <p style="padding-left: 150px; display: inline-block;" "><a href="# ">CGU</a></p>
+            <p style="padding-left: 150px; display: inline-block; ""><a href="#">Mentions légales</a></p>
+    </footer>
 </body>
 
 </html>

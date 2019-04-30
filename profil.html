@@ -1,49 +1,61 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <link rel="icon" type="image/png" href="/asset/images/heart_logo.png" />
-        <title>Love Academy</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link type="text/css" rel="stylesheet" href="/asset/css/style.css">
-        <!-- Bootstrap CSS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="script.js"></script>
-      </head>
-  <body>
-    <header>
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
-        <div class="container">            
-          <img src="/asset/images/heart_logo.png" alt="logo" style="width:64px; height:64px;" /> 
-          <a class="navbar-brand" href="#">
-            <strong> Love Academy</strong>
-          </a>
-          <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-              <li class="active">
-                <a class="nav-link" href="#">Home</a>
-              </li>
-              <li>
-                <a class="nav-link" href="#">Contact</a>
-              </li>
-              <li>
-                <a class="nav-link" href="#">Profil</a>
-              </li>
-              <li>
-                <a class="nav-link" href="#">Infos</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+
+<head>
+    <link rel="icon" type="image/png" href="/asset/images/heart_logo.png" />
+    <title>Love Academy</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link type="text/css" rel="stylesheet" href="/asset/css/style.css">
+    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+    <header style="height: auto;">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+            <div class="container-fluid">
+                <div class="menu-wrap">
+                    <input type="checkbox" class="toggler">
+                    <div class="hamburger">
+                        <div></div>
+                    </div>
+                    <div class="menu">
+                        <div>
+                            <div>
+                                <ul>
+                                    <li><a href="#">Acceuil</a></li>
+                                    <li><a href="#">Messagerie</a></li>
+                                    <li><a href="#">Demandes</a></li>
+                                    <li><a href="#">Mon compte</a></li>
+                                    <li><a href="#">Deconnexion</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <div class="mx-auto">
+                        <img src="/asset/images/heart_logo.png" alt="logo" style="width:64px; height:64px;" />
+                    </div>
+
+                    <ul class="navbar-nav row justify-content-end">
+                        <li>
+                            <a href="#"><img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar rounded-circle img-thumbnail" alt="avatar" style="height:60px;"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <!-- Navbar -->
     </header>
-    <main class="align-self-center">
+    <main class="mt-auto">
         <div class="container mt-6">
             <div class="row">
                 <div class="col-sm-10">
@@ -54,8 +66,7 @@
                 <div class="col-sm-3">
                     <!--left col-->
                     <div class="text-center">
-                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                            class="avatar rounded-circle img-thumbnail" alt="avatar">
+                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar rounded-circle img-thumbnail" alt="avatar">
                         <h6>Upload a different photo...</h6>
                         <input type="file" class="text-center center-block file-upload">
                     </div>
@@ -71,8 +82,7 @@
                                         <label for="first_name">
                                             <h4>First name</h4>
                                         </label>
-                                        <input type="text" class="form-control" name="first_name" id="first_name"
-                                            placeholder="first name" title="enter your first name if any.">
+                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -80,8 +90,7 @@
                                         <label for="last_name">
                                             <h4>Last name</h4>
                                         </label>
-                                        <input type="text" class="form-control" name="last_name" id="last_name"
-                                            placeholder="last name" title="enter your last name if any.">
+                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -89,8 +98,7 @@
                                         <label for="phone">
                                             <h4>Phone</h4>
                                         </label>
-                                        <input type="text" class="form-control" name="phone" id="phone"
-                                            placeholder="enter phone" title="enter your phone number if any.">
+                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -98,8 +106,7 @@
                                         <label for="mobile">
                                             <h4>Mobile</h4>
                                         </label>
-                                        <input type="text" class="form-control" name="mobile" id="mobile"
-                                            placeholder="enter mobile number" title="enter your mobile number if any.">
+                                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -107,8 +114,7 @@
                                         <label for="email">
                                             <h4>Email</h4>
                                         </label>
-                                        <input type="email" class="form-control" name="email" id="email"
-                                            placeholder="you@email.com" title="enter your email.">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -116,8 +122,7 @@
                                         <label for="email">
                                             <h4>Location</h4>
                                         </label>
-                                        <input type="email" class="form-control" id="location" placeholder="somewhere"
-                                            title="enter a location">
+                                        <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -125,8 +130,7 @@
                                         <label for="password">
                                             <h4>Password</h4>
                                         </label>
-                                        <input type="password" class="form-control" name="password" id="password"
-                                            placeholder="password" title="enter your password.">
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -134,8 +138,7 @@
                                         <label for="password2">
                                             <h4>Verify</h4>
                                         </label>
-                                        <input type="password" class="form-control" name="password2" id="password2"
-                                            placeholder="password2" title="enter your password2.">
+                                        <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -156,5 +159,6 @@
                 <!--/col-9-->
             </div>
             <!--/row-->
+        </div>
     </main>
 </body>
