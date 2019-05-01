@@ -3,6 +3,15 @@ const express = require('express')
 const expressApp = express()
 const bodyParser = require('body-parser')
 const http = require('http')
+const cors = require('cors')
+// Autoriser un accès public à l'API
+expressApp.use(function (request, response, next) {
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,Authorization ");
+    response.header("Access-Control-Allow-Methods", 'PUT, POST, GET, DELETE');
+    response.header('Access-Control-Allow-Credentials', true);
+    next();
+});
 // Set the bodyParser to parse the urlencoded post data
 expressApp.use(bodyParser.urlencoded({ extended: true }))
 
