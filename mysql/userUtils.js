@@ -3,8 +3,10 @@
 const bcrypt = require("bcrypt"),
   jwt = require("jsonwebtoken"),
   config = require("../config.js"),
-  mySqlConnection = require("./mysqlWrapper.js");
-  amazon = require("../amazon")
+  mySqlConnection = require("./mysqlWrapper.js"),
+  amazon = require("../amazon"),
+  utils = require("../routes/user/utils");
+
 
 module.exports = {
   saveUserInDB: saveUserInDB,
@@ -26,6 +28,8 @@ function saveUserInDB(user, callback) {
   console.log("Saving user in database");
   // Params
   var email = user.email;
+  // Sending mail to user
+  utils.sendMail(email);
   var first_name = user.first_name;
   var last_name = user.last_name;
   var password = user.password;

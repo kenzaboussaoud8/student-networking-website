@@ -1,8 +1,37 @@
 
+var nodemailer = require('nodemailer');
+
 module.exports = {
     checkRegisteryForm : checkRegisteryForm,
-    checkPassword: checkPassword
+    checkPassword: checkPassword,
+    sendMail: sendMail
 }
+function sendMail(receiverEmail){
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: '',
+          pass: ''
+        }
+      });
+      
+      var mailOptions = {
+        from: 'kva@gmail.com',
+        to: receiverEmail,
+        subject: 'Bienvenue à Love Academy',
+        text: 'Votre inscription est en cours de revue'
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+      
+}
+
 
 function checkString(string) {
     return (string =! '' && typeof string == 'string' && string.length <= 25 && string.length >= 2)
