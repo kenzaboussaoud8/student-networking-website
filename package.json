@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kenzaboussaoud8/student-networking-website#readme",
   "dependencies": {
+    "aws-sdk": "^2.448.0",
     "bcrypt": "^3.0.5",
     "cors": "^2.8.5",
     "express": "^4.16.4",

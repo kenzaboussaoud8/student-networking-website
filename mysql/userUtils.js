@@ -1,7 +1,10 @@
+
+
 const bcrypt = require("bcrypt"),
   jwt = require("jsonwebtoken"),
   config = require("../config.js"),
   mySqlConnection = require("./mysqlWrapper.js");
+  amazon = require("../amazon")
 
 module.exports = {
   saveUserInDB: saveUserInDB,
@@ -27,9 +30,11 @@ function saveUserInDB(user, callback) {
   var last_name = user.last_name;
   var password = user.password;
   var birth_date = user.birth_date;
-  var student_card = user.student_card;
   var gender = user.gender;
+  var student_card = user.student_card.replace("C:\\fakepath\\", "");;
 
+  // uplading card to amazon s3
+  amazon.uploadToServer(student_card);
   console.log("Generating a token");
   // create a token
   const user_token = jwt.sign(
