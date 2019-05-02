@@ -269,9 +269,10 @@
                         }
                     
                 }
-                }).done(function (data) {
+                }).done(function (data){
                     console.log('You are registered')
                     localStorage.setItem("token", res.tokens.token);
+                    alert("You've been sent an email! Go check :)");
                 })
         })
         }

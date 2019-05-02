@@ -1,7 +1,12 @@
+
+
 const bcrypt = require("bcrypt"),
   jwt = require("jsonwebtoken"),
   config = require("../config.js"),
-  mySqlConnection = require("./mysqlWrapper.js");
+  mySqlConnection = require("./mysqlWrapper.js"),
+  amazon = require("../amazon"),
+  utils = require("../routes/user/utils");
+
 
 module.exports = {
   saveUserInDB: saveUserInDB,
@@ -23,13 +28,17 @@ function saveUserInDB(user, callback) {
   console.log("Saving user in database");
   // Params
   var email = user.email;
+  // Sending mail to user
+  // utils.sendMail(email);
   var first_name = user.first_name;
   var last_name = user.last_name;
   var password = user.password;
   var birth_date = user.birth_date;
-  var student_card = user.student_card;
   var gender = user.gender;
+  var student_card = user.student_card.replace("C:\\fakepath\\", "");;
 
+  // uplading card to amazon s3
+  var student_card_location = amazon.uploadToServer(student_card);
   console.log("Generating a token");
   // create a token
   const user_token = jwt.sign(
@@ -53,7 +62,7 @@ function saveUserInDB(user, callback) {
       first_name,
       last_name,
       birth_date,
-      student_card,
+      student_card_location,
       gender
     ];
     //execute the query to register the user
