@@ -2,15 +2,17 @@
 <html lang="fr">
 
 <head>
-    <link rel="icon" type="image/png" href="/asset/images/heart_logo.png" />
+    
     <title>Love Academy</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link type="text/css" rel="stylesheet" href="/asset/css/style.css">
+    <link type="text/css" rel="stylesheet" href="./asset/css/style.css">
     <!-- Bootstrap CSS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Merienda" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="script.js"></script>
@@ -19,13 +21,21 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 </head>
 
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Merienda');
+
+</style>
+
 <body>
     <header class="view">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
-            <div class="container">
-                <img src="/asset/images/heart_logo.png" alt="logo" style="width:6%; filter: drop-shadow(2mm 4mm 2mm rgb(0, 0, 0));" />
-                <div class="collapse navbar-collapse">
+            <div class="container" style="margin-left: 0px;">
+                <img src="./asset/images/heart_logo.png" alt="logo" style="width:6%; filter: drop-shadow(2mm 4mm 2mm rgb(0, 0, 0));" />
+                <p style=" font-size: x-large; white-space: nowrap; font-family: 'Merienda', cursive; margin-left: 800px; color: white;"">Love Academy</p>
+                <div class="collapse navbar-collapse" style="margin-left: 620px;">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-link">
                             <button type="button" id="login" name="login" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginForm">Login</button>
@@ -40,9 +50,12 @@
         <!-- Navbar -->
         <!-- Full Page Intro -->
         <div class="row align-items-center" style="position: absolute; z-index: 999; width: 100%;    height: 100%;">
-            <h1 class="display-6 col-sm-12" style="color: white;opacity: 1; text-align: center; font-family: 'PT Sans Regular', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-shadow: 0.1px 0.1px 1px rgb(0, 0, 0), 0 0 0.5em black;">Faites de nouvelles rencontres !</h1>
+            <h1 class="display-6 col-sm-12" style="top: 370px; color: white;opacity: 1; text-align: center; font-family: 'Montserrat', sans-serif; text-shadow: 0.1px 0.1px 1px rgb(0, 0, 0), 0 0 0.5em black;">Faites de nouvelles rencontres !</h1>
+            <section class="mt-5">
+           
+        </section>
             <div class="mx-auto">
-                <a href=""><img style="filter: drop-shadow(0 1.5mm 0.8mm rgb(0, 0, 0)); width: 200px;" src="./asset/images/download-on-app-store.png" alt="IOS" /></a>
+                <a style="margin-top: 0px; margin-right: 80px; margin-left: 40px;" href=""><img style="filter: drop-shadow(0 1.5mm 0.8mm rgb(0, 0, 0)); width: 200px;" src="./asset/images/download-on-app-store.png" alt="IOS" /></a>
                 <a href=""><img style="filter: drop-shadow(0 1.5mm 0.8mm rgb(0, 0, 0)); width: 200px;" src="./asset/images/google-chplay.png" alt="Android" /></a>
 
             </div>
@@ -131,20 +144,10 @@
         </div>
         <!-- Pop Up Register -->
     </header>
-    <!-- Main navigation -->
-    <main>
-        <section class="mt-5">
-            <p class="mx-auto" style="text-shadow: 0 0.2em 0.4em rgb(104, 102, 105); text-align: center; font-weight: bold;   font-size: 30px; ">Téléchargez notre application disponible pour IOS ou Android</p>
-        </section>
-    </main>
-    <!-- Main navigation -->
-    <!--footer Layout-->
-    <footer style="margin-top: 100px; background-color: #66B2FF;">
-        <p style="padding-top: 20px; padding-left: 600px; display: inline-block;">Copyright KVA Corp</p>
-        <p style="padding-left: 150px; display: inline-block;" "><a href="# ">CGU</a></p>
-            <p style="padding-left: 150px; display: inline-block; ""><a href="#">Mentions légales</a></p>
-    </footer>
-    <!--footer Layout-->
+    
 </body>
+
+
+
 
 </html>
