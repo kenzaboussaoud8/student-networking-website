@@ -6,8 +6,8 @@ module.exports = { uploadToServer: uploadToServer };
 
 //configuring the AWS environment
 AWS.config.update({
-  accessKeyId: "AKIAJ5OZTT4TXM6N5WRA",
-  secretAccessKey: "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"
+  accessKeyId: "",
+  secretAccessKey: ""
 });
 
 var s3 = new AWS.S3();
