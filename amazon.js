@@ -28,6 +28,7 @@ function uploadToServer(filePath) {
     //success
     if (data) {
       console.log("Uploaded in:", data.Location);
+      return data.Location
     }
   });
 }
