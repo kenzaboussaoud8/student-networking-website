@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `LoveAcademy`.`Access_tokens` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `access_token` VARCHAR(500) NOT NULL,  
   `status` ENUM('0', '1') NOT NULL,
-  `expires` SMALLINT NULL,
+  `expires` INT NULL,
   `User_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Access_tokens_User1_idx` (`User_id` ASC),
