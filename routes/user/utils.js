@@ -5,7 +5,7 @@ module.exports = {
 }
 
 function checkString(string) {
-    return (typeof string == 'string' && string.length <= 25 && string.length >= 2)
+    return (string =! '' && typeof string == 'string' && string.length <= 25 && string.length >= 2)
 }
 function checkPassword(password) {
     var strongPasswordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
@@ -13,7 +13,7 @@ function checkPassword(password) {
 }
 
 function checkEmail(email) {
-    return (typeof email == 'string'
+    return (email =! '' && typeof email == 'string'
         && email.indexOf('@') > 0
         && email.indexOf('@') < email.indexOf('.') - 1
         && email.indexOf('.') < email.length - 1)
@@ -34,13 +34,13 @@ function checkRegisteryForm(body) {
     var student_card = body.student_card;
 
     if (!(first_name && last_name && password && email && birth_date && student_card)) {
-        return { success : false, error : 400, message : "Missing one or many required information" }
+        return { success : false, error : 401, message : "Missing one or many required information" }
     }
     if (!(checkString(first_name)
         && checkString(last_name)
         && checkPassword(password)
         && checkEmail(email)
         && checkBirthDate(birth_date)))
-        return { success : false, error : 400, message : "One or many incorrect data" }
+        return { success : false, error : 404, message : "One or many incorrect data" }
     return {success : true}
 }
