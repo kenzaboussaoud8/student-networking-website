@@ -29,7 +29,7 @@ function saveUserInDB(user, callback) {
   // Params
   var email = user.email;
   // Sending mail to user
-  utils.sendMail(email);
+  // utils.sendMail(email);
   var first_name = user.first_name;
   var last_name = user.last_name;
   var password = user.password;

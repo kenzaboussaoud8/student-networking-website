@@ -257,7 +257,6 @@
                     statusCode:{
                         200: function(){
                             $("#SignUpmessageSpan").text("Registration successful.");
-                            alert("You've been sent an email! Go check :)")
                         },
                         401: function(){
                             $("#SignUpmessageSpan").text("Missing one of many required information");
@@ -270,9 +269,10 @@
                         }
                     
                 }
-                }).done(function (data) {
+                }).done(function (data){
                     console.log('You are registered')
                     localStorage.setItem("token", res.tokens.token);
+                    alert("You've been sent an email! Go check :)");
                 })
         })
         }
