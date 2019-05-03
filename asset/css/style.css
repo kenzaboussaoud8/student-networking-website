@@ -585,3 +585,38 @@ html {
     text-decoration: none;
     transition: color 0.4s ease;
 }
+
+
+/* Checkbox homme femme */
+
+#checkboxSexPref {
+    background: #2f8cab;
+    display: inline-block;
+    padding: 15px 18px;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+#ckeckboxSexPref-element {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    opacity: 0;
+}
+
+#checkboxSexPref>input[type='checkbox']+i {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+#checkboxSexPref>input[type='checkbox']:checked+i {
+    color: #fff;
+    border-color: #4cd137;
+}
+
+
+/* Fin Checkbox homme femme */
