@@ -10,13 +10,13 @@ function sendMail(receiverEmail){
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: '',
-          pass: ''
+          user: 'loveacademyorigin@gmail.com',
+          pass: 'lOvEaCaDeMy2019*'
         }
       });
       
       var mailOptions = {
-        from: 'kva@gmail.com',
+        from: 'loveacademyorigin@gmail.com',
         to: receiverEmail,
         subject: 'Bienvenue à Love Academy',
         text: 'Votre inscription est en cours de revue'

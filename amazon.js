@@ -1,3 +1,8 @@
+/*
+This script uses the aws sdk to upload to the server
+*/
+
+
 const AWS = require("aws-sdk");
 const fs = require("fs");
 const path = require("path");
