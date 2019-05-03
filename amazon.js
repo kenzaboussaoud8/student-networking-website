@@ -11,29 +11,34 @@ module.exports = { uploadToServer: uploadToServer };
 
 //configuring the AWS environment
 AWS.config.update({
-  accessKeyId: "",
-  secretAccessKey: ""
+    accessKeyId: "",
+    secretAccessKey: ""
 });
 
 var s3 = new AWS.S3();
 
-function uploadToServer(filePath) {
-  //configuring parameters
-  var params = {
-    Bucket: "loveacademy",
-    Body: fs.createReadStream(filePath),
-    Key: "images/" + Date.now() + "_" + path.basename(filePath)
-  };
-  s3.upload(params, function(err, data) {
-    //handle error
-    if (err) {
-      console.log("Error", err);
-    }
+function uploadToServer(file) {
+    // Getting the file type, ie: jpeg, png or gif
+    const type = file.split(';')[0].split('/')[1]
+        //configuring parameters
+    var params = {
+        Bucket: "loveacademy",
+        Body: base64Data,
+        Key: "images/" + Date.now() + "_" + path.basename(file),
+        ACL: 'public-read',
+        ContentEncoding: 'base64', // required
+        ContentType: `image/${type}` // required. Notice the back ticks
+    };
+    s3.upload(params, function(err, data) {
+        //handle error
+        if (err) {
+            console.log("Error", err);
+        }
 
-    //success
-    if (data) {
-      console.log("Uploaded in:", data.Location);
-      return data.Location
-    }
-  });
+        //success
+        if (data) {
+            console.log("Uploaded in:", data.Location);
+            return data.Location
+        }
+    });
 }

@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    
+
     <title>Love Academy</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,16 +15,13 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 </head>
 
 <style>
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Merienda');
-
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
+    @import url('https://fonts.googleapis.com/css?family=Merienda');
 </style>
 
 <body>
@@ -33,16 +30,14 @@
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
             <div class="container" style="margin-left: 0px;">
                 <img src="./asset/images/heart_logo.png" alt="logo" style="width:6%; filter: drop-shadow(2mm 4mm 2mm rgb(0, 0, 0));" />
-                <p style=" font-size: x-large; white-space: nowrap; font-family: 'Merienda', cursive; margin-left: 800px; color: white;"">Love Academy</p>
+                <p style=" font-size: x-large; white-space: nowrap; font-family: 'Merienda', cursive; margin-left: 800px; color: white;">Love Academy</p>
                 <div class="collapse navbar-collapse" style="margin-left: 620px;">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-link">
-                            <button type="button" id="login" name="login" class="btn btn-primary" data-toggle="modal"
-                                data-target="#modalLoginForm">Login</button>
+                            <button type="button" id="login" name="login" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginForm">Login</button>
                         </li>
                         <li class="nav-link">
-                            <button type="button" id="register" name="register" class="btn btn-success"
-                                data-toggle="modal" data-target="#modalRegisterForm" type="submit">Register</button>
+                            <button type="button" id="register" name="register" class="btn btn-success" data-toggle="modal" data-target="#modalRegisterForm" type="submit">Register</button>
                         </li>
                     </ul>
                 </div>
@@ -50,14 +45,12 @@
         </nav>
         <!-- Navbar -->
         <!-- Full Page Intro -->
-        <div class="row align-items-center" style="position: absolute; z-index: 999; width: 100%;    height: 100%;">
+        <div class="row align-items-center" style="position: absolute; z-index: 999; width: 100%; height: 100%;">
             <h1 class="display-6 col-sm-12" style="top: 470px;color: white;opacity: 1;text-align: center;font-family: 'Montserrat', sans-serif;text-shadow: 0.1px 0.1px 1px rgb(0, 0, 0), 0 0 0.5em black;">Faites de nouvelles rencontres !</h1>
             <section class="mt-5">
-           
-        </section>
-            <div class="mx-auto" style="
-            margin-top: 140px;
-        ">
+
+            </section>
+            <div class="mx-auto" style=" margin-top: 140px;">
                 <a style="margin-top: 0px; margin-right: 30px;margin-left: 40px;" href=""><img style="filter: drop-shadow(0 1.5mm 0.8mm rgb(0, 0, 0)); width: 200px;" src="./asset/images/download-on-app-store.png" alt="IOS" /></a>
                 <a href=""><img style="filter: drop-shadow(0 1.5mm 0.8mm rgb(0, 0, 0)); width: 200px;" src="./asset/images/google-chplay.png" alt="Android" /></a>
 
@@ -66,8 +59,7 @@
         <div class="view home_view"></div>
         <!-- Full Page Intro -->
         <!-- Pop Up Login -->
-        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form class="modal-content">
                     <div class="modal-header text-center">
@@ -92,7 +84,7 @@
 
                         </div>
                     </div>
-                    
+
 
                     <div class="modal-footer d-flex justify-content-center">
                         <button class="btn btn-default" type="submit">Login</button>
@@ -103,8 +95,7 @@
         </div>
         <!-- Pop up Login -->
         <!-- Pop Up Register -->
-        <div class="modal" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
+        <div class="modal" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form class="modal-content">
                     <div class="modal-header text-center">
@@ -163,120 +154,147 @@
                             <input type="file" class="form-control-file validate" id="studentcard">
                             <label data-error="wrong" data-success="right" for="studentcard">Your student
                                 card</label>
-                                <br>
+                            <br>
                             <span id="SignUpmessageSpan" style="color:red"></span>
                         </div>
-                    
+
                         <div class="modal-footer d-flex justify-content-center">
                             <button class="btn btn-deep-orange" type="submit">Sign up</button>
                         </div>
                 </form>
+                </div>
             </div>
-        </div>
-        <!-- Pop Up Register -->
+            <!-- Pop Up Register -->
     </header>
-    
 
-    <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Main navigation -->
+    <main>
+        <section class="mt-5">
+            <p class="mx-auto" style="text-shadow: 0 0.2em 0.4em rgb(104, 102, 105); text-align: center; font-weight: bold; font-size: 30px;">
+                Téléchargez notre application disponible pour IOS ou Android</p>
+        </section>
+    </main>
+    <!-- Main navigation -->
+    <!--footer Layout-->
+    <footer style="margin-top: 100px; background-color: #66B2FF;">
+        <p style="padding-top: 20px; padding-left: 600px; display: inline-block;">Copyright KVA Corp</p>
+        <p style="padding-left: 150px; display: inline-block;"><a href=" #">CGU</a></p>
+        <p style=" padding-left: 150px; display: inline-block;"><a href="#">Mentions légales</a></p>
+    </footer>
+    <!--footer Layout-->
     <!-- SCRIPTS -->
     <!-- Login -->
     <script>
-        (function () {
-            $("#modalLoginForm").submit(function (e) {
+        (function() {
+            $("#modalLoginForm").submit(function(e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'http://localhost:8080/login',
                     type: 'POST',
                     withCredentials: true,
                     data: {
-                        email: $("input[id='email']").val(),
-                        password: $("input[id='password']").val(),
+                        email: $("input[id='email' ]").val(),
+                        password: $("input[id='password' ]").val(),
                     },
-                    statusCode:{
-                        200: function(){
+                    statusCode: {
+                        200: function() {
                             $("#messageSpan").text("Login successful.");
                         },
-                        404: function(){
+                        404: function() {
                             $("#messageSpan").text("Email does not exist. Please sign up!");
                         },
-                         401: function(){
+                        401: function() {
                             $("#messageSpan").text("Invalid credentials. Please try again");
                         },
-                        400: function(){
+                        400: function() {
                             $("#messageSpan").text("Missing required field");
                         }
-                    
-                }
-                }).done(function (res) {
+
+                    }
+                }).done(function(res) {
                     //token recupéré ici, localStorage
                     localStorage.setItem("token", res.tokens.token);
                     // redirection
                     window.location("")
                 })
             })
-        }
-        )();
+        })();
     </script>
+    <!-- Student card to s3 -->
+    <script>
+        function imageToDataImage() {
+            // getting student card
+            var preview = document.querySelector('#studentcard');
+            console.log('preview,', preview)
+            var file = document.querySelector('#studentcard[type=file]').files[0];
+            var reader = new FileReader();
+            console.log('reader', reader)
+
+            reader.addEventListener("load", function() {
+                preview.src = reader.result;
+                var read = reader.result;
+                console.log('reading', read)
+                return reader.result
+            })
+        }
+    </script>
+
     <!-- Register -->
     <script>
-        (function () {
-            $("#modalRegisterForm").submit(function (e) {
+        (function() {
+            $("#modalRegisterForm").submit(function(e) {
+                console.log('registering')
                 e.preventDefault();
+                // Making the ajax call
                 $.ajax({
                     url: 'http://localhost:8080/register',
                     type: 'POST',
-
                     data: {
-                        password: $("input[id='password_register']").val(),
-                        first_name: $("input[id='firstname']").val(),
-                        last_name: $("input[id='lastname']").val(),
-                        email: $("input[id='email_register']").val(),
-                        gender: $("input[name='sexe']:checked").val(),
-                        birth_date: $("input[id='birthdate']").val(),
-                        student_card: $("input[id='studentcard']").val()
-
+                        password: $("input[id='password_register' ]").val(),
+                        first_name: $("input[id='firstname' ]").val(),
+                        last_name: $("input[id='lastname' ]").val(),
+                        email: $("input[id='email_register' ]").val(),
+                        gender: $("input[name='sexe' ]:checked").val(),
+                        birth_date: $("input[id='birthdate' ]").val(),
+                        student_card: imageToDataImage(),
                     },
-                    statusCode:{
-                        200: function(){
+                    statusCode: {
+                        200: function() {
                             $("#SignUpmessageSpan").text("Registration successful.");
                         },
-                        401: function(){
+                        401: function() {
                             $("#SignUpmessageSpan").text("Missing one of many required information");
                         },
-                         404: function(){
+                        404: function() {
                             $("#SignUpmessageSpan").text("Invalid fields. Please try again");
                         },
-                        400: function(){
+                        400: function() {
                             $("#SignUpmessageSpan").text("User already exists");
                         }
-                    
-                }
-                }).done(function (data){
+
+                    }
+                }).done(function(data) {
                     console.log('You are registered')
                     localStorage.setItem("token", res.tokens.token);
-                    alert("You've been sent an email! Go check :)");
+                    alert("You 've been sent an email! Go check :)");
                 })
-        })
-        }
-        ) ();
+            });
+        })();
     </script>
+
+
+
+
 
     <!-- Si le user a déjà un token, on le log automatiquement -->
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // on récupère le token depuis le localStorage
             let tk = localStorage.getItem("token");
             $.ajax({
-                url: 'http://localhost:8080/user/' + tk,
-                type: 'GET',
-            }).done(function (dt) {
+                url: 'http://localhost:8080/user/ ' + tk,
+                type: 'GET ',
+            }).done(function(dt) {
                 console.log("You've been automatically logged")
                 $(".card-deck").css("display", "none")
                 $("#add").css("display", "block");
@@ -285,8 +303,8 @@
     </script>
     <!-- Script de déconnexion -->
     <script>
-        (function () {
-            $("#logout").click(function (e) {
+        (function() {
+            $("#logout").click(function(e) {
                 // on récupère le token depuis le localStorage
                 let tk = localStorage.getItem("token");
                 e.preventDefault();
@@ -296,13 +314,12 @@
                     data: {
                         token: tk
                     }
-                }).done(function (data) {
+                }).done(function(data) {
                     console.log('Logged out!')
                     window.location.href = 'index.html';
                 })
             })
-        }
-        )();
+        })();
     </script>
 </body>
 
