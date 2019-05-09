@@ -21,6 +21,10 @@ const chatRoutes = require('./routes/user/chatRoutes')(express.Router())
 // Set the authRoutes for registration and & login requests
 expressApp.use('/', authRoutes)
 expressApp.use('/', chatRoutes)
+//
+expressApp.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+  });
 
 
 // Setting up the connexion to the mongo database
