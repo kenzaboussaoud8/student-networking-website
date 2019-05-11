@@ -6,7 +6,7 @@ TODO : lost password route
 */
 
 const bcrypt = require("bcrypt"),
-  validate = require("./utils.js"),
+  utils = require("./utils.js"),
   userUtils = require("../../mysql/userUtils.js"),
   tokenUtils = require("../../mysql/authTokenUtils.js"),
   config = require("../../config"),
@@ -14,6 +14,7 @@ const bcrypt = require("bcrypt"),
 
 // Router
 module.exports = router => {
+  router.get("/users", getUsers);
   router.post("/register", registerUser);
   router.post("/login", login);
   router.put("/modifyPassword", modifyPassword);
@@ -33,6 +34,14 @@ module.exports = router => {
   return router;
 };
 
+function getUsers(req, res){
+  userUtils.getAllUsers(function(err, results){
+    console.log('ASS', err, results)
+    sendResponse(res, 200, results)
+  })
+}
+
+
 /* handles the api call to register the user and insert them into the users table.
   The req body should contain : email, password, birth_date, student_card,
   first_name, last_name
@@ -40,7 +49,7 @@ module.exports = router => {
 function registerUser(req, res) {
   var body = req.body;
   console.log(`authRoutesMethods: registerUser: req.body is:`, body);
-  var validity = validate.checkRegisteryForm(body);
+  var validity = utils.checkRegisteryForm(body);
   // Check obligatory fields
   if (validity.success) {
     //query db to see if the user exists already
@@ -51,6 +60,8 @@ function registerUser(req, res) {
       } else {
         //register the user in the db
         userUtils.saveUserInDB(req.body, dataResponseObject => {
+          // send mail
+          utils.sendMail(req.body.email)
           //create message for the api response
           const message = "Registration was successful";
           sendResponse(res, 200, message);
@@ -152,7 +163,7 @@ function modifyPassword(req, res) {
         if (!result) {
           sendResponse(res, 400, "Wrong password");
         } else {
-          var checkedPassword = validate.checkPassword(newPassword);
+          var checkedPassword = utils.checkPassword(newPassword);
           if (checkedPassword) {
             if (newPassword == confirmPassword) {
               // Update user password

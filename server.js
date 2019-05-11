@@ -4,6 +4,8 @@ const expressApp = express()
 const bodyParser = require('body-parser')
 const http = require('http')
 const cors = require('cors')
+const path = require('path')
+
 // Autoriser un accès public à l'API
 expressApp.use(function (request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
@@ -21,12 +23,17 @@ const chatRoutes = require('./routes/user/chatRoutes')(express.Router())
 // Set the authRoutes for registration and & login requests
 expressApp.use('/', authRoutes)
 expressApp.use('/', chatRoutes)
+// Serving static files
+expressApp.use(express.static(path.join(__dirname, 'public')));
 //
 expressApp.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
+    res.redirect('index.html');
   });
 
-
+// admin access
+  expressApp.get('/helpdesk', function(req, res){
+    res.redirect('index-admin.html');
+  });
 // Setting up the connexion to the mongo database
 const  mongoose  = require("mongoose");
 mongoose.Promise  = require("bluebird");

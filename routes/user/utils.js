@@ -14,14 +14,20 @@ function sendMail(receiverEmail){
           pass: 'lOvEaCaDeMy2019*'
         }
       });
-      
+      // Send mail to user
       var mailOptions = {
         from: 'loveacademyorigin@gmail.com',
         to: receiverEmail,
         subject: 'Bienvenue à Love Academy',
         text: 'Votre inscription est en cours de revue'
       };
-      
+      // send mail to admin
+      var secondMailOptions = {
+        from: 'loveacademyorigin@gmail.com',
+        to: 'admin@gmail.com',
+        subject: 'Nouvel utilisateur',
+        text: 'Vous avez un nouvel utilisateur à vérifier'
+      };
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
@@ -29,7 +35,13 @@ function sendMail(receiverEmail){
           console.log('Email sent: ' + info.response);
         }
       });
-      
+      transporter.sendMail(secondMailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent to admin: ' + info.response);
+        }
+      });
 }
 
 

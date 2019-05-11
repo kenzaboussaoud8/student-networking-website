@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt"),
 
 
 module.exports = {
+  getAllUsers: getAllUsers,
   saveUserInDB: saveUserInDB,
   getUserFromCredentials: getUserFromCredentials,
   userExists: userExists,
@@ -24,12 +25,24 @@ module.exports = {
   getMatchingProfiles: getMatchingProfiles
 };
 
+function getAllUsers(callback){
+    //create query using the data in the req.body to register the user in the db
+    const getUserQuery = { sql: "SELECT * FROM User WHERE role = 0" };
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+      //calculate if user exists or assign null if results is null
+      const getAll = dataResponseObject.results;
+  
+      //check if there are any users with this username and return the appropriate value
+      callback(dataResponseObject.error, getAll);
+    };
+    //execute the query to get the user
+    mySqlConnection.query(getUserQuery, sqlCallback);
+}
 function saveUserInDB(user, callback) {
   console.log("Saving user in database");
   // Params
   var email = user.email;
-  // Sending mail to user
-  // utils.sendMail(email);
   var first_name = user.first_name;
   var last_name = user.last_name;
   var password = user.password;
@@ -38,7 +51,8 @@ function saveUserInDB(user, callback) {
   var student_card = user.student_card.replace("C:\\fakepath\\", "");;
 
   // uplading card to amazon s3
-  var student_card_location = amazon.uploadToServer(student_card);
+  // var student_card_location = amazon.uploadToServer(student_card);
+  var student_card_location = "test"
   console.log("Generating a token");
   // create a token
   const user_token = jwt.sign(
@@ -86,6 +100,7 @@ function saveUserInDB(user, callback) {
     );
   });
 }
+
 
 function getUserFromCredentials(email, callback) {
   //create query using the data in the req.body to register the user in the db

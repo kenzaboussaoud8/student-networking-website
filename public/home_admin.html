@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+      
+        <title>Love Aca</title>
+      
+        <!-- Bootstrap core CSS -->
+        <link href="./asset/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      
+        <!-- Custom fonts for this template -->
+        <link href="./asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+      
+        <!-- Custom styles for this template -->
+        <link href="./asset/css/agency.min.css" rel="stylesheet">
+        
+
+      
+      </head>
+      
+      <body id="page-top">
+      
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+              <a class="navbar-brand js-scroll-trigger" href="#page-top">Love Academy</a>
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger">Users</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" >Dashboard</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger">Something</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+      
+        <!-- Header -->
+        <header class="masthead">
+          <div class="container">
+       
+          </div>
+        </header>
+        <section class="page-section"><table id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                    <th class="th-sm">id
+                        </th>
+                <th class="th-sm">Prénom
+                </th>
+                <th class="th-sm">Nom
+                </th>
+                <th class="th-sm">Email
+                </th>
+                <th class="th-sm">Sexe
+                </th>
+                <th class="th-sm">Date de naissance
+                </th>
+                <th class="th-sm">Carte d'étudiant
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+          </table></section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <span class="copyright">Copyright KVA Corporate 2019</span>
+              </div>
+              <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                  <li class="list-inline-item">
+                    <a href="#">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#">
+                      <i class="fab fa-linkedin-in"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                  <li class="list-inline-item">
+                    <a href="mentions_legales.html">Mentions légales</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="cgu.html">Conditions d'utilisation</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+       
+            <!-- SCRIPTS -->
+                     <!-- Bootstrap core JavaScript -->
+         <script src="./asset/vendor/jquery/jquery.min.js"></script>
+         <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+       
+         <!-- Plugin JavaScript -->
+         <script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
+       
+         <!-- Contact form JavaScript -->
+         <script src="./asset/js/jqBootstrapValidation.js"></script>
+         <script src="./asset/js/contact_me.js"></script>
+       
+         <!-- Custom scripts for this template -->
+         <script src="./asset/js/agency.min.js"></script>
+         <!-- Data table -->
+         <script>
+         $(document).ready(function () {
+         $('#dtMaterialDesignExample').DataTable();
+         $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
+         $(this).parent().append($(this).children());
+         });
+         $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
+         $('input').attr("placeholder", "Search");
+         $('input').removeClass('form-control-sm');
+         });
+         $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
+         $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
+         $('#dtMaterialDesignExample_wrapper select').removeClass(
+         'custom-select custom-select-sm form-control form-control-sm');
+         $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
+         $('#dtMaterialDesignExample_wrapper .mdb-select').materialSelect();
+         $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
+         });
+        </script>
+        <script>
+    $(document).ready(function () {
+        // on récupère le token depuis le localStorage
+        $.ajax({
+            url: 'http://localhost:8080/users/',
+            type: 'GET',
+        }).done(function (dt) {
+            console.log('data', dt)
+            var users = dt.message;
+            $("table > tbody").html("")
+            for (var i = 0; i < users.length; i++) {
+                let user_data = users[i];
+                $("table > tbody").append(" <tr> <td class='id'> " + user_data._id +
+                    " </td> <td> " + user_data.first_name + " </td> <td> " + user_data.last_name +
+                    " </td><td> " + user_data.email +
+                    " </td> <td> " + user_data.gender + " </td> <td> " +
+                    dateBDDToDateForm(user_data.birth_date) + " </td><td> " +
+                    user_data.student_card + "</td></tr>")
+            }
+        })
+    });
+
+</script>
+<script>
+        function dateBDDToDateForm(date) {
+            return date.split('T')[0]
+        }
+    </script>
+</html>

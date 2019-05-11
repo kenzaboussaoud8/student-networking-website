@@ -22,6 +22,8 @@
       
         <!-- Custom styles for this template -->
         <link href="./asset/css/agency.min.css" rel="stylesheet">
+        
+
       
       </head>
       
@@ -124,10 +126,10 @@
               <div class="col-md-4">
                 <ul class="list-inline quicklinks">
                   <li class="list-inline-item">
-                    <a href="#">Privacy Policy</a>
+                    <a href="mentions_legales.html">Mentions légales</a>
                   </li>
                   <li class="list-inline-item">
-                    <a href="#">Terms of Use</a>
+                    <a href="cgu.html">Conditions d'utilisation</a>
                   </li>
                 </ul>
               </div>
@@ -141,7 +143,7 @@
                 <div class="modal-dialog" role="document">
                     <form class="modal-content">
                         <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold">Login</h4>
+                            <h4 class="modal-title w-100 font-weight-bold">Se connecter</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -150,13 +152,13 @@
                             <div class="md-form mb-3">
                                 <i class="fas fa-envelope prefix grey-text"></i>
                                 <input type="email" id="email" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Votre adresse electronique</label>
                             </div>
     
                             <div class="md-form mb-3">
                                 <i class="fas fa-lock prefix grey-text"></i>
                                 <input type="password" id="password" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                                <label data-error="wrong" data-success="right" for="defaultForm-pass">Votre mot de passe</label>
                                 <br>
                                 <span id="messageSpan" style="color:red"></span>
     
@@ -165,7 +167,7 @@
     
     
                         <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-default" type="submit">Login</button>
+                            <button class="btn btn-default" type="submit">Je me connecte</button>
                         </div>
     
                     </form>
@@ -177,7 +179,7 @@
                 <div class="modal-dialog" role="document">
                     <form class="modal-content">
                         <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                            <h4 class="modal-title w-100 font-weight-bold">S'enregistrer</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -186,32 +188,30 @@
                             <div class="md-form mb-2">
                                 <i class="fas fa-user prefix grey-text"></i>
                                 <input type="text" id="firstname" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="orangeForm-firstname">Your
-                                    firstname</label>
+                                <label data-error="wrong" data-success="right" for="orangeForm-firstname">Prénom</label>
                             </div>
                             <div class="md-form mb-2">
                                 <i class="fas fa-user prefix grey-text"></i>
                                 <input type="text" id="lastname" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="orangeForm-lastname">Your
-                                    lastname</label>
+                                <label data-error="wrong" data-success="right" for="orangeForm-lastname">Nom</label>
                             </div>
                             <div class="md-form mb-2">
                                 <i class="fas fa-envelope prefix grey-text"></i>
                                 <input type="email" id="email_register" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+                                <label data-error="wrong" data-success="right" for="orangeForm-email">Adresse électronique</label>
                             </div>
                             <div class="md-form mb-2">
                                 <i class="fas fa-lock prefix grey-text"></i>
                                 <input type="password" id="password_register" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+                                <label data-error="wrong" data-success="right" for="orangeForm-pass">Mot de passe</label>
                             </div>
                             <div class="md-form mb-2">
                                 <input type="date" id="birthdate" class="form-control">
                                 <label class="form-check-label" for="birthdate"></label>
                                 <!-- <i class="fas fa-user prefix grey-text"></i>
                                 <input type="text" id="orangeForm-birthdate" class="form-control validate date form_datetime"> -->
-                                <label data-error="wrong" data-success="right" for="orangeForm-birthdate">Your
-                                    birthdate</label>
+                                <label data-error="wrong" data-success="right" for="orangeForm-birthdate">Date de naissance
+                                    </label>
                             </div>
                             <div class="md-form mb-2">
     
@@ -230,14 +230,14 @@
                             <div class="md-form mb-2">
                                 <i class="fas fa-user prefix grey-text"></i>
                                 <input type="file" class="form-control-file validate" id="studentcard">
-                                <label data-error="wrong" data-success="right" for="studentcard">Your student
-                                    card</label>
+                                <label data-error="wrong" data-success="right" for="studentcard">Carte d'étudiant
+                                    </label>
                                 <br>
                                 <span id="SignUpmessageSpan" style="color:red"></span>
                             </div>
     
                             <div class="modal-footer d-flex justify-content-center">
-                                <button class="btn btn-deep-orange" type="submit">Sign up</button>
+                                <button class="btn btn-deep-orange" type="submit">Je m'enregistre</button>
                             </div>
                     </form>
                     </div>
@@ -245,20 +245,21 @@
     <!-- Pop Up Register --> 
 
       
-        <!-- Bootstrap core JavaScript -->
-        <script src="./asset/vendor/jquery/jquery.min.js"></script>
-        <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      
-        <!-- Plugin JavaScript -->
-        <script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
-      
-        <!-- Contact form JavaScript -->
-        <script src="./asset/js/jqBootstrapValidation.js"></script>
-        <script src="./asset/js/contact_me.js"></script>
-      
-        <!-- Custom scripts for this template -->
-        <script src="./asset/js/agency.min.js"></script>
+       
             <!-- SCRIPTS -->
+                     <!-- Bootstrap core JavaScript -->
+         <script src="./asset/vendor/jquery/jquery.min.js"></script>
+         <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+       
+         <!-- Plugin JavaScript -->
+         <script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
+       
+         <!-- Contact form JavaScript -->
+         <script src="./asset/js/jqBootstrapValidation.js"></script>
+         <script src="./asset/js/contact_me.js"></script>
+       
+         <!-- Custom scripts for this template -->
+         <script src="./asset/js/agency.min.js"></script>
     <!-- Login -->
     <script>
         (function() {
@@ -288,9 +289,10 @@
                     }
                 }).done(function(res) {
                     //token recupéré ici, localStorage
-                    localStorage.setItem("token", res.tokens.token);
+                    console.log('res', res.message.token)
+                    localStorage.setItem("token", res.message.token);
                     // redirection
-                    window.location("")
+                    window.location.href = "home.html"
                 })
             })
         })();
@@ -330,7 +332,7 @@
                         email: $("input[id='email_register' ]").val(),
                         gender: $("input[name='sexe' ]:checked").val(),
                         birth_date: $("input[id='birthdate' ]").val(),
-                        student_card: imageToDataImage(),
+                        student_card: "test",
                     },
                     statusCode: {
                         200: function() {
@@ -346,9 +348,9 @@
                             $("#SignUpmessageSpan").text("User already exists");
                         }
                     }
-                }).done(function(data) {
+                }).done(function(res) {
                     console.log('You are registered')
-                    localStorage.setItem("token", res.tokens.token);
+                    localStorage.setItem("token", res.message.token);
                     alert("You 've been sent an email! Go check :)");
                 })
             });
