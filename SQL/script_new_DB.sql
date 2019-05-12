@@ -103,6 +103,8 @@ CREATE TABLE IF NOT EXISTS `LoveAcademy`.`User` (
   `bio` VARCHAR(280) NULL,
   `profile_picture` LONGTEXT NULL,
   `role` TINYINT NOT NULL DEFAULT '0',
+  `status` TINYINT NOT NULL DEFAULT '0',
+
   `interest_gender` ENUM('homme', 'femme', 'les deux') NULL,
   `interest_age` VARCHAR(45) NULL,
   `interest_city_id` INT NULL,
