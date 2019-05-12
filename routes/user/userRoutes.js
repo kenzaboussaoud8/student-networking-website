@@ -19,7 +19,7 @@ module.exports = router => {
     router.post("/register", registerUser);
     router.post("/login", login);
     router.put("/modifyPassword", modifyPassword);
-    router.put("/modifyUserInfo/", modifyUserInfo);
+    router.put("/modifyUserInfo", modifyUserInfo);
     router.put("/modifyUserInterests", modifyUserInterests);
     router.delete("/logout", logout);
     router.delete("/deleteAccount", deleteAccount);
@@ -183,10 +183,10 @@ function modifyPassword(req, res) {
                                 sendResponse(res, 200, "Password successfully changed");
                             });
                         } else {
-                            sendResponse(res, 400, "You haven't entered the same password");
+                            sendResponse(res, 403, "You haven't entered the same password");
                         }
                     } else {
-                        sendResponse(res, 400, "Password not safe enough");
+                        sendResponse(res, 401, "Password not safe enough");
                     }
                 }
             });
