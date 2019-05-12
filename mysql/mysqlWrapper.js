@@ -3,27 +3,25 @@
  */
 
 module.exports = {
-
     query: query,
     connection: initConnection
-}
-const mysql = require('mysql')
+};
+const mysql = require("mysql");
 
-let connection = null
-
+let connection = null;
 
 /**
  * Initialize connection to the db
  */
 function initConnection() {
     connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'LoveAcademy',
-        port: '8889'
+        host: "localhost",
+        user: "root",
+        password: "root",
+        database: "LoveAcademy",
+        port: "8889"
     });
-    return connection
+    return connection;
 }
 
 /**
@@ -34,24 +32,27 @@ function initConnection() {
  * @param callback - takes a DataResponseObject
  */
 function query(queryString, callback, data = "") {
-
     //init the connection object. Needs to be done everytime as we call end()
     //on the connection after the call is complete
-    initConnection()
+    initConnection();
 
     //connect to the db
-    connection.connect()
-    console.log('Successful connection')
-        //execute the query and collect the results in the callback
+    connection.connect();
+    console.log("Successful connection");
+    //execute the query and collect the results in the callback
     connection.query(queryString, data, function(error, results, fields) {
-        console.log(queryString)
-        console.log('mySql: query: error is: ', error, ' and results are: ', results);
+        console.log(queryString);
+        console.log(
+            "mySql: query: error is: ",
+            error,
+            " and results are: ",
+            results
+        );
         //send the response in the callback
-        callback(createDataResponseObject(error, results))
-
-    })
-     //disconnect from the method
-     connection.end();
+        callback(createDataResponseObject(error, results));
+    });
+    //disconnect from the method
+    connection.end();
 }
 
 /**
@@ -63,9 +64,8 @@ function query(queryString, callback, data = "") {
  * @return {DataResponseObject<{error, results}>}
  */
 function createDataResponseObject(error, results) {
-
     return {
         error: error,
         results: results === undefined ? null : results === null ? null : results
-    }
+    };
 }
