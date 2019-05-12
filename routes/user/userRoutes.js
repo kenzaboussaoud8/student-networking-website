@@ -10,7 +10,8 @@ const bcrypt = require("bcrypt"),
     userUtils = require("../../mysql/userUtils.js"),
     tokenUtils = require("../../mysql/authTokenUtils.js"),
     config = require("../../config"),
-    jwt = require("jsonwebtoken");
+    jwt = require("jsonwebtoken"),
+    otherUtils = require("../../mysql/otherUtils.js");
 
 // Router
 module.exports = router => {
@@ -29,8 +30,10 @@ module.exports = router => {
     router.delete("/deleteRequest", deleteRequest);
     router.put("/blockContact", blockContact);
     router.post("/addHobby", addHobby);
-    router.get("/user", getUser)
-        // router.post("/lostPassword", lostPassword);
+    router.get("/user", getUser);
+    router.get("/cities", listAllCities);
+    router.get("/schools", listAllSchools);
+    // router.post("/lostPassword", lostPassword);
 
     return router;
 };
@@ -365,6 +368,18 @@ function getProfiles(req, res) {
             userUtils.getMatchingProfiles(user, function(err, result) {});
         }
     });
+}
+
+function listAllCities(req, res) {
+    otherUtils.getAllCities(function(err, result) {
+        sendResponse(res, 200, result)
+    })
+}
+
+function listAllSchools(req, res) {
+    otherUtils.getAllSchools(function(err, result) {
+        sendResponse(res, 200, result)
+    })
 }
 
 /*
