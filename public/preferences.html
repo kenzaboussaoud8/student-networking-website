@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Love Academy</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./asset/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="./asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="./asset/css/agency.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Love Academy</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              Menu
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="home.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="myrequest.html">Demandes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="messenger.html">Messagerie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="profil.html">Mon profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" id="logout">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <header class="masthead">
+        <section class="page-section">
+
+            </div>
+    </header>
+
+    <section>
+        <div class="content">
+
+            <div class="container-fluid">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="profil.html">Mon profil</a></li>
+                    <li class="active"><a href="#">Mes préférences</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright KVA Corporate 2019</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item">
+                            <a href="mentions_legales.html">Mentions légales</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="cgu.html">Conditions d'utilisation</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<!-- SCRIPTS -->
+<!-- Bootstrap core JavaScript -->
+
+<script src="./asset/vendor/jquery/jquery.min.js"></script>
+<script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Contact form JavaScript -->
+<script src="./asset/js/jqBootstrapValidation.js"></script>
+<script src="./asset/js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="./asset/js/agency.min.js"></script>
+
+<!-- Récupérer les données de l'utilisateur connecté-->
+<script>
+    $(document).ready(function() {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: 'http://localhost:8080/user/',
+            headers: {
+                "authorization": tk
+            },
+            type: 'GET',
+        }).done(function(dt) {
+            console.log(dt)
+            var user = dt.message;
+            document.getElementById('firstname').value = user.first_name;
+            document.getElementById('lastname').value = user.last_name;
+            document.getElementById('email').value = user.email;
+            document.getElementById('password').value = user.password;
+            document.getElementById('city').value = user.City_id;
+            document.getElementById('birthdate').value = dateBDDToDateForm(user.birth_date);
+            // document.getElementById('school').value = user.School_id;
+            $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
+            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
+            document.getElementById('bio').value = "‘‘" + user.bio + "‘‘";
+            document.getElementById('profilepicture').src = user.profile_picture;
+
+
+
+        })
+    });
+</script>
+<script>
+    $(document).ready(function() {
+
+        var helpers = {
+            buildDropdown: function(result, dropdown, emptyMessage) {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Check result isnt empty
+                if (result != '') {
+                    // Loop through each of the results and append the option to the dropdown
+                    $.each(result, function(k, v) {
+                        dropdown.append('<option value="' + v.id + '">' + v.name + '</option>');
+                    });
+                }
+            }
+        }
+
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/cities',
+            success: function(data) {
+                console.log(data)
+                helpers.buildDropdown(
+                    jQuery.parseJSON(JSON.stringify(data.message)),
+                    $('#city'),
+                    'Select an option'
+                );
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/schools',
+            success: function(data) {
+                console.log(data)
+                helpers.buildDropdown(
+                    jQuery.parseJSON(JSON.stringify(data.message)),
+                    $('#school'),
+                    'Select an option'
+                );
+            }
+        });
+    });
+</script>
+<!-- Modify info -->
+<script>
+    (function() {
+        $("#submitForm").click(function(e) {
+            // $('#myAlert').modal();
+            // on récupère le token depuis le localStorage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                url: 'http://localhost:8080/modifyUserInfo',
+                type: 'PUT',
+                headers: {
+                    "authorization": tk
+                },
+                data: {
+                    email: $("input[id='email']").val(),
+                    bio: $("input[id='bio']").val(),
+                    gender: $("input[name='sexe']:checked").val(),
+                    date_naissance: $("input[id='birthdate']").val(),
+                }
+            }).done(function(data) {
+                console.log('Info Modified!')
+            })
+        })
+    })();
+</script>
+<!-- Script de déconnexion -->
+<script>
+    (function() {
+        $("#logout").click(function(e) {
+            // on récupère le token depuis le localStorage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                url: 'http://localhost:8080/logout/',
+                type: 'DELETE',
+                headers: {
+                    "authorization": tk,
+                }
+            }).done(function(data) {
+                console.log('Logged out!')
+                window.location.href = 'index.html';
+            })
+        })
+    })();
+</script>
+<script>
+    function dateBDDToDateForm(date) {
+        return date.split('T')[0]
+    }
+</script>
+
+</html>
