@@ -1,6 +1,6 @@
 # Project Love Academy: student-networking-website
 
-![logo](/asset/images/logo.png)
+![logo](public/asset/images/logo.png)
 
   
 # Synopsis
