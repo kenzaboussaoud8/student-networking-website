@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Love Aca</title>
+    <title>Love Academy</title>
 
     <!-- Bootstrap core CSS -->
     <link href="./asset/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -244,133 +244,133 @@
         </div>
         <!-- Pop Up Register -->
 
-        <!-- SCRIPTS -->
-        <!-- Bootstrap core JavaScript -->
-        <script src="./asset/vendor/jquery/jquery.min.js"></script>
-        <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Plugin JavaScript -->
-        <script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Contact form JavaScript -->
-        <script src="./asset/js/jqBootstrapValidation.js"></script>
-        <script src="./asset/js/contact_me.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="./asset/js/agency.min.js"></script>
-        <!-- Login -->
-        <script>
-            (function() {
-                $("#modalLoginForm").submit(function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        url: 'http://localhost:8080/login',
-                        type: 'POST',
-                        withCredentials: true,
-                        data: {
-                            email: $("input[id='email' ]").val(),
-                            password: $("input[id='password' ]").val(),
-                        },
-                        statusCode: {
-                            200: function() {
-                                $("#messageSpan").text("Login successful.");
-                            },
-                            404: function() {
-                                $("#messageSpan").text("Email does not exist. Please sign up!");
-                            },
-                            401: function() {
-                                $("#messageSpan").text("Invalid credentials. Please try again");
-                            },
-                            400: function() {
-                                $("#messageSpan").text("Missing required field");
-                            }
-                        }
-                    }).done(function(res) {
-                        //token recupéré ici, localStorage
-                        console.log('res', res.message.token)
-                        localStorage.setItem("token", res.message.token);
-                        // redirection
-                        window.location.href = "home.html"
-                    })
-                })
-            })();
-        </script>
-        <!-- Student card to s3 -->
-        <script>
-            function imageToDataImage() {
-                // getting student card
-                var preview = document.querySelector('#studentcard');
-                console.log('preview,', preview)
-                var file = document.querySelector('#studentcard[type=file]').files[0];
-                var reader = new FileReader();
-                console.log('reader', reader)
-                reader.addEventListener("load", function() {
-                    preview.src = reader.result;
-                    var read = reader.result;
-                    console.log('reading', read)
-                    return reader.result
-                })
-            }
-        </script>
-
-        <!-- Register -->
-        <script>
-            (function() {
-                $("#modalRegisterForm").submit(function(e) {
-                    console.log('registering')
-                    e.preventDefault();
-                    // Making the ajax call
-                    $.ajax({
-                        url: 'http://localhost:8080/register',
-                        type: 'POST',
-                        data: {
-                            password: $("input[id='password_register' ]").val(),
-                            first_name: $("input[id='firstname' ]").val(),
-                            last_name: $("input[id='lastname' ]").val(),
-                            email: $("input[id='email_register' ]").val(),
-                            gender: $("input[name='sexe' ]:checked").val(),
-                            birth_date: $("input[id='birthdate' ]").val(),
-                            student_card: "test",
-                        },
-                        statusCode: {
-                            200: function() {
-                                $("#SignUpmessageSpan").text("Registration successful.");
-                            },
-                            401: function() {
-                                $("#SignUpmessageSpan").text("Missing one of many required information");
-                            },
-                            404: function() {
-                                $("#SignUpmessageSpan").text("Invalid fields. Please try again");
-                            },
-                            400: function() {
-                                $("#SignUpmessageSpan").text("User already exists");
-                            }
-                        }
-                    }).done(function(res) {
-                        console.log('You are registered')
-                        localStorage.setItem("token", res.message.token);
-                        alert("You 've been sent an email! Go check :)");
-                    })
-                });
-            })();
-        </script>
-        <!-- Si le user a déjà un token, on le log automatiquement -->
-        <script>
-            $(document).ready(function() {
-                // on récupère le token depuis le localStorage
-                let tk = localStorage.getItem("token");
-                $.ajax({
-                    url: '',
-                    type: 'GET ',
-
-                }).done(function(dt) {
-                    console.log("You've been automatically logged")
-                    $(".card-deck").css("display", "none")
-                    $("#add").css("display", "block");
-                })
-            });
-        </script>
 </body>
+<!-- SCRIPTS -->
+<!-- Bootstrap core JavaScript -->
+<script src="./asset/vendor/jquery/jquery.min.js"></script>
+<script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<!-- Plugin JavaScript -->
+<script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Contact form JavaScript -->
+<script src="./asset/js/jqBootstrapValidation.js"></script>
+<script src="./asset/js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="./asset/js/agency.min.js"></script>
+<!-- Login -->
+<script>
+    (function() {
+        $("#modalLoginForm").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: 'http://localhost:8080/login',
+                type: 'POST',
+                withCredentials: true,
+                data: {
+                    email: $("input[id='email' ]").val(),
+                    password: $("input[id='password' ]").val(),
+                },
+                statusCode: {
+                    200: function() {
+                        $("#messageSpan").text("Login successful.");
+                    },
+                    404: function() {
+                        $("#messageSpan").text("Email does not exist. Please sign up!");
+                    },
+                    401: function() {
+                        $("#messageSpan").text("Invalid credentials. Please try again");
+                    },
+                    400: function() {
+                        $("#messageSpan").text("Missing required field");
+                    }
+                }
+            }).done(function(res) {
+                //token recupéré ici, localStorage
+                console.log('res', res.message.token)
+                localStorage.setItem("token", res.message.token);
+                // redirection
+                window.location.href = "profil.html"
+            })
+        })
+    })();
+</script>
+<!-- Student card to s3 -->
+<script>
+    function imageToDataImage() {
+        // getting student card
+        var preview = document.querySelector('#studentcard');
+        console.log('preview,', preview)
+        var file = document.querySelector('#studentcard[type=file]').files[0];
+        var reader = new FileReader();
+        console.log('reader', reader)
+        reader.addEventListener("load", function() {
+            preview.src = reader.result;
+            var read = reader.result;
+            console.log('reading', read)
+            return reader.result
+        })
+    }
+</script>
+
+<!-- Register -->
+<script>
+    (function() {
+        $("#modalRegisterForm").submit(function(e) {
+            console.log('registering')
+            e.preventDefault();
+            // Making the ajax call
+            $.ajax({
+                url: 'http://localhost:8080/register',
+                type: 'POST',
+                data: {
+                    password: $("input[id='password_register' ]").val(),
+                    first_name: $("input[id='firstname' ]").val(),
+                    last_name: $("input[id='lastname' ]").val(),
+                    email: $("input[id='email_register' ]").val(),
+                    gender: $("input[name='sexe' ]:checked").val(),
+                    birth_date: $("input[id='birthdate' ]").val(),
+                    student_card: "test",
+                },
+                statusCode: {
+                    200: function() {
+                        $("#SignUpmessageSpan").text("Registration successful.");
+                    },
+                    401: function() {
+                        $("#SignUpmessageSpan").text("Missing one of many required information");
+                    },
+                    404: function() {
+                        $("#SignUpmessageSpan").text("Invalid fields. Please try again");
+                    },
+                    400: function() {
+                        $("#SignUpmessageSpan").text("User already exists");
+                    }
+                }
+            }).done(function(res) {
+                console.log('You are registered')
+                localStorage.setItem("token", res.message.token);
+                alert("You 've been sent an email! Go check :)");
+            })
+        });
+    })();
+</script>
+<!-- Si le user a déjà un token, on le log automatiquement -->
+<script>
+    $(document).ready(function() {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: '',
+            type: 'GET ',
+
+        }).done(function(dt) {
+            console.log("You've been automatically logged")
+            $(".card-deck").css("display", "none")
+            $("#add").css("display", "block");
+        })
+    });
+</script>
 
 </html>

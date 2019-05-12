@@ -29,14 +29,26 @@ module.exports = router => {
     router.delete("/deleteRequest", deleteRequest);
     router.put("/blockContact", blockContact);
     router.post("/addHobby", addHobby);
-    // router.post("/lostPassword", lostPassword);
+    router.get("/user", getUser)
+        // router.post("/lostPassword", lostPassword);
 
     return router;
 };
 
+
+function getUser(req, res) {
+    // Recovering user id from access token
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, result) {
+        sendResponse(res, 200, result[0])
+    })
+
+}
+
+
+
 function getUsers(req, res) {
     userUtils.getAllUsers(function(err, results) {
-        console.log("ASS", err, results);
         sendResponse(res, 200, results);
     });
 }
