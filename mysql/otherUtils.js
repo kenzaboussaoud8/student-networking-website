@@ -13,7 +13,7 @@ module.exports = {
 
 function getAllCities(callback) {
     //create query using the data in the req.body to register the user in the db
-    const getCitiesQuery = { sql: 'SELECT name from City' };
+    const getCitiesQuery = { sql: 'SELECT id, name from City' };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null

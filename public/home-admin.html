@@ -160,8 +160,9 @@
 
     <!-- Jquery Data table containing list of users -->
     <script>
+        var myTable = undefined;
         $(document).ready(function() {
-            $('#example').DataTable({});
+            myTable = $('#example').DataTable({});
         });
     </script>
     <!-- Filling the data table-->
@@ -177,39 +178,38 @@
                 $("table > tbody").html("")
                 for (var i = 0; i < users.length; i++) {
                     let user_data = users[i];
-                    $("table > tbody").append(" <tr> <td class='id'> " + user_data.id +
+                    $("table > tbody").append(" <tr id='" + user_data.id + "'> <td class='id'> " + user_data.id +
                         " </td> <td> " + user_data.first_name + " </td> <td> " + user_data.last_name +
                         " </td><td> " + user_data.email +
                         " </td> <td> " + user_data.gender + " </td> <td> " +
                         dateBDDToDateForm(user_data.birth_date) + " </td><td> " +
-                        user_data.student_card + " </td><td> " + " <button type='button' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' class='btn btn-danger'><i class='fa fa-times'></i></button>" + "</td></tr>")
+                        user_data.student_card + " </td><td> " + " <button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' class='btn btn-danger'><i class='fa fa-times'></i></button>" + "</td></tr>")
                 }
             })
         });
     </script>
     <!-- On click, accept user -->
     <script>
-        (function() {
-            $("button.btn.btn-success").click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: 'http://localhost:8080/approveRegistery/',
-                    type: 'POST',
-                    data: {
-                        id: $("td[id='id']").val()
-                    },
-                    success: function(result) {
-                        alert('ok');
-                    },
-                    error: function(result) {
-                        alert('error');
-                    }
-                }).done(function(data) {
-                    console.log("data", data)
-
-                })
+        function approve(id) {
+            console.log('click')
+            console.log(id);
+            $.ajax({
+                url: 'http://localhost:8080/approveRegistery/',
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function(result) {
+                    alert('ok');
+                },
+                error: function(result) {
+                    alert('error');
+                }
+            }).done(function(data) {
+                console.log("data", data);
+                $("#" + id).remove();
             })
-        })();
+        };
     </script>
     <!-- On click, DELETE user -->
     <script>

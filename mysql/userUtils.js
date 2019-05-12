@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt"),
     utils = require("../routes/user/utils");
 
 module.exports = {
-    getAllUsers: getAllUsers,
+    getAllPendingUsers: getAllPendingUsers,
     saveUserInDB: saveUserInDB,
     getUserFromCredentials: getUserFromCredentials,
     userExists: userExists,
@@ -24,9 +24,9 @@ module.exports = {
     deleteUser: deleteUser
 };
 
-function getAllUsers(callback) {
+function getAllPendingUsers(callback) {
     //create query using the data in the req.body to register the user in the db
-    const getUserQuery = { sql: "SELECT * FROM User WHERE role = 0" };
+    const getUserQuery = { sql: "SELECT * FROM User WHERE status = 0 AND role = 0" };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -182,7 +182,7 @@ function updateUserInfo(userId, body, callback) {
     var interest_age = body.interest_age;
     var interest_city_id = body.interest_city_id;
 
-    const updateUser = { sql: "UPDATE User SET " };
+    const updateUser = { sql: "UPDATE User SET last_modif_date = NOW(), " };
     if (birth_date) {
         updateUser.sql +=
             "birth_date = " + mySqlConnection.connection().escape(birth_date) + ", ";

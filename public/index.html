@@ -216,6 +216,7 @@
                     <div class="md-form mb-2">
 
                         <div class="form-check form-check-inline">
+                            <i class="fas fa-venus-mars prefix grey-text"></i>
                             <input type="radio" class="form-check-input" id="sexeF" name="sexe" value="Femme">
                             <label class="form-check-label" for="materialInline1">Femme</label>
                         </div>
@@ -228,7 +229,7 @@
 
                     </div>
                     <div class="md-form mb-2">
-                        <i class="fas fa-user prefix grey-text"></i>
+                        <i class="fas fa-file prefix grey-text"></i>
                         <input type="file" class="form-control-file validate" id="studentcard">
                         <label data-error="wrong" data-success="right" for="studentcard">Carte d'étudiant
                                     </label>
@@ -274,17 +275,18 @@
                     password: $("input[id='password' ]").val(),
                 },
                 statusCode: {
-                    200: function() {
-                        $("#messageSpan").text("Login successful.");
-                    },
+                    200: function() {},
                     404: function() {
-                        $("#messageSpan").text("Email does not exist. Please sign up!");
+                        $("#messageSpan").text("Cet utilisateur n'existe pas. Veuillez vous enregister!");
                     },
                     401: function() {
                         $("#messageSpan").text("Invalid credentials. Please try again");
                     },
                     400: function() {
                         $("#messageSpan").text("Missing required field");
+                    },
+                    403: function() {
+                        $("#messageSpan").text("Vous n'êtes pas encore authorisé à vous connecter");
                     }
                 }
             }).done(function(res) {
@@ -336,16 +338,16 @@
                 },
                 statusCode: {
                     200: function() {
-                        $("#SignUpmessageSpan").text("Registration successful.");
+                        $("#SignUpmessageSpan").text("Votre inscription a bien été prise en compte.");
                     },
                     401: function() {
-                        $("#SignUpmessageSpan").text("Missing one of many required information");
+                        $("#SignUpmessageSpan").text("Une ou plusieurs informations sont manquantes");
                     },
                     404: function() {
-                        $("#SignUpmessageSpan").text("Invalid fields. Please try again");
+                        $("#SignUpmessageSpan").text("Champ(s) invalide(s). Veuillez réessayer");
                     },
                     400: function() {
-                        $("#SignUpmessageSpan").text("User already exists");
+                        $("#SignUpmessageSpan").text("Cet utilisateur existe déjà.");
                     }
                 }
             }).done(function(res) {

@@ -20,7 +20,8 @@ function approveRegistery(req, res) {
     var userId = body.id;
     var email = body.email;
     userUtils.getAdminApproval(userId, function() {
-        utils.sendApprovalMail(email);
+        // utils.sendApprovalMail(email);
+        sendResponse(res, 200, "OKKKK")
     });
 }
 

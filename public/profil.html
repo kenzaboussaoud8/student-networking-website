@@ -276,6 +276,58 @@
 <!-- Custom scripts for this template -->
 <script src="./asset/js/agency.min.js"></script>
 
+
+<!-- Getting the list of cities available-->
+<script>
+        $(document).ready(function(){
+    
+            var helpers =
+            {
+                buildDropdown: function(result, dropdown, emptyMessage)
+                {
+                    // Remove current options
+                    dropdown.html('');
+                    // Add the empty option with the empty message
+                    dropdown.append('<option value="">' + emptyMessage + '</option>');
+                    // Check result isnt empty
+                    if(result != '')
+                    {
+                        // Loop through each of the results and append the option to the dropdown
+                        $.each(result, function(k, v) {
+                            dropdown.append('<option value="' + v.id + '">' + v.name + '</option>');
+                        });
+                    }
+                }
+            }
+    
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8080/cities',
+                success: function(data)
+                {
+                    var city = data.message;
+                    helpers.buildDropdown(
+                        jQuery.parseJSON(JSON.stringify(city)),
+                        $('#city'),
+                        'Select an option'
+                    );
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8080/schools',
+                success: function(data)
+                {
+                    console.log(data)
+                    helpers.buildDropdown(
+                        jQuery.parseJSON(JSON.stringify(data.message)),
+                        $('#school'),
+                        'Select an option'
+                    );
+                }
+            });
+            });
+    </script>
 <!-- Récupérer les données de l'utilisateur connecté-->
 <script>
     $(document).ready(function() {
@@ -299,7 +351,7 @@
             // document.getElementById('school').value = user.School_id;
             $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
             document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
-            document.getElementById('bio').value = "‘‘" + user.bio + "‘‘";
+            document.getElementById('bio').value = user.bio;
             document.getElementById('profilepicture').src = user.profile_picture;
 
 
@@ -307,56 +359,7 @@
         })
     });
 </script>
-<script>
-    $(document).ready(function(){
 
-        var helpers =
-        {
-            buildDropdown: function(result, dropdown, emptyMessage)
-            {
-                // Remove current options
-                dropdown.html('');
-                // Add the empty option with the empty message
-                dropdown.append('<option value="">' + emptyMessage + '</option>');
-                // Check result isnt empty
-                if(result != '')
-                {
-                    // Loop through each of the results and append the option to the dropdown
-                    $.each(result, function(k, v) {
-                        dropdown.append('<option value="' + v.id + '">' + v.name + '</option>');
-                    });
-                }
-            }
-        }
-
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8080/cities',
-            success: function(data)
-            {
-                console.log(data)
-                helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(data.message)),
-                    $('#city'),
-                    'Select an option'
-                );
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8080/schools',
-            success: function(data)
-            {
-                console.log(data)
-                helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(data.message)),
-                    $('#school'),
-                    'Select an option'
-                );
-            }
-        });
-        });
-</script>
 <!-- Modify info -->
 <script>
         (function () {
@@ -373,7 +376,8 @@
                     email: $("input[id='email']").val(),
                     bio: $("input[id='bio']").val(),
                     gender: $("input[name='sexe']:checked").val(),
-                    date_naissance: $("input[id='birthdate']").val(),
+                    birth_date: $("input[id='birthdate']").val(),
+                    City_id: $("#city").val()
                 }
             }).done(function (data) {
                 console.log('Info Modified!')
