@@ -94,9 +94,9 @@
                         <div class="header">
                             <h4 class="title">Edit Profile</h4>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                This is a success alert—check it out!
+                        <div class="col-lg-6">
+                            <div class="alert alert-success alert-dismissible fade show" style="display: none" role="alert" id="alert">
+                                Votre profil a été mis à jour !
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
@@ -180,7 +180,9 @@
                                         </div>
                                     </div>
                                 </div>
-                              
+                                <div class="text-center">
+                                        <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd">Valider</button>
+    </div>
                                 </form>
                             </div>
                     </div>
@@ -388,6 +390,7 @@
                 }
             }).done(function (data) {
                 console.log('Info Modified!')
+                $("#alert").css("display", "block");
 
             })
         })
