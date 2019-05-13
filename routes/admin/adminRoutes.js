@@ -1,6 +1,6 @@
 /*
 This file contains all necessary (MYSQL related) admin routes  for our application
-
+TODO : sendDeletetionMail
 */
 
 const userUtils = require("../../mysql/userUtils.js");
@@ -21,7 +21,7 @@ function approveRegistery(req, res) {
     var email = body.email;
     userUtils.getAdminApproval(userId, function() {
         // utils.sendApprovalMail(email);
-        sendResponse(res, 200, "OKKKK")
+        sendResponse(res, 200, "User approved")
     });
 }
 
@@ -31,7 +31,10 @@ reject registery (then delete)
 function deleteUser(req, res) {
     var body = req.body;
     var userId = body.id;
-    userUtils.deleteUser(userId, function() {});
+    userUtils.deleteUser(userId, function() {
+        // utils.sendDeletetionMail(email);
+        sendResponse(res, 200, "User deleted")
+    });
 }
 
 /*
