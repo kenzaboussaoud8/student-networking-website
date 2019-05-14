@@ -4,8 +4,13 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/LICENSE)
  */
 
+html {
+    min-height: 100%;
+    position: relative;
+}
+
 body {
-    overflow-x: hidden;
+    margin-bottom: 100px;
     font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'
 }
 
@@ -57,7 +62,7 @@ h6 {
 
 @media (min-width:768px) {
     section {
-        padding: 30px 0
+        padding: 30px 0px;
     }
 }
 
@@ -661,7 +666,11 @@ section#contact :-ms-input-placeholder {
 .footer {
     padding: 25px 0;
     text-align: center;
-    background-color: rgba(0,123,255,.25);
+    background-color: rgba(0, 123, 255, .25);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .footer span.copyright {
@@ -669,7 +678,6 @@ section#contact :-ms-input-placeholder {
     line-height: 40px;
     text-transform: none;
     font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    
 }
 
 .footer ul.quicklinks {
@@ -678,7 +686,6 @@ section#contact :-ms-input-placeholder {
     margin-bottom: 0;
     text-transform: none;
     font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    
 }
 
 ul.social-buttons {
@@ -706,22 +713,23 @@ ul.social-buttons li a:hover {
 }
 
 .bouton18 {
-	width:60px;
-	height:60px;
-  background:#fff;
-  border-color: gray;
-	font:bold 13px Arial;
-	border-radius:50%;
-	border:none;
-	color: lightskyblue;
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-color: gray;
+    font: bold 13px Arial;
+    border-radius: 50%;
+    border: none;
+    color: lightskyblue;
 }
+
 .bouton17 {
-	width:60px;
-	height:60px;
-  background:#fff;
-  border-color: gray;
-	font:bold 13px Arial;
-	border-radius:50%;
-	border:none;
-	color: darkseagreen;
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-color: gray;
+    font: bold 13px Arial;
+    border-radius: 50%;
+    border: none;
+    color: darkseagreen;
 }
