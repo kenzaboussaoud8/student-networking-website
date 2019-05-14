@@ -266,29 +266,7 @@ function updateUserHobby(userId, body, callback) {
     mySqlConnection.query(updateHobbyQuery, sqlCallback, data);
 }
 
-function deleteUser(userId, callback) {
-    const deleted = {
-        sql: "DELETE FROM User WHERE id = ?"
-    };
-    const data = [userId];
-    console.log("user id", userId);
-    //holds the results  from the query
-    const sqlCallback = dataResponseObject => {
-        //calculate if user exists or assign null if results is null
-        const deletedUser =
-            dataResponseObject.results !== null ?
-            dataResponseObject.results.length > 0 ?
-            true :
-            false :
-            null;
 
-        //check if there are any users with this username and return the appropriate value
-        callback(dataResponseObject.error, deletedUser);
-    };
-
-    //execute the query to check if the user exists
-    mySqlConnection.query(deleted, sqlCallback, data);
-}
 
 function sendRequest(userId, userIdReceiver, callback) {
     var requestSentQuery =
@@ -533,14 +511,14 @@ function getAdminApproval(userId, callback) {
 function deleteUser(userId, callback) {
     const id = userId;
     //create query using the data in the req.body to register the user in the db
-    const deleteUserQuery = { sql: "DELETE User WHERE id = ?" };
+    const deleteUserQuery = { sql: "DELETE FROM User WHERE id = ?" };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
         const deletedUser = dataResponseObject.results;
 
         //check if there are any users with this username and return the appropriate value
-        callback(dataResponseObject.error, calculate);
+        callback(dataResponseObject.error, deletedUser);
     };
     //execute the query to get the user
     mySqlConnection.query(deleteUserQuery, sqlCallback, id);
