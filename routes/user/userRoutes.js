@@ -33,6 +33,8 @@ module.exports = router => {
     router.get("/user", getUser);
     router.get("/cities", listAllCities);
     router.get("/schools", listAllSchools);
+    router.get("/hobbies", listAllHobbies);
+
     // router.post("/lostPassword", lostPassword);
 
     return router;
@@ -388,6 +390,11 @@ function listAllSchools(req, res) {
     })
 }
 
+function listAllHobbies(req, res) {
+    otherUtils.getAllHobbies(function(err, result) {
+        sendResponse(res, 200, result)
+    })
+}
 /*
 sends a response created out of the specified parameters to the client.
 */
