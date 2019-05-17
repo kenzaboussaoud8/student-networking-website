@@ -19,10 +19,24 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Custom styles for this template -->
     <link href="./asset/css/agency.min.css" rel="stylesheet">
-
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        table {
+            font-size: 1em;
+        }
+        
+        .ui-draggable,
+        .ui-droppable {
+            background-position: top;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -146,16 +160,12 @@
                                     </div>
                                 </div>
 
+                                <p>
+                                    <label for="amount">Price range:</label>
+                                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                </p>
 
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <label>Ecole</label>
-                                            <select type="text" class="form-control border-input" id="school" placeholder="school">
-                                        </select>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div id="slider-range" style="width: 200px;"></div>
                                 <div class="text-center">
                                     <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd">Valider</button>
                                 </div>
@@ -213,8 +223,9 @@
 </body>
 <!-- SCRIPTS -->
 <!-- Bootstrap core JavaScript -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
-<script src="./asset/vendor/jquery/jquery.min.js"></script>
 <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Plugin JavaScript -->
@@ -307,6 +318,9 @@
 </script>
 <!-- Modify info -->
 <script>
+    var min_slider_value = 18;
+    var max_slider_value = 99;
+
     (function() {
         $("#submitForm").click(function(e) {
             // $('#myAlert').modal();
@@ -323,6 +337,8 @@
                     bio: $("input[id='bio']").val(),
                     interest_gender: $("input[name='sexe']:checked").val(),
                     interest_city_id: $("#city").val(),
+                    interest_age: min_slider_value + '-' + max_slider_value,
+
                 }
             }).done(function(data) {
                 console.log('Info Modified!')
@@ -355,6 +371,23 @@
     function dateBDDToDateForm(date) {
         return date.split('T')[0]
     }
+</script>
+<script>
+    $(document).ready(function() {
+        $("#slider-range").slider({
+            range: true,
+            min: min_slider_value,
+            max: max_slider_value,
+            values: [min_slider_value, max_slider_value],
+            slide: function(event, ui) {
+                min_slider_value = ui.values[0];
+                max_slider_value = ui.values[1];
+                $("#amount").val(min_slider_value + " ans - " + max_slider_value + " ans");
+            }
+        });
+        $("#amount").val($("#slider-range").slider("values", 0) +
+            " ans - " + $("#slider-range").slider("values", 1) + " ans");
+    });
 </script>
 
 </html>
