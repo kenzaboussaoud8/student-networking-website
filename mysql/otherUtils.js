@@ -45,7 +45,7 @@ function getAllCities(callback) {
 
 function getAllSchools(callback) {
     //create query using the data in the req.body to register the user in the db
-    const getCitiesQuery = { sql: 'SELECT name from School' };
+    const getCitiesQuery = { sql: 'SELECT id, name from School' };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
