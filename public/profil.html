@@ -348,15 +348,10 @@
         }).done(function(dt) {
             console.log(dt)
             var user = dt.message;
-            document.getElementById('firstname').value = user.first_name;
-            document.getElementById('lastname').value = user.last_name;
-            document.getElementById('email').value = user.email;
-            document.getElementById('password').value = user.password;
+            console.log('user', user)
+
             document.getElementById('city').value = user.City_id;
-            document.getElementById('birthdate').value = dateBDDToDateForm(user.birth_date);
-            document.getElementById('school').value = user.School_id;
             $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
-            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
             document.getElementById('bio').value = user.bio;
             document.getElementById('profilepicture').src = user.profile_picture;
 

@@ -161,8 +161,8 @@
                                 </div>
 
                                 <p>
-                                    <label for="amount">Price range:</label>
-                                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                    <label for="amount">Age:</label>
+                                    <input type="text" id="age" readonly style="border:0; color:#f6931f; font-weight:bold;">
                                 </p>
 
                                 <div id="slider-range" style="width: 200px;"></div>
@@ -240,9 +240,25 @@
 
 <!-- Récupérer les données de l'utilisateur connecté-->
 <script>
+    var min_slider_value = 18;
+    var max_slider_value = 99;
+
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
+        // hoooby
+        $.ajax({
+            url: 'http://localhost:8080/userHobby',
+            headers: {
+                "authorization": tk
+            },
+            type: 'GET',
+        }).done(function(dt) {
+            var user = dt.message[0];
+            document.getElementById('hobbies').value = user.Hobbies_id;
+
+
+        })
         $.ajax({
             url: 'http://localhost:8080/user/',
             headers: {
@@ -250,23 +266,17 @@
             },
             type: 'GET',
         }).done(function(dt) {
-            console.log(dt)
             var user = dt.message;
-            document.getElementById('firstname').value = user.first_name;
-            document.getElementById('lastname').value = user.last_name;
-            document.getElementById('email').value = user.email;
-            document.getElementById('password').value = user.password;
-            document.getElementById('city').value = user.City_id;
-            document.getElementById('birthdate').value = dateBDDToDateForm(user.birth_date);
-            // document.getElementById('school').value = user.School_id;
-            $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
-            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
-            document.getElementById('bio').value = "‘‘" + user.bio + "‘‘";
+            $("input[name=sexe][value=" + user.interest_gender + "]").prop('checked', true);
+            document.getElementById('city').value = user.interest_city_id;
+            document.getElementById('bio').value = user.bio;
             document.getElementById('profilepicture').src = user.profile_picture;
-
-
+            var min_slider_value = user.interest_age.split('-')[0];
+            var max_slider_value = user.interest_age.split('-')[1];
+            $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
 
         })
+
     });
 </script>
 <script>
@@ -292,7 +302,6 @@
             type: "GET",
             url: 'http://localhost:8080/cities',
             success: function(data) {
-                console.log(data)
                 helpers.buildDropdown(
                     jQuery.parseJSON(JSON.stringify(data.message)),
                     $('#city'),
@@ -305,8 +314,6 @@
             url: 'http://localhost:8080/hobbies',
             success: function(data) {
                 var element = data.message
-                console.log(element)
-
                 helpers.buildDropdown(
                     jQuery.parseJSON(JSON.stringify(element)),
                     $('#hobbies'),
@@ -318,9 +325,6 @@
 </script>
 <!-- Modify info -->
 <script>
-    var min_slider_value = 18;
-    var max_slider_value = 99;
-
     (function() {
         $("#submitForm").click(function(e) {
             // $('#myAlert').modal();
@@ -328,20 +332,35 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/modifyUserInterests',
-                type: 'PUT',
+                    url: 'http://localhost:8080/modifyUserInterests',
+                    type: 'PUT',
+                    headers: {
+                        "authorization": tk
+                    },
+                    data: {
+                        bio: $("input[id='bio']").val(),
+                        interest_gender: $("input[name='sexe']:checked").val(),
+                        interest_city_id: $("#city").val(),
+                        interest_age: min_slider_value + '-' + max_slider_value,
+
+                    }
+                }).done(function(data) {
+                    console.log('Info Modified!')
+                    $("#alert").css("display", "block");
+                })
+                // hobby
+            $.ajax({
+                url: 'http://localhost:8080/addHobby',
+                type: 'POST',
                 headers: {
                     "authorization": tk
                 },
                 data: {
-                    bio: $("input[id='bio']").val(),
-                    interest_gender: $("input[name='sexe']:checked").val(),
-                    interest_city_id: $("#city").val(),
-                    interest_age: min_slider_value + '-' + max_slider_value,
+                    Hobby_id: $("#hobbies").val(),
 
                 }
             }).done(function(data) {
-                console.log('Info Modified!')
+                console.log('Hobby Modified!')
                 $("#alert").css("display", "block");
             })
         })
@@ -382,10 +401,10 @@
             slide: function(event, ui) {
                 min_slider_value = ui.values[0];
                 max_slider_value = ui.values[1];
-                $("#amount").val(min_slider_value + " ans - " + max_slider_value + " ans");
+                $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
             }
         });
-        $("#amount").val($("#slider-range").slider("values", 0) +
+        $("#age").val($("#slider-range").slider("values", 0) +
             " ans - " + $("#slider-range").slider("values", 1) + " ans");
     });
 </script>
