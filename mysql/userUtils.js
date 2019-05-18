@@ -13,6 +13,7 @@ module.exports = {
     updateUserPassword: updateUserPassword,
     updateUserInfo: updateUserInfo,
     updateUserHobby: updateUserHobby,
+    getUserHobby: getUserHobby,
     deleteUser: deleteUser,
     sendRequest: sendRequest,
     acceptRequest: acceptRequest,
@@ -80,7 +81,6 @@ function saveUserInDB(user, callback) {
         mySqlConnection.query(
             registerUserQuery,
             function(result) {
-                console.log("last inserted id");
                 var user_id = result.results.insertId;
                 const saveTokenQuery = {
                     sql: "INSERT INTO Access_tokens(access_token, status, expires, user_id) VALUES (?,?,?,?)"
@@ -104,7 +104,6 @@ function getUserFromCredentials(email, callback) {
     //create query using the data in the req.body to register the user in the db
     const getUserQuery = { sql: "SELECT * FROM User WHERE email = ?" };
     const dataGetUserQuery = [email];
-    console.log("email", dataGetUserQuery);
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -121,7 +120,6 @@ function userExists(email, callback) {
     //create query to check if the user already exists
     const doesUserExistQuery = { sql: "SELECT * FROM User WHERE email = ?" };
     const dataDoesUserExistQuery = [email];
-    console.log("email", dataDoesUserExistQuery);
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -150,7 +148,6 @@ function updateUserPassword(userId, userPassword, callback) {
             sql: "UPDATE User SET password = ? , last_modif_date = (NOW()) WHERE id = ?"
         };
         const data = [hash, userId];
-        console.log("user id", userId);
         //holds the results  from the query
         const sqlCallback = dataResponseObject => {
             //calculate if user exists or assign null if results is null
@@ -237,7 +234,6 @@ function updateUserInfo(userId, body, callback) {
         //calculate if user exists or assign null if results is null
         const updatedUser =
             dataResponseObject.results.affectedRows > 0 ? true : false;
-        console.log("update", updatedUser);
         //check if there are any users with this username and return the appropriate value
         callback(dataResponseObject.error, updatedUser);
     };
@@ -258,7 +254,6 @@ function updateUserHobby(userId, body, callback) {
         //calculate if user exists or assign null if results is null
         const updatedUser =
             dataResponseObject.results.affectedRows > 0 ? true : false;
-        console.log("update", updatedUser);
         //check if there are any users with this username and return the appropriate value
         callback(dataResponseObject.error, updatedUser);
     };
@@ -386,7 +381,6 @@ function blockContact(requestId, callback) {
 function getMatchingProfiles(user, callback) {
     // get user's information
     var id = user.User_id;
-    console.log("matching user id:", id);
     // GENDER
     var gender = user.gender;
     var interest_gender = user.interest_gender;
@@ -404,17 +398,11 @@ function getMatchingProfiles(user, callback) {
     );
 
     var age = calculateAge(birth_date);
-    console.log("my age", age);
-    console.log("min", interest_birthdate_min);
-    console.log("max", interest_birthdate_max);
-
     // LOCALISATION
     var city_id = user.City_id;
     var interest_city_id = user.interest_city_id;
 
     // Hobbies
-
-    console.log("hobby", hobby);
     const getUserQuery = { sql: "SELECT * FROM User WHERE " };
     // Matching genders
     if (gender) {

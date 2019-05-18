@@ -19,10 +19,24 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Custom styles for this template -->
     <link href="./asset/css/agency.min.css" rel="stylesheet">
-
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        table {
+            font-size: 1em;
+        }
+        
+        .ui-draggable,
+        .ui-droppable {
+            background-position: top;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -146,16 +160,12 @@
                                     </div>
                                 </div>
 
+                                <p>
+                                    <label for="amount">Age:</label>
+                                    <input type="text" id="age" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                </p>
 
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <label>Ecole</label>
-                                            <select type="text" class="form-control border-input" id="school" placeholder="school">
-                                        </select>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div id="slider-range" style="width: 200px;"></div>
                                 <div class="text-center">
                                     <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd">Valider</button>
                                 </div>
@@ -213,8 +223,9 @@
 </body>
 <!-- SCRIPTS -->
 <!-- Bootstrap core JavaScript -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
-<script src="./asset/vendor/jquery/jquery.min.js"></script>
 <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Plugin JavaScript -->
@@ -229,9 +240,25 @@
 
 <!-- Récupérer les données de l'utilisateur connecté-->
 <script>
+    var min_slider_value = 18;
+    var max_slider_value = 99;
+
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
+        // hoooby
+        $.ajax({
+            url: 'http://localhost:8080/userHobby',
+            headers: {
+                "authorization": tk
+            },
+            type: 'GET',
+        }).done(function(dt) {
+            var user = dt.message[0];
+            document.getElementById('hobbies').value = user.Hobbies_id;
+
+
+        })
         $.ajax({
             url: 'http://localhost:8080/user/',
             headers: {
@@ -239,23 +266,17 @@
             },
             type: 'GET',
         }).done(function(dt) {
-            console.log(dt)
             var user = dt.message;
-            document.getElementById('firstname').value = user.first_name;
-            document.getElementById('lastname').value = user.last_name;
-            document.getElementById('email').value = user.email;
-            document.getElementById('password').value = user.password;
-            document.getElementById('city').value = user.City_id;
-            document.getElementById('birthdate').value = dateBDDToDateForm(user.birth_date);
-            // document.getElementById('school').value = user.School_id;
-            $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
-            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
-            document.getElementById('bio').value = "‘‘" + user.bio + "‘‘";
+            $("input[name=sexe][value=" + user.interest_gender + "]").prop('checked', true);
+            document.getElementById('city').value = user.interest_city_id;
+            document.getElementById('bio').value = user.bio;
             document.getElementById('profilepicture').src = user.profile_picture;
-
-
+            var min_slider_value = user.interest_age.split('-')[0];
+            var max_slider_value = user.interest_age.split('-')[1];
+            $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
 
         })
+
     });
 </script>
 <script>
@@ -281,7 +302,6 @@
             type: "GET",
             url: 'http://localhost:8080/cities',
             success: function(data) {
-                console.log(data)
                 helpers.buildDropdown(
                     jQuery.parseJSON(JSON.stringify(data.message)),
                     $('#city'),
@@ -294,8 +314,6 @@
             url: 'http://localhost:8080/hobbies',
             success: function(data) {
                 var element = data.message
-                console.log(element)
-
                 helpers.buildDropdown(
                     jQuery.parseJSON(JSON.stringify(element)),
                     $('#hobbies'),
@@ -314,18 +332,35 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/modifyUserInterests',
-                type: 'PUT',
+                    url: 'http://localhost:8080/modifyUserInterests',
+                    type: 'PUT',
+                    headers: {
+                        "authorization": tk
+                    },
+                    data: {
+                        bio: $("input[id='bio']").val(),
+                        interest_gender: $("input[name='sexe']:checked").val(),
+                        interest_city_id: $("#city").val(),
+                        interest_age: min_slider_value + '-' + max_slider_value,
+
+                    }
+                }).done(function(data) {
+                    console.log('Info Modified!')
+                    $("#alert").css("display", "block");
+                })
+                // hobby
+            $.ajax({
+                url: 'http://localhost:8080/addHobby',
+                type: 'POST',
                 headers: {
                     "authorization": tk
                 },
                 data: {
-                    bio: $("input[id='bio']").val(),
-                    interest_gender: $("input[name='sexe']:checked").val(),
-                    interest_city_id: $("#city").val(),
+                    Hobby_id: $("#hobbies").val(),
+
                 }
             }).done(function(data) {
-                console.log('Info Modified!')
+                console.log('Hobby Modified!')
                 $("#alert").css("display", "block");
             })
         })
@@ -355,6 +390,23 @@
     function dateBDDToDateForm(date) {
         return date.split('T')[0]
     }
+</script>
+<script>
+    $(document).ready(function() {
+        $("#slider-range").slider({
+            range: true,
+            min: min_slider_value,
+            max: max_slider_value,
+            values: [min_slider_value, max_slider_value],
+            slide: function(event, ui) {
+                min_slider_value = ui.values[0];
+                max_slider_value = ui.values[1];
+                $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
+            }
+        });
+        $("#age").val($("#slider-range").slider("values", 0) +
+            " ans - " + $("#slider-range").slider("values", 1) + " ans");
+    });
 </script>
 
 </html>

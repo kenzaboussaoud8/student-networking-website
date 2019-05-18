@@ -21,6 +21,7 @@ module.exports = router => {
     router.put("/modifyPassword", modifyPassword);
     router.put("/modifyUserInfo", modifyUserInfo);
     router.put("/modifyUserInterests", modifyUserInterests);
+    router.get("/userHobby", getUserHobby);
     router.delete("/logout", logout);
     router.delete("/deleteAccount", deleteAccount);
     router.get("/profiles", getProfiles);
@@ -56,6 +57,18 @@ function getUsers(req, res) {
     userUtils.getAllPendingUsers(function(err, results) {
         sendResponse(res, 200, results);
     });
+}
+
+function getUserHobby(req, res) {
+    // Recovering user id from access token
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, result) {
+        const userId = result[0].User_id;
+        console.log('userId', userId)
+        userUtils.getUserHobby(userId, function(err, results) {
+            sendResponse(res, 200, results);
+        });
+    })
 }
 
 /* handles the api call to register the user and insert them into the users table.
@@ -99,7 +112,6 @@ function login(req, res) {
     // Test if user entered these info
     if (email && email !== "" && password && password !== "") {
         userUtils.getUserFromCredentials(email, function(error, results) {
-            console.log("user from email", error, results);
             // If admin --> log in
             if (results[0].status == 1 || results[0].role == 1) {
 
@@ -110,7 +122,6 @@ function login(req, res) {
                     if (results.length > 0) {
                         // Compare the (hashed) entered password to the (hashed) one stored in database
                         bcrypt.compare(password, inputPassword, function(err, result) {
-                            console.log("err", result);
                             if (!result) {
                                 sendResponse(res, 401, "Wrong password");
                             } else {
@@ -119,7 +130,6 @@ function login(req, res) {
                                     err,
                                     result
                                 ) {
-                                    console.log("UserAccess", result);
                                     if (result.length > 0) {
                                         const UserAccess = result[0].access_token;
                                         // log user
@@ -137,7 +147,6 @@ function login(req, res) {
                                             err,
                                             result
                                         ) {
-                                            console.log("token saved?", result);
                                             // logs
                                             console.log("saved access token in db");
                                             sendResponse(res, 200, {
