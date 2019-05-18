@@ -382,7 +382,13 @@ function getProfiles(req, res) {
             sendResponse(res, 400, "Token does not exist");
         } else {
             var user = rslt[0];
-            userUtils.getMatchingProfiles(user, function(err, result) {});
+            userUtils.getMatchingProfiles(user, function(err, result) {
+                if (result.length > 0) {
+                    sendResponse(res, 200, result)
+                } else {
+                    sendResponse(res, 404, result)
+                }
+            });
         }
     });
 }
