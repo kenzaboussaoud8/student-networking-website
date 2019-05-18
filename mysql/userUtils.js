@@ -432,26 +432,26 @@ function getMatchingProfiles(user, callback) {
             " AND ";
         getUserQuery.sql +=
             "interest_city_id = " +
-            mySqlConnection.connection().escape(city_id) +
-            " AND ";
+            mySqlConnection.connection().escape(city_id)
     }
-    // Matching hobbies
-    var hobby = getUserHobby(id, function(err, res) {
-        hobby_id = res[0].Hobbies_id;
-        if (hobby_id) {
-            getUserQuery.sql +=
-                "Hobbies_id = " + mySqlConnection.connection().escape(hobby_id);
-            //holds the results  from the query
-            const sqlCallback = dataResponseObject => {
-                //calculate if user exists or assign null if results is null
-                const matchingUser = dataResponseObject.results;
-                //check if there are any users with this username and return the appropriate value
-                callback(dataResponseObject.error, matchingUser);
-            };
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+        //calculate if user exists or assign null if results is null
+        const matchingUser = dataResponseObject.results;
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, matchingUser);
+    };
 
-            mySqlConnection.query(getUserQuery, sqlCallback);
-        }
-    });
+    mySqlConnection.query(getUserQuery, sqlCallback);
+    //Matching hobbies
+    // var hobby = getUserHobby(id, function(err, res) {
+    //     hobby_id = res[0].Hobbies_id;
+    //     if (hobby_id) {
+    //         getUserQuery.sql +=
+    //             "Hobbies_id = " + mySqlConnection.connection().escape(hobby_id);
+    //     }
+    // });
+
 }
 
 function getUserHobby(userId, callback) {
