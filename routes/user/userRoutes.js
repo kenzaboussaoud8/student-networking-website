@@ -129,60 +129,58 @@ function login(req, res) {
     if (email && email !== "" && password && password !== "") {
         userUtils.getUserFromCredentials(email, function(error, results) {
             // If admin --> log in
-            if (results[0].status == 1 || results[0].role == 1) {
-
-                if (results.length > 0) {
+            if (results.length > 0) {
+                if (results[0].status == 1 || results[0].role == 1) {
                     inputPassword = results[0].password;
                     userId = results[0].id;
                     // If true
-                    if (results.length > 0) {
-                        // Compare the (hashed) entered password to the (hashed) one stored in database
-                        bcrypt.compare(password, inputPassword, function(err, result) {
-                            if (!result) {
-                                sendResponse(res, 401, "Wrong password");
-                            } else {
-                                // if the right password is entered, user gets handed an access token to be stored in db
-                                tokenUtils.getUserAccessToken(results[0].id, function(
-                                    err,
-                                    result
-                                ) {
-                                    if (result.length > 0) {
-                                        const UserAccess = result[0].access_token;
-                                        // log user
+                    // Compare the (hashed) entered password to the (hashed) one stored in database
+                    bcrypt.compare(password, inputPassword, function(err, result) {
+                        if (!result) {
+                            sendResponse(res, 401, "Wrong password");
+                        } else {
+                            // if the right password is entered, user gets handed an access token to be stored in db
+                            tokenUtils.getUserAccessToken(results[0].id, function(
+                                err,
+                                result
+                            ) {
+                                if (result.length > 0) {
+                                    const UserAccess = result[0].access_token;
+                                    // log user
+                                    sendResponse(res, 200, {
+                                        message: "User logged successful",
+                                        token: UserAccess
+                                    });
+                                } else {
+                                    // create a new token for user
+                                    const userToken = jwt.sign({ userId },
+                                        config.secret, { expiresIn: 86400 } // expires in 24 hours
+                                    );
+                                    // save it in database
+                                    tokenUtils.saveAccessToken(userToken, userId, function(
+                                        err,
+                                        result
+                                    ) {
+                                        // logs
+                                        console.log("saved access token in db");
                                         sendResponse(res, 200, {
                                             message: "User logged successful",
-                                            token: UserAccess
+                                            token: userToken
                                         });
-                                    } else {
-                                        // create a new token for user
-                                        const userToken = jwt.sign({ userId },
-                                            config.secret, { expiresIn: 86400 } // expires in 24 hours
-                                        );
-                                        // save it in database
-                                        tokenUtils.saveAccessToken(userToken, userId, function(
-                                            err,
-                                            result
-                                        ) {
-                                            // logs
-                                            console.log("saved access token in db");
-                                            sendResponse(res, 200, {
-                                                message: "User logged successful",
-                                                token: userToken
-                                            });
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    }
+                                    });
+                                }
+                            });
+                        }
+                    });
                 } else {
                     // if the email entered doesn't exist in database
-                    sendResponse(res, 404, "Email does not exist. Please sign up");
+                    sendResponse(res, 403, "Not authorized");
                 }
             } else {
-                sendResponse(res, 403, "Not authorized!")
+                sendResponse(res, 404, "Email does not exist. Please sign up")
             }
         });
+
     } else {
         // if user didn't entered one or many mandatory fields
         sendResponse(res, 400, "Missing required field");
