@@ -300,7 +300,8 @@ function sendRequest(req, res) {
         if (rslt.length <= 0) {
             sendResponse(res, 400, "Token does not exist");
         } else {
-            userUtils.sendRequest(rslt[0].User_id, user_id_receiver, function() {
+            console.log('HELLO', rslt)
+            userUtils.sendRequest(rslt[0].id, user_id_receiver, function() {
                 sendResponse(res, 200, "Request sent");
             });
         }
