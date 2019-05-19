@@ -35,8 +35,8 @@ module.exports = router => {
     router.get("/cities", listAllCities);
     router.get("/schools", listAllSchools);
     router.get("/hobbies", listAllHobbies);
-
-    // router.post("/lostPassword", lostPassword);
+    router.get("/requests", listAllRequests);
+    router.post('/userID', getUserFromId)
 
     return router;
 };
@@ -424,6 +424,34 @@ function listAllSchools(req, res) {
 function listAllHobbies(req, res) {
     otherUtils.getAllHobbies(function(err, result) {
         sendResponse(res, 200, result)
+    })
+}
+
+function listAllRequests(req, res) {
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+        if (rslt.length <= 0) {
+            sendResponse(res, 400, "Token does not exist");
+        } else {
+            var userId = rslt[0].id;
+            userUtils.getRequests(userId, function(err, results) {
+                sendResponse(res, 200, results);
+            });
+        }
+    });
+}
+
+function getUserFromId(req, res) {
+    var id = req.body.userId;
+    console.log('ID', id)
+    userUtils.getUserFromId(id, function(err, result) {
+        console.log(result)
+        if (result.length > 0) {
+            sendResponse(res, 200, result)
+        } else {
+            sendResponse(res, 400, "Error")
+
+        }
     })
 }
 /*
