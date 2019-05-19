@@ -350,16 +350,12 @@ function rejectRequest(requestId, callback) {
     const rejectRequestQuery = {
         sql: "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
     };
-    const data = [requestId, "2"];
+    const data = ["2", requestId];
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
         const request =
-            dataResponseObject.results !== null ?
-            dataResponseObject.results.length > 0 ?
-            true :
-            false :
-            null;
+            dataResponseObject.results
 
         //check if there are any users with this username and return the appropriate value
         callback(dataResponseObject.error, request);
