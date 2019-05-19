@@ -263,7 +263,7 @@ function updateUserHobby(userId, body, callback) {
 
 
 
-function sendRequest(userId, userIdReceiver, callback) {
+function sendRequest(userId, userGender, userIdReceiver, callback) {
     var requestSentQuery =
         "INSERT INTO Request(User_id_requester, User_id_receiver, status, sent_date ) VALUES (?,?,?,NOW())";
 
