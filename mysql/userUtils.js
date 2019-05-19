@@ -20,6 +20,7 @@ module.exports = {
     rejectRequest: rejectRequest,
     deleteRequest: deleteRequest,
     blockContact: blockContact,
+    rejectUser: rejectUser,
     getRequests: getRequests,
     getMatchingProfiles: getMatchingProfiles,
     getAdminApproval: getAdminApproval,
@@ -30,7 +31,7 @@ module.exports = {
 function getRequests(userId, callback) {
     var data = [userId, '0']
         //create query using the data in the req.body to register the user in the db
-    const getRequestsQuery = { sql: "SELECT * FROM Request WHERE User_id_receiver = ? AND status = ?" };
+    const getRequestsQuery = { sql: "SELECT * FROM Request WHERE User_id_receiver = ? AND request_status = ?" };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -142,7 +143,6 @@ function getUserFromId(Id, callback) {
             "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
             "LEFT JOIN School ON School.id = usr.School_id " +
             "LEFT JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id   " +
-            "LEFT JOIN Request ON Request.User_id_requester = usr.id " +
             "WHERE usr.id = ?"
     };
     const dataGetUserQuery = [Id];
@@ -307,7 +307,7 @@ function updateUserHobby(userId, body, callback) {
 
 function sendRequest(userId, userIdReceiver, callback) {
     var requestSentQuery =
-        "INSERT INTO Request(User_id_requester, User_id_receiver, status, sent_date ) VALUES (?,?,?,NOW())";
+        "INSERT INTO Request(User_id_requester, User_id_receiver, request_status, sent_date ) VALUES (?,?,?,NOW())";
 
     var data = [userId, userIdReceiver, "0"];
     //holds the results  from the query
@@ -330,7 +330,7 @@ function sendRequest(userId, userIdReceiver, callback) {
 
 function acceptRequest(requestId, callback) {
     const acceptRequestQuery = {
-        sql: "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
+        sql: "UPDATE Request SET request_status = ?, last_modified = (NOW()) WHERE id = ?"
     };
     const data = ["1", requestId];
     //holds the results  from the query
@@ -348,7 +348,7 @@ function acceptRequest(requestId, callback) {
 
 function rejectRequest(requestId, callback) {
     const rejectRequestQuery = {
-        sql: "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
+        sql: "UPDATE Request SET request_status = ?, last_modified = (NOW()) WHERE id = ?"
     };
     const data = ["2", requestId];
     //holds the results  from the query
@@ -388,9 +388,28 @@ function deleteRequest(requestId, callback) {
     mySqlConnection.query(deleteRequestQuery, sqlCallback, data);
 }
 
+function rejectUser(user_id_receiver, user_id_requester, callback) {
+    const rejectRequestQuery = {
+        sql: "INSERT INTO Request SET request_status = ?, last_modified = (NOW()),user_id_receiver = ?, user_id_requester = ?, sent_date = (NOW()) ;"
+    };
+    const data = ["2", user_id_receiver, user_id_requester];
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+        //calculate if user exists or assign null if results is null
+        const request =
+            dataResponseObject.results
+
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, request);
+    };
+
+    //execute the query to check if the user exists
+    mySqlConnection.query(rejectRequestQuery, sqlCallback, data);
+}
+
 function blockContact(requestId, callback) {
     const blockContactQuery = {
-        sql: "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
+        sql: "UPDATE Request SET request_status = ?, last_modified = (NOW()) WHERE id = ?"
     };
     const data = ["3", requestId];
     //holds the results  from the query
