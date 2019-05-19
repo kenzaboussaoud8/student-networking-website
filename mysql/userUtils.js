@@ -20,9 +20,11 @@ module.exports = {
     rejectRequest: rejectRequest,
     deleteRequest: deleteRequest,
     blockContact: blockContact,
+    getRequests: getRequests,
     getMatchingProfiles: getMatchingProfiles,
     getAdminApproval: getAdminApproval,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
+    getUserFromId: getUserFromId
 };
 
 function getAllPendingUsers(callback) {
