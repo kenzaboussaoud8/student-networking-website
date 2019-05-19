@@ -403,22 +403,30 @@ function getMatchingProfiles(user, callback) {
     var interest_city_id = user.interest_city_id;
 
     // Hobbies
-    const getUserQuery = { sql: "SELECT * FROM User WHERE " };
+    const getUserQuery = {
+        sql: "SELECT usr.*, City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name  FROM User as usr " +
+            "JOIN City ON City.id = usr.City_id " +
+            "JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
+            "JOIN School ON School.id = usr.School_id " +
+            "JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id " +
+            " WHERE "
+
+    };
     // Matching genders
     if (gender) {
         getUserQuery.sql +=
-            "gender = " +
+            "usr.gender = " +
             mySqlConnection.connection().escape(interest_gender) +
             "AND ";
         getUserQuery.sql +=
-            "interest_gender = " +
+            "usr.interest_gender = " +
             mySqlConnection.connection().escape(gender) +
             "AND ";
     }
     // Matching ages
     if (birth_date) {
         getUserQuery.sql +=
-            "birth_date BETWEEN " +
+            "usr.birth_date BETWEEN " +
             mySqlConnection.connection().escape(interest_birthdate_max) +
             "AND " +
             mySqlConnection.connection().escape(interest_birthdate_min) +
@@ -427,13 +435,14 @@ function getMatchingProfiles(user, callback) {
     // Matching cities
     if (city_id) {
         getUserQuery.sql +=
-            "city_id = " +
+            "usr.city_id = " +
             mySqlConnection.connection().escape(interest_city_id) +
             " AND ";
         getUserQuery.sql +=
-            "interest_city_id = " +
+            "usr.interest_city_id = " +
             mySqlConnection.connection().escape(city_id)
     }
+
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
