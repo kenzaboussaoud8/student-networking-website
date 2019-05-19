@@ -263,7 +263,7 @@ function updateUserHobby(userId, body, callback) {
 
 
 
-function sendRequest(userId, userGender, userIdReceiver, callback) {
+function sendRequest(userId, userIdReceiver, callback) {
     var requestSentQuery =
         "INSERT INTO Request(User_id_requester, User_id_receiver, status, sent_date ) VALUES (?,?,?,NOW())";
 
@@ -405,10 +405,10 @@ function getMatchingProfiles(user, callback) {
     // Hobbies
     const getUserQuery = {
         sql: "SELECT usr.*, City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name  FROM User as usr " +
-            "JOIN City ON City.id = usr.City_id " +
-            "JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
-            "JOIN School ON School.id = usr.School_id " +
-            "JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id " +
+            "LEFT JOIN City ON City.id = usr.City_id " +
+            "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
+            "LEFT JOIN School ON School.id = usr.School_id " +
+            "LEFT JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id " +
             " WHERE "
 
     };
