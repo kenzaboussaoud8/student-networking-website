@@ -90,7 +90,7 @@ function getUserFromAccessToken(userToken, callback) {
     //create query using the data in the req.body to register the user in the db
     const userTokenQuery = {
 
-        sql: "SELECT usr.*, City.id, City.cityname," +
+        sql: "SELECT usr.*, City.cityname," +
             "User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name " +
             "FROM User as usr  " +
             "JOIN Access_tokens ON Access_tokens.user_id = usr.id " +
