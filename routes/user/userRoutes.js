@@ -63,8 +63,7 @@ function getUserHobby(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        const userId = result[0].User_id;
-        console.log('userId', userId)
+        const userId = result[0].id;
         userUtils.getUserHobby(userId, function(err, results) {
             sendResponse(res, 200, results);
         });
@@ -300,7 +299,6 @@ function sendRequest(req, res) {
         if (rslt.length <= 0) {
             sendResponse(res, 400, "Token does not exist");
         } else {
-            console.log('HELLO', rslt)
             userUtils.sendRequest(rslt[0].id, user_id_receiver, function() {
                 sendResponse(res, 200, "Request sent");
             });
