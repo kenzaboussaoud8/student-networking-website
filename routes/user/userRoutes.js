@@ -63,8 +63,7 @@ function getUserHobby(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        const userId = result[0].User_id;
-        console.log('userId', userId)
+        const userId = result[0].id;
         userUtils.getUserHobby(userId, function(err, results) {
             sendResponse(res, 200, results);
         });
@@ -300,7 +299,7 @@ function sendRequest(req, res) {
         if (rslt.length <= 0) {
             sendResponse(res, 400, "Token does not exist");
         } else {
-            userUtils.sendRequest(rslt[0].User_id, user_id_receiver, function() {
+            userUtils.sendRequest(rslt[0].id, user_id_receiver, function() {
                 sendResponse(res, 200, "Request sent");
             });
         }
@@ -382,7 +381,13 @@ function getProfiles(req, res) {
             sendResponse(res, 400, "Token does not exist");
         } else {
             var user = rslt[0];
-            userUtils.getMatchingProfiles(user, function(err, result) {});
+            userUtils.getMatchingProfiles(user, function(err, result) {
+                if (result.length > 0) {
+                    sendResponse(res, 200, result)
+                } else {
+                    sendResponse(res, 404, result)
+                }
+            });
         }
     });
 }

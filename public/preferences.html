@@ -257,7 +257,6 @@
             var user = dt.message[0];
             document.getElementById('hobbies').value = user.Hobbies_id;
 
-
         })
         $.ajax({
             url: 'http://localhost:8080/user/',
@@ -292,31 +291,56 @@
                 if (result != '') {
                     // Loop through each of the results and append the option to the dropdown
                     $.each(result, function(k, v) {
-                        dropdown.append('<option value="' + v.id + '">' + v.name + '</option>');
+                        dropdown.append('<option value="' + v.id + '">' + v.hobby + '</option>');
                     });
                 }
             }
         }
 
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8080/cities',
-            success: function(data) {
-                helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(data.message)),
-                    $('#city'),
-                    'Select an option'
-                );
-            }
-        });
+
         $.ajax({
             type: "GET",
             url: 'http://localhost:8080/hobbies',
             success: function(data) {
-                var element = data.message
+                var hobby = data.message
                 helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(element)),
+                    jQuery.parseJSON(JSON.stringify(hobby)),
                     $('#hobbies'),
+                    'Select an option'
+                );
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        var helpers = {
+            buildDropdown: function(result, dropdown, emptyMessage) {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Check result isnt empty
+                if (result != '') {
+                    // Loop through each of the results and append the option to the dropdown
+                    $.each(result, function(k, v) {
+                        dropdown.append('<option value="' + v.id + '">' + v.cityname + '</option>');
+                    });
+                }
+            }
+        }
+
+
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/cities',
+            success: function(data) {
+                var city = data.message
+                helpers.buildDropdown(
+                    jQuery.parseJSON(JSON.stringify(city)),
+                    $('#city'),
                     'Select an option'
                 );
             }

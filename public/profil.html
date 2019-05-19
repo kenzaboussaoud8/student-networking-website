@@ -305,29 +305,51 @@
                 }
             }
         }
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/schools',
+            success: function(data) {
+                var school = data.message;
+                console.log('school', school)
+
+                helpers.buildDropdown(
+                    jQuery.parseJSON(JSON.stringify(school)),
+                    $('#school'),
+                    'Select an option'
+                );
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        var helpers = {
+            buildDropdown: function(result, dropdown, emptyMessage) {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Check result isnt empty
+                if (result != '') {
+                    // Loop through each of the results and append the option to the dropdown
+                    $.each(result, function(k, v) {
+                        dropdown.append('<option value="' + v.id + '">' + v.cityname + '</option>');
+                    });
+                }
+            }
+        }
 
         $.ajax({
             type: "GET",
             url: 'http://localhost:8080/cities',
             success: function(data) {
                 var city = data.message;
+
                 helpers.buildDropdown(
                     jQuery.parseJSON(JSON.stringify(city)),
                     $('#city'),
-                    'Select an option'
-                );
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8080/schools',
-            success: function(data) {
-                console.log(data.message)
-                var school = data.message;
-
-                helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(school)),
-                    $('#school'),
                     'Select an option'
                 );
             }
@@ -349,11 +371,17 @@
             console.log(dt)
             var user = dt.message;
             console.log('user', user)
-
-            document.getElementById('city').value = user.City_id;
+            document.getElementById('firstname').value = user.first_name;
+            document.getElementById('lastname').value = user.last_name;
+            document.getElementById('email').value = user.email;
+            document.getElementById('password').value = user.password;
+            document.getElementById('birthdate').value = dateBDDToDateForm(user.birth_date);
             $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
             document.getElementById('bio').value = user.bio;
             document.getElementById('profilepicture').src = user.profile_picture;
+            document.getElementById('school').value = user.School_id;
+            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
+            document.getElementById('city').value = user.City_id;
 
 
 
