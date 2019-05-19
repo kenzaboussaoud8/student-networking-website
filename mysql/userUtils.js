@@ -27,6 +27,22 @@ module.exports = {
     getUserFromId: getUserFromId
 };
 
+function getRequests(userId, callback) {
+    var data = [userId, '0']
+        //create query using the data in the req.body to register the user in the db
+    const getRequestsQuery = { sql: "SELECT * FROM Request WHERE User_id_receiver = ? AND status = ?" };
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+        //calculate if user exists or assign null if results is null
+        const getAll = dataResponseObject.results;
+
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, getAll);
+    };
+    //execute the query to get the user
+    mySqlConnection.query(getRequestsQuery, sqlCallback, data);
+}
+
 function getAllPendingUsers(callback) {
     //create query using the data in the req.body to register the user in the db
     const getUserQuery = { sql: "SELECT * FROM User WHERE status = 0 AND role = 0" };
