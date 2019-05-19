@@ -20,10 +20,28 @@ module.exports = {
     rejectRequest: rejectRequest,
     deleteRequest: deleteRequest,
     blockContact: blockContact,
+    getRequests: getRequests,
     getMatchingProfiles: getMatchingProfiles,
     getAdminApproval: getAdminApproval,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
+    getUserFromId: getUserFromId
 };
+
+function getRequests(userId, callback) {
+    var data = [userId, '0']
+        //create query using the data in the req.body to register the user in the db
+    const getRequestsQuery = { sql: "SELECT * FROM Request WHERE User_id_receiver = ? AND status = ?" };
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+        //calculate if user exists or assign null if results is null
+        const getAll = dataResponseObject.results;
+
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, getAll);
+    };
+    //execute the query to get the user
+    mySqlConnection.query(getRequestsQuery, sqlCallback, data);
+}
 
 function getAllPendingUsers(callback) {
     //create query using the data in the req.body to register the user in the db
@@ -104,6 +122,30 @@ function getUserFromCredentials(email, callback) {
     //create query using the data in the req.body to register the user in the db
     const getUserQuery = { sql: "SELECT * FROM User WHERE email = ?" };
     const dataGetUserQuery = [email];
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+        //calculate if user exists or assign null if results is null
+        const getUser = dataResponseObject.results;
+
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, getUser);
+    };
+    //execute the query to get the user
+    mySqlConnection.query(getUserQuery, sqlCallback, dataGetUserQuery[0]);
+}
+
+function getUserFromId(Id, callback) {
+    //create query using the data in the req.body to register the user in the db
+    const getUserQuery = {
+        sql: "SELECT usr.* , City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name, Request.id as requestId FROM User as usr " +
+            "LEFT JOIN City ON City.id = usr.City_id " +
+            "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
+            "LEFT JOIN School ON School.id = usr.School_id " +
+            "LEFT JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id   " +
+            "LEFT JOIN Request ON Request.User_id_requester = usr.id " +
+            "WHERE usr.id = ?"
+    };
+    const dataGetUserQuery = [Id];
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -290,18 +332,13 @@ function acceptRequest(requestId, callback) {
     const acceptRequestQuery = {
         sql: "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
     };
-    const data = [requestId, "1"];
+    const data = ["1", requestId];
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
         const request =
-            dataResponseObject.results !== null ?
-            dataResponseObject.results.length > 0 ?
-            true :
-            false :
-            null;
-
-        //check if there are any users with this username and return the appropriate value
+            dataResponseObject.results
+            //check if there are any users with this username and return the appropriate value
         callback(dataResponseObject.error, request);
     };
 
@@ -313,16 +350,12 @@ function rejectRequest(requestId, callback) {
     const rejectRequestQuery = {
         sql: "UPDATE Request SET status = ?, last_modified = (NOW()) WHERE id = ?"
     };
-    const data = [requestId, "2"];
+    const data = ["2", requestId];
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
         const request =
-            dataResponseObject.results !== null ?
-            dataResponseObject.results.length > 0 ?
-            true :
-            false :
-            null;
+            dataResponseObject.results
 
         //check if there are any users with this username and return the appropriate value
         callback(dataResponseObject.error, request);

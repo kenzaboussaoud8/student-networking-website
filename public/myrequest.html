@@ -25,7 +25,7 @@
 
 </head>
 
-<body>
+<body id='page-top'>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -59,21 +59,18 @@
     <!-- Header -->
     <header class="masthead">
         <section class="page-section">
-
-            </div>
+        </section>
     </header>
 
-    <section style="background: #fbf9fa; padding-bottom: 0px;">
+    <section>
         <div class="jumbotron" style="background: #ffffff; padding-bottom: 0px;">
             <h1>Tes demandes de contact </h1>
             <p>Ici, tu peux accepter ou refuser une demande de contact</p>
         </div>
         <!-- Page Content -->
-        <div class="container" style="margin-top: 50px;">
-            <div class="row">
-                <div class="col-xl-6 col-md-6 mb-4" id="here">
+        <div class="container-fluid" style="margin-top: 50px; margin-left: 30px; width:auto">
+            <div class="row" id="here">
 
-                </div>
             </div>
             <!-- /.row -->
 
@@ -118,8 +115,7 @@
                 </div>
             </div>
         </footer>
-
-
+    </section>
 
 </body>
 
@@ -141,6 +137,7 @@
 
 <!-- Récupérer les données de l'utilisateur connecté-->
 <script>
+    var userSchoolId = ''
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
@@ -151,27 +148,126 @@
             },
             type: 'GET',
         }).done(function(dt) {
-            console.log(dt)
             var user = dt.message;
-            console.log('user', user)
-            document.getElementById('firstname').value = user.first_name;
-            document.getElementById('lastname').value = user.last_name;
-            document.getElementById('email').value = user.email;
-            document.getElementById('password').value = user.password;
-            document.getElementById('birthdate').value = dateBDDToDateForm(user.birth_date);
-            $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
-            document.getElementById('bio').value = user.bio;
-            document.getElementById('profilepicture').src = user.profile_picture;
-            document.getElementById('school').value = user.School_id;
-            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
-            document.getElementById('city').value = user.City_id;
+            userSchoolId = user.School_id;
+        })
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: 'http://localhost:8080/requests',
+            type: 'GET',
+            headers: {
+                "authorization": tk
+            }
+        }).done(function(data) {
+            var senders = data.message;
+            for (var i = 0; i < senders.length; i++) {
+                var senderId = senders[i].User_id_requester;
+                $.ajax({
+                    url: 'http://localhost:8080/userId/',
+                    headers: {
+                        "authorization": tk
+                    },
+                    type: 'POST',
+                    data: {
+                        userId: senderId,
+                    }
+                }).done(function(dt) {
+                    var container = document.querySelector("#here");
+                    var user = dt.message[0]
+                    var age = calculateAge(user.birth_date)
+                    var card = ' <div class="col-sm-12 col-lg-6" id="here">'
+                    var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id="'
+                    photo += user.id
+                    photo += '"> '
+                    photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
+                    photo += user.profile_picture;
+                    var user_card = '"><span id="status" style = "display: none" class="badge badge-pill badge-success">Vous avez matché! Envois un message maintenant :)</span>';
+                    user_card += '<div class="card-body text-center"> <h5 class="card-title mb-0" id="username-age">'
 
+                    if (user.School_id == userSchoolId) {
+                        user_card += ' <i class="fas fa-graduation-cap"></i>'
 
+                    }
+                    user_card += user.first_name + ' ' + user.last_name;
+                    user_card += ', ';
+                    user_card += age;
+                    user_card += ' ans</h5>'
 
+                    var city = ' <div class="card-text text-black-50" id="school-city">'
+                    city += user.name
+                    city += ', ';
+                    city += user.cityname;
+                    city += '</div>'
+                    var bio = '<p class="card-text" id="bio"> <b>Bio</b> '
+                    bio += user.bio
+                    bio += '</p>'
+                    var myHobby = ' <p class="card-text" id="hobby">'
+                    myHobby += '<i class="fas fa-thumbs-up"></i>   '
+                    myHobby += user.hobby
+                    myHobby += '</p>'
+                    var rest = '<button class="bouton18" onclick="acceptRequest('
+                    rest += user.requestId + ',' + user.id
+                    rest += ')" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>'
+                    rest += ' <button class="bouton17" onclick="rejectRequest('
+                    rest += user.requestId + ',' + user.id
+                    rest += ')"><i class="fa fa-times fa-5x"></i></button>'
+                    rest += '</div></div></div>'
+                    container.innerHTML += photo + user_card + city + bio + myHobby + rest;
+                })
+            }
         })
     });
 </script>
 
+
+<!-- Approve request -->
+<script>
+    function acceptRequest(id, userId) {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: 'http://localhost:8080/acceptRequest/',
+            type: 'PUT',
+            headers: {
+                "authorization": tk,
+            },
+            data: {
+                "requestId": id
+            }
+        }).done(function(data) {
+            $("#" + userId + ">span.badge").css("display", "block");
+            $("#" + userId + ">button.bouton18").css("display", "none");
+            $("#" + userId + ">button.bouton17").css("display", "none");
+
+
+        })
+    }
+</script>
+<!-- Reject request -->
+<script>
+    function rejectRequest(id, userId) {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: 'http://localhost:8080/rejectRequest/',
+            type: 'PUT',
+            headers: {
+                "authorization": tk,
+            },
+            data: {
+                "requestId": id
+            }
+        }).done(function(data) {
+            console.log('Sent request to user id:!', userId)
+            $("#" + userId).remove();
+        })
+    }
+</script>
 <!-- Script de déconnexion -->
 <script>
     (function() {
@@ -192,5 +288,14 @@
         })
     })();
 </script>
+<script>
+    function calculateAge(birthday_str) {
+        // birthday is a string
+        var birthday = new Date(birthday_str);
+        var ageDifMs = Date.now() - birthday;
+        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+</script>
 
-</html
+</html>
