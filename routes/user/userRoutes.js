@@ -46,7 +46,13 @@ function getUser(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        sendResponse(res, 200, result[0])
+        console.log('User', result)
+        if (result.length > 0) {
+            sendResponse(res, 200, result[0])
+        } else {
+            sendResponse(res, 400, "User not found")
+
+        }
     })
 
 }
@@ -63,10 +69,21 @@ function getUserHobby(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        const userId = result[0].id;
-        userUtils.getUserHobby(userId, function(err, results) {
-            sendResponse(res, 200, results);
-        });
+        if (result.length > 0) {
+            const userId = result[0].id;
+            userUtils.getUserHobby(userId, function(err, results) {
+                if (results.length > 0) {
+                    sendResponse(res, 200, results);
+                } else {
+                    sendResponse(res, 200, 'User doesn t have any hobbies yet');
+
+                }
+            });
+        } else {
+            sendResponse(res, 404, "User not found");
+
+        }
+
     })
 }
 

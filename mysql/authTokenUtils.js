@@ -53,7 +53,6 @@ function getUserAccessToken(userId, callback) {
     //create query using the data in the req.body to register the user in the db
     const getAccessToken = { sql: "SELECT access_token FROM access_tokens WHERE user_id = ?" };
     const dataGetAccessToken = [userId];
-    console.log("user id", dataGetAccessToken);
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -71,7 +70,6 @@ function deleteUserAccessToken(userId, callback) {
     //create query using the data in the req.body to register the user in the db
     const getAccessToken = { sql: "DELETE FROM Access_tokens WHERE User_id = ?" };
     const dataGetAccessToken = [userId];
-    console.log("user id", dataGetAccessToken);
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -85,8 +83,6 @@ function deleteUserAccessToken(userId, callback) {
 }
 
 function getUserFromAccessToken(userToken, callback) {
-    const userTokenData = [userToken];
-
     //create query using the data in the req.body to register the user in the db
     const userTokenQuery = {
 
@@ -94,10 +90,10 @@ function getUserFromAccessToken(userToken, callback) {
             "User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name " +
             "FROM User as usr  " +
             "JOIN Access_tokens ON Access_tokens.user_id = usr.id " +
-            "JOIN City  ON City.id = usr.City_id " +
-            "JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
-            "JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id " +
-            "JOIN School ON School.id = usr.School_id " +
+            "LEFT JOIN City  ON City.id = usr.City_id " +
+            "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
+            "LEFT JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id " +
+            "LEFT JOIN School ON School.id = usr.School_id " +
             " WHERE Access_tokens.access_token = " + mySqlConnection.connection().escape(userToken)
     };
     //holds the results  from the query
