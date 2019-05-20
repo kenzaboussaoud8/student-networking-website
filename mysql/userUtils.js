@@ -461,48 +461,43 @@ function getMatchingProfiles(user, callback) {
             "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
             "LEFT JOIN School ON School.id = usr.School_id " +
             "LEFT JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id " +
+            "LEFT JOIN Request ON Request.User_id_requester = usr.id OR Request.User_id_receiver = usr.id" +
             " WHERE "
 
     };
-    if (id) {
-        getUserQuery.sql += " usr.id != " +
-            mySqlConnection.connection().escape(id) +
-            " AND "
-    }
     // Matching genders
-    if (gender == 'femme') {
-        if (interest_gender == 'les deux') {
-            getUserQuery.sql +=
-                " usr.interest_gender != 'homme' " +
-                " AND ";
+    if (gender) {
+        if (gender == 'femme') {
+            if (interest_gender == 'les deux') {
+                getUserQuery.sql +=
+                    " usr.interest_gender != 'homme' " +
+                    " AND ";
+            } else {
+                getUserQuery.sql +=
+                    "usr.gender = " +
+                    mySqlConnection.connection().escape(interest_gender) +
+                    "AND ";
+                getUserQuery.sql +=
+                    "usr.interest_gender = " +
+                    mySqlConnection.connection().escape(gender) +
+                    "AND ";
+            }
         } else {
-            getUserQuery.sql +=
-                "usr.gender = " +
-                mySqlConnection.connection().escape(interest_gender) +
-                "AND ";
-            getUserQuery.sql +=
-                "usr.interest_gender = " +
-                mySqlConnection.connection().escape(gender) +
-                "AND ";
-        }
-    } else {
-        if (interest_gender == 'les deux') {
-            getUserQuery.sql +=
-                " usr.interest_gender != 'femme' " +
-                " AND ";
-        } else {
-            getUserQuery.sql +=
-                "usr.gender = " +
-                mySqlConnection.connection().escape(interest_gender) +
-                "AND ";
-            getUserQuery.sql +=
-                "usr.interest_gender = " +
-                mySqlConnection.connection().escape(gender) +
-                "AND ";
+            if (interest_gender == 'les deux') {
+                getUserQuery.sql +=
+                    " usr.interest_gender != 'femme' " +
+                    " AND ";
+            } else {
+                getUserQuery.sql +=
+                    "usr.gender = " +
+                    mySqlConnection.connection().escape(interest_gender) +
+                    "AND ";
+                getUserQuery.sql +=
+                    "usr.interest_gender = " +
+                    " AND ";
+            }
         }
     }
-
-
     // Matching ages
     if (birth_date) {
         getUserQuery.sql +=
