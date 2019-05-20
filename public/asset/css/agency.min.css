@@ -738,8 +738,8 @@ ul.social-buttons li a:hover {
 /* CSS modified with messenger.html line 737 to 988 */
 
 .chat {
-    margin-top: 10px;
-    margin-bottom: auto;
+    margin-top: auto;
+    margin-bottom: 20px;
 }
 
 .card {
