@@ -45,6 +45,19 @@ Run in this order :
  4. schools.sql
  5. hobbies.sql
  6. Script.sql
+ 
+ ## Ionic 4.12.0
+ 
+ To Install :
+ 
+     npm install
+
+     npm install -g ionic
+
+     npm install -g cordova ionic
+ 
+
+ 
 ## MongoDB
 
  
