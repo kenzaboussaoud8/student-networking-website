@@ -413,7 +413,7 @@ function blockContact(requestId, callback) {
 
 function getMatchingProfiles(user, callback) {
     // get user's information
-    var id = user.User_id;
+    var id = user.id;
     // GENDER
     var gender = user.gender;
     var interest_gender = user.interest_gender;
@@ -445,17 +445,45 @@ function getMatchingProfiles(user, callback) {
             " WHERE "
 
     };
-    // Matching genders
-    if (gender) {
-        getUserQuery.sql +=
-            "usr.gender = " +
-            mySqlConnection.connection().escape(interest_gender) +
-            "AND ";
-        getUserQuery.sql +=
-            "usr.interest_gender = " +
-            mySqlConnection.connection().escape(gender) +
-            "AND ";
+    if (id) {
+        getUserQuery.sql += " usr.id != " +
+            mySqlConnection.connection().escape(id) +
+            " AND "
     }
+    // Matching genders
+    if (gender == 'femme') {
+        if (interest_gender == 'les deux') {
+            getUserQuery.sql +=
+                " usr.interest_gender != 'homme' " +
+                " AND ";
+        } else {
+            getUserQuery.sql +=
+                "usr.gender = " +
+                mySqlConnection.connection().escape(interest_gender) +
+                "AND ";
+            getUserQuery.sql +=
+                "usr.interest_gender = " +
+                mySqlConnection.connection().escape(gender) +
+                "AND ";
+        }
+    } else {
+        if (interest_gender == 'les deux') {
+            getUserQuery.sql +=
+                " usr.interest_gender != 'femme' " +
+                " AND ";
+        } else {
+            getUserQuery.sql +=
+                "usr.gender = " +
+                mySqlConnection.connection().escape(interest_gender) +
+                "AND ";
+            getUserQuery.sql +=
+                "usr.interest_gender = " +
+                mySqlConnection.connection().escape(gender) +
+                "AND ";
+        }
+    }
+
+
     // Matching ages
     if (birth_date) {
         getUserQuery.sql +=
