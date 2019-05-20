@@ -30,6 +30,7 @@ module.exports = router => {
     router.put("/rejectRequest", rejectRequest);
     router.delete("/deleteRequest", deleteRequest);
     router.put("/blockContact", blockContact);
+    router.put("/rejectUser", rejectUser);
     router.post("/addHobby", addHobby);
     router.get("/user", getUser);
     router.get("/cities", listAllCities);
@@ -372,6 +373,20 @@ function deleteRequest(req, res) {
     });
 }
 
+function rejectUser(req, res) {
+    var user_id_receiver = req.body.user_id_receiver;
+    var user_id_requester = req.body.user_id_requester;
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+        if (rslt.length <= 0) {
+            sendResponse(res, 400, "Token does not exist");
+        } else {
+            userUtils.rejectUser(user_id_receiver, user_id_requester, function() {
+                sendResponse(res, 200, "User deleted");
+            });
+        }
+    });
+}
 /* 
 handles the api call to accept or reject a contact request
 */
