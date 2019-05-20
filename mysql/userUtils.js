@@ -518,6 +518,14 @@ function getMatchingProfiles(user, callback) {
             mySqlConnection.connection().escape(city_id)
     }
 
+    if (id) {
+        getUserQuery.sql += " AND usr.id != " +
+            mySqlConnection.connection().escape(id);
+    }
+    getUserQuery.sql +=
+        " AND ((Request.request_status != '2' AND Request.request_status != '3'  AND Request.User_id_requester IS NOT NULL) OR (Request.User_id_requester IS NULL)) ";
+
+
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
