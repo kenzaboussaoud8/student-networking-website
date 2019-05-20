@@ -25,6 +25,8 @@ module.exports = router => {
     router.delete("/logout", logout);
     router.delete("/deleteAccount", deleteAccount);
     router.get("/profiles", getProfiles);
+    router.get("/friends", getFriends);
+
     router.post("/sendRequest", sendRequest);
     router.put("/acceptRequest", acceptRequest);
     router.put("/rejectRequest", rejectRequest);
@@ -412,6 +414,24 @@ function getProfiles(req, res) {
         } else {
             var user = rslt[0];
             userUtils.getMatchingProfiles(user, function(err, result) {
+                if (result.length > 0) {
+                    sendResponse(res, 200, result)
+                } else {
+                    sendResponse(res, 404, result)
+                }
+            });
+        }
+    });
+}
+
+function getFriends(req, res) {
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+        if (rslt.length <= 0) {
+            sendResponse(res, 400, "Token does not exist");
+        } else {
+            var user = rslt[0];
+            userUtils.getFriends(user, function(err, result) {
                 if (result.length > 0) {
                     sendResponse(res, 200, result)
                 } else {
