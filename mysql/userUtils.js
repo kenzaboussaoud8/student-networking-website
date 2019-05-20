@@ -143,6 +143,8 @@ function getUserFromId(Id, callback) {
             "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
             "LEFT JOIN School ON School.id = usr.School_id " +
             "LEFT JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id   " +
+            "LEFT JOIN Request ON Request.User_id_requester = usr.id OR Request.User_id_receiver = usr.id " +
+
             "WHERE usr.id = ?"
     };
     const dataGetUserQuery = [Id];
