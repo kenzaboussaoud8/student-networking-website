@@ -25,7 +25,8 @@ module.exports = {
     getMatchingProfiles: getMatchingProfiles,
     getAdminApproval: getAdminApproval,
     deleteUser: deleteUser,
-    getUserFromId: getUserFromId
+    getUserFromId: getUserFromId,
+    getFriends: getFriends
 };
 
 function getRequests(userId, callback) {
@@ -545,6 +546,37 @@ function getMatchingProfiles(user, callback) {
     //             "Hobbies_id = " + mySqlConnection.connection().escape(hobby_id);
     //     }
     // });
+
+}
+
+function getFriends(user, callback) {
+    // get user's information
+    var id = user.id;
+    // Hobbies
+    const getUserQuery = {
+        sql: "SELECT usr.*  FROM User as usr " +
+            "LEFT JOIN Request ON Request.User_id_requester = usr.id" +
+            " WHERE "
+
+    };
+    if (id) {
+        getUserQuery.sql += " usr.id != " +
+            mySqlConnection.connection().escape(id);
+    }
+    getUserQuery.sql +=
+        " AND Request.request_status = '1' ";
+
+
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+        //calculate if user exists or assign null if results is null
+        const matchingUser = dataResponseObject.results;
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, matchingUser);
+    };
+
+    mySqlConnection.query(getUserQuery, sqlCallback);
+
 
 }
 
