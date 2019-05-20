@@ -11,20 +11,20 @@ function sendMail(receiverEmail) {
     var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: "loveacademyorigin@gmail.com",
-            pass: "lOvEaCaDeMy2019*"
+            user: "loveacademy.customer@gmail.com",
+            pass: "Wgpcgr2018*"
         }
     });
     // Send mail to user
     var mailOptions = {
-        from: "loveacademyorigin@gmail.com",
+        from: "loveacademy.customer@gmail.com",
         to: receiverEmail,
         subject: "Bienvenue à Love Academy",
         text: "Votre inscription est en cours de revue"
     };
     // send mail to admin
     var secondMailOptions = {
-        from: "loveacademyorigin@gmail.com",
+        from: "loveacademy.customer@gmail.com",
         to: "admin@gmail.com",
         subject: "Nouvel utilisateur",
         text: "Vous avez un nouvel utilisateur à vérifier"
@@ -87,8 +87,8 @@ function checkEmail(email) {
     return (email = !"" &&
         typeof email == "string" &&
         email.indexOf("@") > 0 &&
-        email.indexOf("@") < email.indexOf(".") - 1 &&
-        email.indexOf(".") < email.length - 1);
+        email.indexOf("@") < email.lastIndexOf(".") - 1 &&
+        email.lastIndexOf(".") < email.length - 1);
 }
 
 function checkBirthDate(date) {
