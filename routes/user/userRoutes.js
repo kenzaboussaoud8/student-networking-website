@@ -49,7 +49,6 @@ function getUser(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        console.log('User', result)
         if (result.length > 0) {
             sendResponse(res, 200, result[0])
         } else {
@@ -476,9 +475,7 @@ function listAllRequests(req, res) {
 
 function getUserFromId(req, res) {
     var id = req.body.userId;
-    console.log('ID', id)
     userUtils.getUserFromId(id, function(err, result) {
-        console.log(result)
         if (result.length > 0) {
             sendResponse(res, 200, result)
         } else {

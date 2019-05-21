@@ -151,7 +151,6 @@
         }).done(function(dt) {
             var user = dt.message;
             myId = user.id
-            console.log('MY INFO', user)
             userSchoolId = user.School_id;
         })
     });
@@ -172,7 +171,6 @@
             var users = data.message
             for (var i = 0; i < users.length; i++) {
                 var age = calculateAge(users[i].birth_date)
-                console.log('profil', users[i])
                 var card = ' <div class="col-sm-12 col-lg-6" id="here">'
                 var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id="'
                 photo += users[i].id
@@ -223,7 +221,6 @@
     function sendRequest(id) {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
-        console.log('ID', id)
         $.ajax({
             url: 'http://localhost:8080/sendRequest/',
             type: 'POST',
@@ -266,7 +263,6 @@
     function sendRequest(id) {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
-        console.log('ID', id)
         $.ajax({
             url: 'http://localhost:8080/sendRequest/',
             type: 'POST',
@@ -304,8 +300,7 @@
 </script>
 <script>
     function calculateAge(birthday_str) {
-        console.log(birthday_str)
-            // birthday is a date
+        // birthday is a date
         var birthday = new Date(birthday_str);
         var ageDifMs = Date.now() - birthday;
         var ageDate = new Date(ageDifMs); // miliseconds from epoch

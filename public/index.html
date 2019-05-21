@@ -291,7 +291,6 @@
                 }
             }).done(function(res) {
                 //token recupéré ici, localStorage
-                console.log('res', res.message.token)
                 localStorage.setItem("token", res.message.token);
                 // redirection
                 window.location.href = "profil.html"
@@ -304,14 +303,11 @@
     function imageToDataImage() {
         // getting student card
         var preview = document.querySelector('#studentcard');
-        console.log('preview,', preview)
         var file = document.querySelector('#studentcard[type=file]').files[0];
         var reader = new FileReader();
-        console.log('reader', reader)
         reader.addEventListener("load", function() {
             preview.src = reader.result;
             var read = reader.result;
-            console.log('reading', read)
             return reader.result
         })
     }
@@ -321,7 +317,6 @@
 <script>
     (function() {
         $("#modalRegisterForm").submit(function(e) {
-            console.log('registering')
             e.preventDefault();
             // Making the ajax call
             $.ajax({

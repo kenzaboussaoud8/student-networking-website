@@ -310,8 +310,6 @@
             url: 'http://localhost:8080/schools',
             success: function(data) {
                 var school = data.message;
-                console.log('school', school)
-
                 helpers.buildDropdown(
                     jQuery.parseJSON(JSON.stringify(school)),
                     $('#school'),
@@ -368,9 +366,7 @@
             },
             type: 'GET',
         }).done(function(dt) {
-            console.log(dt)
             var user = dt.message;
-            console.log('user', user)
             document.getElementById('firstname').value = user.first_name;
             document.getElementById('lastname').value = user.last_name;
             document.getElementById('email').value = user.email;
@@ -393,7 +389,6 @@
 <script>
     (function() {
         $("#submitForm").click(function(e) {
-            console.log(e)
             data = {
                 email: $("input[id='email']").val(),
                 bio: $("input[id='bio']").val(),
