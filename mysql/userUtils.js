@@ -278,8 +278,8 @@ function updateUserInfo(userId, body, callback) {
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
         const updatedUser =
-            dataResponseObject.results.affectedRows > 0 ? true : false;
-        //check if there are any users with this username and return the appropriate value
+            dataResponseObject.results
+            //check if there are any users with this username and return the appropriate value
         callback(dataResponseObject.error, updatedUser);
     };
 
@@ -298,8 +298,8 @@ function updateUserHobby(userId, body, callback) {
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
         const updatedUser =
-            dataResponseObject.results.affectedRows > 0 ? true : false;
-        //check if there are any users with this username and return the appropriate value
+            dataResponseObject.results
+            //check if there are any users with this username and return the appropriate value
         callback(dataResponseObject.error, updatedUser);
     };
 
