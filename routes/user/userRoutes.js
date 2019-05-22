@@ -25,11 +25,14 @@ module.exports = router => {
     router.delete("/logout", logout);
     router.delete("/deleteAccount", deleteAccount);
     router.get("/profiles", getProfiles);
+    router.get("/friends", getFriends);
+
     router.post("/sendRequest", sendRequest);
     router.put("/acceptRequest", acceptRequest);
     router.put("/rejectRequest", rejectRequest);
     router.delete("/deleteRequest", deleteRequest);
     router.put("/blockContact", blockContact);
+    router.put("/rejectUser", rejectUser);
     router.post("/addHobby", addHobby);
     router.get("/user", getUser);
     router.get("/cities", listAllCities);
@@ -46,7 +49,6 @@ function getUser(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        console.log('User', result)
         if (result.length > 0) {
             sendResponse(res, 200, result[0])
         } else {
@@ -372,6 +374,20 @@ function deleteRequest(req, res) {
     });
 }
 
+function rejectUser(req, res) {
+    var user_id_receiver = req.body.user_id_receiver;
+    var user_id_requester = req.body.user_id_requester;
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+        if (rslt.length <= 0) {
+            sendResponse(res, 400, "Token does not exist");
+        } else {
+            userUtils.rejectUser(user_id_receiver, user_id_requester, function() {
+                sendResponse(res, 200, "User deleted");
+            });
+        }
+    });
+}
 /* 
 handles the api call to accept or reject a contact request
 */
@@ -397,6 +413,24 @@ function getProfiles(req, res) {
         } else {
             var user = rslt[0];
             userUtils.getMatchingProfiles(user, function(err, result) {
+                if (result.length > 0) {
+                    sendResponse(res, 200, result)
+                } else {
+                    sendResponse(res, 404, result)
+                }
+            });
+        }
+    });
+}
+
+function getFriends(req, res) {
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+        if (rslt.length <= 0) {
+            sendResponse(res, 400, "Token does not exist");
+        } else {
+            var user = rslt[0];
+            userUtils.getFriends(user, function(err, result) {
                 if (result.length > 0) {
                     sendResponse(res, 200, result)
                 } else {
@@ -441,9 +475,7 @@ function listAllRequests(req, res) {
 
 function getUserFromId(req, res) {
     var id = req.body.userId;
-    console.log('ID', id)
     userUtils.getUserFromId(id, function(err, result) {
-        console.log(result)
         if (result.length > 0) {
             sendResponse(res, 200, result)
         } else {

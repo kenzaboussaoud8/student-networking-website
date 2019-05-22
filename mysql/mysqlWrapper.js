@@ -41,7 +41,6 @@ function query(queryString, callback, data = "") {
     console.log("Successful connection");
     //execute the query and collect the results in the callback
     connection.query(queryString, data, function(error, results, fields) {
-        console.log(queryString);
         console.log(
             "mySql: query: error is: ",
             error,

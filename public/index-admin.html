@@ -153,7 +153,6 @@
                         }
                     }).done(function(res) {
                         //token recupéré ici, localStorage
-                        console.log("res", res.message.token);
                         localStorage.setItem("token", res.message.token);
                         // redirection
                         window.location.href = "home-admin.html";
