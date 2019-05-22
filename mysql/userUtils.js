@@ -32,7 +32,7 @@ module.exports = {
 function getRequests(userId, callback) {
     var data = [userId, '0']
         //create query using the data in the req.body to register the user in the db
-    const getRequestsQuery = { sql: "SELECT * FROM Request WHERE User_id_receiver = ? AND request_status = ?" };
+    const getRequestsQuery = { sql: "SELECT DISTINCT * FROM Request WHERE User_id_receiver = ? AND request_status = ?" };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -47,7 +47,7 @@ function getRequests(userId, callback) {
 
 function getAllPendingUsers(callback) {
     //create query using the data in the req.body to register the user in the db
-    const getUserQuery = { sql: "SELECT * FROM User WHERE status = 0 AND role = 0" };
+    const getUserQuery = { sql: "SELECT DISTINCT * FROM User WHERE status = 0 AND role = 0" };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -139,7 +139,7 @@ function getUserFromCredentials(email, callback) {
 function getUserFromId(Id, callback) {
     //create query using the data in the req.body to register the user in the db
     const getUserQuery = {
-        sql: "SELECT usr.* , City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name, Request.id as requestId FROM User as usr " +
+        sql: "SELECT DISTINCT usr.* , City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name, Request.id as requestId FROM User as usr " +
             "LEFT JOIN City ON City.id = usr.City_id " +
             "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
             "LEFT JOIN School ON School.id = usr.School_id " +
@@ -459,7 +459,7 @@ function getMatchingProfiles(user, callback) {
 
     // Hobbies
     const getUserQuery = {
-        sql: "SELECT usr.*, City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name  FROM User as usr " +
+        sql: "SELECT DISTINCT usr.*, City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name  FROM User as usr " +
             "LEFT JOIN City ON City.id = usr.City_id " +
             "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
             "LEFT JOIN School ON School.id = usr.School_id " +
@@ -554,7 +554,7 @@ function getFriends(user, callback) {
     var id = user.id;
     // Hobbies
     const getUserQuery = {
-        sql: "SELECT usr.*  FROM User as usr " +
+        sql: "SELECT DISTINCT usr.*  FROM User as usr " +
             "LEFT JOIN Request ON Request.User_id_requester = usr.id" +
             " WHERE "
 
