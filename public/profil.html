@@ -30,7 +30,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">Love Academy</a>
+            <a class="navbar-brand js-scroll-trigger" href="home.html">Love Academy</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               Menu
               <i class="fas fa-bars"></i>
@@ -58,9 +58,8 @@
     </nav>
     <!-- Header -->
     <header class="masthead">
-        <section class="page-section">
+        <section class="page-section"></section>
 
-            </div>
     </header>
 
     <section>
@@ -168,24 +167,26 @@
                                         <div class="form-group">
                                             <label>Ville</label>
                                             <select type="text" class="form-control border-input" id="city" placeholder="city">
-                                            </div>
+                                                </select>
                                         </div>
+                                    </div>
                                 </div>
-                                    
+
 
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group">
                                             <label>Ecole</label>
                                             <select type="text" class="form-control border-input" id="school" placeholder="school">
+                                                </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                        <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd">Valider</button>
-    </div>
-                                </form>
-                            </div>
+                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd">Valider</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
 
 
@@ -194,87 +195,86 @@
         </div>
     </section>
     <div class="modal fade" id="modalUpdatePasswordForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Modifier le mot de passe</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Modifier le mot de passe</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-                    </div>
-                    <div class="modal-body mx-2">
-                        <div class="md-form mb-3">
-                            <i class="fas fa-lock prefix grey-text"></i>
-                            <input type="password" id="oldPassword" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Veuillez entrer votre mot de passe</label>
-                        </div>
-
-                        <div class="md-form mb-3">
-                            <i class="fas fa-lock prefix grey-text"></i>
-                            <input type="password" id="newPassword" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass2">Veuillez entrer un nouveau mot de passe</label>
-                        </div>
-
-                        <div class="md-form mb-3">
-                            <i class="fas fa-lock prefix grey-text"></i>
-                            <input type="password" id="confirmPassword" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass3">Confirmez votre nouveau mot de passe</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class="btn btn-default" id="modifyPass">Valider</button>
-                    </div>
-                    <span id="messageSpan" style="color:red"></span>
                 </div>
+                <div class="modal-body mx-2">
+                    <div class="md-form mb-3">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="oldPassword" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass">Veuillez entrer votre mot de passe</label>
+                    </div>
+
+                    <div class="md-form mb-3">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="newPassword" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass2">Veuillez entrer un nouveau mot de passe</label>
+                    </div>
+
+                    <div class="md-form mb-3">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="confirmPassword" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass3">Confirmez votre nouveau mot de passe</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-default" id="modifyPass">Valider</button>
+                </div>
+                <span id="messageSpan" style="color:red"></span>
             </div>
         </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <span class="copyright">Copyright KVA Corporate 2019</span>
-                    </div>
-                    <div class="col-md-4">
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <ul class="list-inline quicklinks">
-                            <li class="list-inline-item">
-                                <a href="mentions_legales.html">Mentions légales</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="cgu.html">Conditions d'utilisation</a>
-                            </li>
-                        </ul>
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright KVA Corporate 2019</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item">
+                            <a href="mentions_legales.html">Mentions légales</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="cgu.html">Conditions d'utilisation</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-        
+        </div>
+    </footer>
+
 </body>
 <!-- SCRIPTS -->
 <!-- Bootstrap core JavaScript -->
 
-<script src="./asset/vendor/jquery/jquery.min.js"></script>
-<script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Plugin JavaScript -->
 <script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -289,55 +289,74 @@
 
 <!-- Getting the list of cities available-->
 <script>
-        $(document).ready(function(){
-    
-            var helpers =
-            {
-                buildDropdown: function(result, dropdown, emptyMessage)
-                {
-                    // Remove current options
-                    dropdown.html('');
-                    // Add the empty option with the empty message
-                    dropdown.append('<option value="">' + emptyMessage + '</option>');
-                    // Check result isnt empty
-                    if(result != '')
-                    {
-                        // Loop through each of the results and append the option to the dropdown
-                        $.each(result, function(k, v) {
-                            dropdown.append('<option value="' + v.id + '">' + v.name + '</option>');
-                        });
-                    }
+    $(document).ready(function() {
+
+        var helpers = {
+            buildDropdown: function(result, dropdown, emptyMessage) {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Check result isnt empty
+                if (result != '') {
+                    // Loop through each of the results and append the option to the dropdown
+                    $.each(result, function(k, v) {
+                        dropdown.append('<option value="' + v.id + '">' + v.name + '</option>');
+                    });
                 }
             }
-    
-            $.ajax({
-                type: "GET",
-                url: 'http://localhost:8080/cities',
-                success: function(data)
-                {
-                    var city = data.message;
-                    helpers.buildDropdown(
-                        jQuery.parseJSON(JSON.stringify(city)),
-                        $('#city'),
-                        'Select an option'
-                    );
+        }
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/schools',
+            success: function(data) {
+                var school = data.message;
+                console.log('school', school)
+
+                helpers.buildDropdown(
+                    jQuery.parseJSON(JSON.stringify(school)),
+                    $('#school'),
+                    'Select an option'
+                );
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        var helpers = {
+            buildDropdown: function(result, dropdown, emptyMessage) {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Check result isnt empty
+                if (result != '') {
+                    // Loop through each of the results and append the option to the dropdown
+                    $.each(result, function(k, v) {
+                        dropdown.append('<option value="' + v.id + '">' + v.cityname + '</option>');
+                    });
                 }
-            });
-            $.ajax({
-                type: "GET",
-                url: 'http://localhost:8080/schools',
-                success: function(data)
-                {
-                    console.log(data)
-                    helpers.buildDropdown(
-                        jQuery.parseJSON(JSON.stringify(data.message)),
-                        $('#school'),
-                        'Select an option'
-                    );
-                }
-            });
-            });
-    </script>
+            }
+        }
+
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/cities',
+            success: function(data) {
+                var city = data.message;
+
+                helpers.buildDropdown(
+                    jQuery.parseJSON(JSON.stringify(city)),
+                    $('#city'),
+                    'Select an option'
+                );
+            }
+        });
+    });
+</script>
 <!-- Récupérer les données de l'utilisateur connecté-->
 <script>
     $(document).ready(function() {
@@ -352,17 +371,18 @@
         }).done(function(dt) {
             console.log(dt)
             var user = dt.message;
+            console.log('user', user)
             document.getElementById('firstname').value = user.first_name;
             document.getElementById('lastname').value = user.last_name;
             document.getElementById('email').value = user.email;
             document.getElementById('password').value = user.password;
-            document.getElementById('city').value = user.City_id;
             document.getElementById('birthdate').value = dateBDDToDateForm(user.birth_date);
-            // document.getElementById('school').value = user.School_id;
             $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
-            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
             document.getElementById('bio').value = user.bio;
             document.getElementById('profilepicture').src = user.profile_picture;
+            document.getElementById('school').value = user.School_id;
+            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
+            document.getElementById('city').value = user.City_id;
 
 
 
@@ -372,8 +392,17 @@
 
 <!-- Modify info -->
 <script>
-        (function () {
-        $("#submitForm").click(function (e) {
+    (function() {
+        $("#submitForm").click(function(e) {
+            console.log(e)
+            data = {
+                email: $("input[id='email']").val(),
+                bio: $("input[id='bio']").val(),
+                gender: $("input[name='sexe']:checked").val(),
+                birth_date: $("input[id='birthdate']").val(),
+                City_id: $("#city").val(),
+                School_id: $("#school").val()
+            };
             // $('#myAlert').modal();
             // on récupère le token depuis le localStorage
             let tk = localStorage.getItem("token");
@@ -381,41 +410,37 @@
             $.ajax({
                 url: 'http://localhost:8080/modifyUserInfo',
                 type: 'PUT',
-                headers: {"authorization": tk},
-                data: {
-                    email: $("input[id='email']").val(),
-                    bio: $("input[id='bio']").val(),
-                    gender: $("input[name='sexe']:checked").val(),
-                    birth_date: $("input[id='birthdate']").val(),
-                    City_id: $("#city").val()
-                }
-            }).done(function (data) {
+                headers: {
+                    "authorization": tk
+                },
+                data: data
+            }).done(function(data) {
                 console.log('Info Modified!')
                 $("#alert").css("display", "block");
 
             })
         })
-    }
-    )();
-
+    })();
 </script>
 
 <script>
-        (function () {
-            $("#modifyPass").click(function (e) {
-                $('#myAlert').modal();
-                // on récupère le token depuis le localStorage
-                let tk = localStorage.getItem("token");
-                e.preventDefault();
-                $.ajax({
-                    url: 'http://localhost:8080/modifyPassword',
-                    type: 'PUT',
-                    headers: {"authorization": tk},
-                    data: {
-                        password: $("input[id='oldPassword']").val(),
-                        newPassword: $("input[id='newPassword']").val(),
-                        confirmPassword: $("input[id='confirmPassword']").val()
-                    },
+    (function() {
+        $("#modifyPass").click(function(e) {
+            $('#myAlert').modal();
+            // on récupère le token depuis le localStorage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                url: 'http://localhost:8080/modifyPassword',
+                type: 'PUT',
+                headers: {
+                    "authorization": tk
+                },
+                data: {
+                    password: $("input[id='oldPassword']").val(),
+                    newPassword: $("input[id='newPassword']").val(),
+                    confirmPassword: $("input[id='confirmPassword']").val()
+                },
                 statusCode: {
                     200: function() {
                         $("#messageSpan").text("Votre mot de passe a été changé avec succès");
@@ -430,37 +455,36 @@
                         $("#messageSpan").text("Mot de passe erroné");
                     }
                 }
-                }).done(function (data) {
-                    console.log('Password Modified!')
+            }).done(function(data) {
+                console.log('Password Modified!')
 
-                })
             })
-        }
-        )();  
-    </script>
-    <!-- Script de déconnexion -->
-    <script>
-            (function() {
-                $("#logout").click(function(e) {
-                    // on récupère le token depuis le localStorage
-                    let tk = localStorage.getItem("token");
-                    e.preventDefault();
-                    $.ajax({
-                        url: 'http://localhost:8080/logout/',
-                        type: 'DELETE',
-                        headers: {
-                            "authorization": tk,
-                        }
-                    }).done(function(data) {
-                        console.log('Logged out!')
-                        window.location.href = 'index.html';
-                    })
-                })
-            })();
-        </script>
+        })
+    })();
+</script>
+<!-- Script de déconnexion -->
 <script>
-        function dateBDDToDateForm(date) {
-            return date.split('T')[0]
-        }
-    </script>
+    (function() {
+        $("#logout").click(function(e) {
+            // on récupère le token depuis le localStorage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                url: 'http://localhost:8080/logout/',
+                type: 'DELETE',
+                headers: {
+                    "authorization": tk,
+                }
+            }).done(function(data) {
+                console.log('Logged out!')
+                window.location.href = 'index.html';
+            })
+        })
+    })();
+</script>
+<script>
+    function dateBDDToDateForm(date) {
+        return date.split('T')[0]
+    }
+</script>
 </html

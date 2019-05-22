@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mes Préferences</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding center text-center>
+    
+    <ion-label text-center style="text-decoration: underline">Mes Préferences de recherches :</ion-label>
+    
+
+  <ion-item center text-center>
+    
+          <ion-label padding text-center>Je recherche :</ion-label>
+        </ion-item>
+        
+          <ion-content class="no-scroll" style="height: 150px; top:30px;">
+          <ion-fab vertical="top" horizontal="start" slot="fixed">
+              <ion-fab-button color="light">
+                  <img src="../assets/imgs/men.png"/>
+              </ion-fab-button>
+              <ion-label>Homme</ion-label>
+          </ion-fab>
+
+              <ion-fab vertical="top" horizontal="end" slot="fixed">
+                  <ion-fab-button color="light">
+                      <img src="../assets/imgs/women.jpg"/>
+                  </ion-fab-button>
+                  <ion-label>Femme</ion-label>
+              </ion-fab>
+            </ion-content>
+              
+            <ion-list-header>Mes loisirs</ion-list-header>
+
+      <ion-item>
+        <ion-label>Loisirs</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="hobbies">xxxxxxx</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-list-header>Âge</ion-list-header>
+      <ion-item>
+          <ion-range min="18" max="80" color="secondary">
+            <ion-label slot="start">18</ion-label>
+            <ion-label slot="end">80</ion-label>
+          </ion-range>
+        </ion-item>
+
+        <ion-list-header>Ville</ion-list-header>
+
+      <ion-item>
+        <ion-label>Ville</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="city">xxxxxxx</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+
+
+</ion-content>

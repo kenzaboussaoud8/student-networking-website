@@ -21,6 +21,7 @@ module.exports = router => {
     router.put("/modifyPassword", modifyPassword);
     router.put("/modifyUserInfo", modifyUserInfo);
     router.put("/modifyUserInterests", modifyUserInterests);
+    router.get("/userHobby", getUserHobby);
     router.delete("/logout", logout);
     router.delete("/deleteAccount", deleteAccount);
     router.get("/profiles", getProfiles);
@@ -34,8 +35,8 @@ module.exports = router => {
     router.get("/cities", listAllCities);
     router.get("/schools", listAllSchools);
     router.get("/hobbies", listAllHobbies);
-
-    // router.post("/lostPassword", lostPassword);
+    router.get("/requests", listAllRequests);
+    router.post('/userID', getUserFromId)
 
     return router;
 };
@@ -45,7 +46,13 @@ function getUser(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        sendResponse(res, 200, result[0])
+        console.log('User', result)
+        if (result.length > 0) {
+            sendResponse(res, 200, result[0])
+        } else {
+            sendResponse(res, 400, "User not found")
+
+        }
     })
 
 }
@@ -56,6 +63,28 @@ function getUsers(req, res) {
     userUtils.getAllPendingUsers(function(err, results) {
         sendResponse(res, 200, results);
     });
+}
+
+function getUserHobby(req, res) {
+    // Recovering user id from access token
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, result) {
+        if (result.length > 0) {
+            const userId = result[0].id;
+            userUtils.getUserHobby(userId, function(err, results) {
+                if (results.length > 0) {
+                    sendResponse(res, 200, results);
+                } else {
+                    sendResponse(res, 200, 'User doesn t have any hobbies yet');
+
+                }
+            });
+        } else {
+            sendResponse(res, 404, "User not found");
+
+        }
+
+    })
 }
 
 /* handles the api call to register the user and insert them into the users table.
@@ -99,65 +128,59 @@ function login(req, res) {
     // Test if user entered these info
     if (email && email !== "" && password && password !== "") {
         userUtils.getUserFromCredentials(email, function(error, results) {
-            console.log("user from email", error, results);
             // If admin --> log in
-            if (results[0].status == 1 || results[0].role == 1) {
-
-                if (results.length > 0) {
+            if (results.length > 0) {
+                if (results[0].status == 1 || results[0].role == 1) {
                     inputPassword = results[0].password;
                     userId = results[0].id;
                     // If true
-                    if (results.length > 0) {
-                        // Compare the (hashed) entered password to the (hashed) one stored in database
-                        bcrypt.compare(password, inputPassword, function(err, result) {
-                            console.log("err", result);
-                            if (!result) {
-                                sendResponse(res, 401, "Wrong password");
-                            } else {
-                                // if the right password is entered, user gets handed an access token to be stored in db
-                                tokenUtils.getUserAccessToken(results[0].id, function(
-                                    err,
-                                    result
-                                ) {
-                                    console.log("UserAccess", result);
-                                    if (result.length > 0) {
-                                        const UserAccess = result[0].access_token;
-                                        // log user
+                    // Compare the (hashed) entered password to the (hashed) one stored in database
+                    bcrypt.compare(password, inputPassword, function(err, result) {
+                        if (!result) {
+                            sendResponse(res, 401, "Wrong password");
+                        } else {
+                            // if the right password is entered, user gets handed an access token to be stored in db
+                            tokenUtils.getUserAccessToken(results[0].id, function(
+                                err,
+                                result
+                            ) {
+                                if (result.length > 0) {
+                                    const UserAccess = result[0].access_token;
+                                    // log user
+                                    sendResponse(res, 200, {
+                                        message: "User logged successful",
+                                        token: UserAccess
+                                    });
+                                } else {
+                                    // create a new token for user
+                                    const userToken = jwt.sign({ userId },
+                                        config.secret, { expiresIn: 86400 } // expires in 24 hours
+                                    );
+                                    // save it in database
+                                    tokenUtils.saveAccessToken(userToken, userId, function(
+                                        err,
+                                        result
+                                    ) {
+                                        // logs
+                                        console.log("saved access token in db");
                                         sendResponse(res, 200, {
                                             message: "User logged successful",
-                                            token: UserAccess
+                                            token: userToken
                                         });
-                                    } else {
-                                        // create a new token for user
-                                        const userToken = jwt.sign({ userId },
-                                            config.secret, { expiresIn: 86400 } // expires in 24 hours
-                                        );
-                                        // save it in database
-                                        tokenUtils.saveAccessToken(userToken, userId, function(
-                                            err,
-                                            result
-                                        ) {
-                                            console.log("token saved?", result);
-                                            // logs
-                                            console.log("saved access token in db");
-                                            sendResponse(res, 200, {
-                                                message: "User logged successful",
-                                                token: userToken
-                                            });
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    }
+                                    });
+                                }
+                            });
+                        }
+                    });
                 } else {
                     // if the email entered doesn't exist in database
-                    sendResponse(res, 404, "Email does not exist. Please sign up");
+                    sendResponse(res, 403, "Not authorized");
                 }
             } else {
-                sendResponse(res, 403, "Not authorized!")
+                sendResponse(res, 404, "Email does not exist. Please sign up")
             }
         });
+
     } else {
         // if user didn't entered one or many mandatory fields
         sendResponse(res, 400, "Missing required field");
@@ -291,7 +314,7 @@ function sendRequest(req, res) {
         if (rslt.length <= 0) {
             sendResponse(res, 400, "Token does not exist");
         } else {
-            userUtils.sendRequest(rslt[0].User_id, user_id_receiver, function() {
+            userUtils.sendRequest(rslt[0].id, user_id_receiver, function() {
                 sendResponse(res, 200, "Request sent");
             });
         }
@@ -373,7 +396,13 @@ function getProfiles(req, res) {
             sendResponse(res, 400, "Token does not exist");
         } else {
             var user = rslt[0];
-            userUtils.getMatchingProfiles(user, function(err, result) {});
+            userUtils.getMatchingProfiles(user, function(err, result) {
+                if (result.length > 0) {
+                    sendResponse(res, 200, result)
+                } else {
+                    sendResponse(res, 404, result)
+                }
+            });
         }
     });
 }
@@ -393,6 +422,34 @@ function listAllSchools(req, res) {
 function listAllHobbies(req, res) {
     otherUtils.getAllHobbies(function(err, result) {
         sendResponse(res, 200, result)
+    })
+}
+
+function listAllRequests(req, res) {
+    var token = req.headers["authorization"].replace("Bearer ", "");
+    tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
+        if (rslt.length <= 0) {
+            sendResponse(res, 400, "Token does not exist");
+        } else {
+            var userId = rslt[0].id;
+            userUtils.getRequests(userId, function(err, results) {
+                sendResponse(res, 200, results);
+            });
+        }
+    });
+}
+
+function getUserFromId(req, res) {
+    var id = req.body.userId;
+    console.log('ID', id)
+    userUtils.getUserFromId(id, function(err, result) {
+        console.log(result)
+        if (result.length > 0) {
+            sendResponse(res, 200, result)
+        } else {
+            sendResponse(res, 400, "Error")
+
+        }
     })
 }
 /*

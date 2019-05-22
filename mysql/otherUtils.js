@@ -14,7 +14,7 @@ module.exports = {
 
 function getAllHobbies(callback) {
     //create query using the data in the req.body to register the user in the db
-    const getAllHobbiesQuery = { sql: 'SELECT id, name from Hobbies' };
+    const getAllHobbiesQuery = { sql: 'SELECT id, hobby from Hobbies' };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -29,7 +29,7 @@ function getAllHobbies(callback) {
 
 function getAllCities(callback) {
     //create query using the data in the req.body to register the user in the db
-    const getCitiesQuery = { sql: 'SELECT id, name from City' };
+    const getCitiesQuery = { sql: 'SELECT id, cityname from City' };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -45,7 +45,7 @@ function getAllCities(callback) {
 
 function getAllSchools(callback) {
     //create query using the data in the req.body to register the user in the db
-    const getCitiesQuery = { sql: 'SELECT name from School' };
+    const getCitiesQuery = { sql: 'SELECT id, name from School' };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
