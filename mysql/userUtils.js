@@ -479,10 +479,11 @@ function getMatchingProfiles(user, callback) {
                 getUserQuery.sql +=
                     "usr.gender = " +
                     mySqlConnection.connection().escape(interest_gender) +
-                    "AND ";
+                    "AND ((";
                 getUserQuery.sql +=
                     "usr.interest_gender = " +
                     mySqlConnection.connection().escape(gender) +
+                    ") OR (usr.interest_gender = 'les deux')) " +
                     "AND ";
             }
         } else {
