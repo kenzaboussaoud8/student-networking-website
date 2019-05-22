@@ -749,7 +749,7 @@ ul.social-buttons li a:hover {
 
 .card {
     height: 500px;
-    background-color: rgba(0, 0, 0, 0.4) !important;
+    background-color: rgba(246, 245, 249, 0) !important;
 }
 
 .contacts_body {
@@ -765,6 +765,7 @@ ul.social-buttons li a:hover {
 .card-header {
     border-radius: 15px 15px 0 0 !important;
     border-bottom: 0 !important;
+    background-color: #4f0a0a;
 }
 
 .card-footer {
@@ -778,7 +779,7 @@ ul.social-buttons li a:hover {
 
 .search {
     border-radius: 15px 0 0 15px !important;
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: rgb(255, 255, 255) !important;
     border: 0 !important;
     color: white !important;
 }
@@ -789,7 +790,7 @@ ul.social-buttons li a:hover {
 }
 
 .type_msg {
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: rgb(245, 239, 239) !important;
     border: 0 !important;
     color: white !important;
     height: 60px !important;
@@ -886,13 +887,30 @@ ul.social-buttons li a:hover {
 
 .user_info span {
     font-size: 20px;
-    color: white;
+    color: black;
 }
 
 .user_info p {
     font-size: 10px;
-    color: rgba(255, 255, 255, 0.6);
+    color: black;
 }
+
+.user_info_header {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15px;
+}
+
+.user_info_header span {
+    font-size: 20px;
+    color: white;
+}
+
+.user_info_header p {
+    font-size: 10px;
+    color: white;
+}
+
 
 .video_cam {
     margin-left: 50px;
@@ -992,5 +1010,4 @@ ul.social-buttons li a:hover {
     .contacts_card {
         margin-bottom: 15px !important;
     }
-}
 }
