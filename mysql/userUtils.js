@@ -556,7 +556,7 @@ function getFriends(user, callback) {
     // Hobbies
     const getUserQuery = {
         sql: "SELECT DISTINCT usr.*  FROM User as usr " +
-            "LEFT JOIN Request ON Request.User_id_requester = usr.id" +
+            "LEFT JOIN Request ON Request.User_id_requester = usr.id OR Request.User_id_receiver = usr.id " +
             " WHERE "
 
     };
