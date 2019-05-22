@@ -108,7 +108,7 @@ function registerUser(req, res) {
                 //register the user in the db
                 userUtils.saveUserInDB(req.body, dataResponseObject => {
                     // send mail
-                    // utils.sendMail(req.body.email);
+                    utils.sendMail(req.body.email);
                     //create message for the api response
                     const message = "Registration was successful";
                     sendResponse(res, 200, message);
@@ -236,14 +236,19 @@ function modifyUserInfo(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        const userId = result[0].User_id;
-        userUtils.updateUserInfo(userId, req.body, function(err, result) {
-            if (result) {
-                sendResponse(res, 200, "Successfully changed");
-            } else {
-                sendResponse(res, 400, "Wrong token");
-            }
-        });
+        if (result.length > O) {
+            const userId = result[0].id;
+            userUtils.updateUserInfo(userId, req.body, function(err, result) {
+                if (result) {
+                    sendResponse(res, 200, "Successfully changed");
+                } else {
+                    sendResponse(res, 400, "Wrong token");
+                }
+            });
+        } else {
+            sendResponse(res, 404, "Token not found")
+        }
+
     });
 }
 /* 
@@ -253,7 +258,7 @@ function modifyUserInterests(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        const userId = result[0].User_id;
+        const userId = result[0].id;
         userUtils.updateUserInfo(userId, req.body, function() {
             sendResponse(res, 200, "Successfully changed");
         });
@@ -267,7 +272,7 @@ function addHobby(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        const userId = result[0].User_id;
+        const userId = result[0].id;
         userUtils.updateUserHobby(userId, req.body, function() {
             sendResponse(res, 200, "Hobby successfully changed");
         });
@@ -283,7 +288,7 @@ function logout(req, res) {
         if (rslt.length <= 0) {
             sendResponse(res, 400, "Token does not exist");
         } else {
-            tokenUtils.deleteUserAccessToken(rslt[0].User_id, function() {
+            tokenUtils.deleteUserAccessToken(rslt[0].id, function() {
                 sendResponse(res, 200, "Logged off");
             });
         }
@@ -299,7 +304,7 @@ function deleteAccount(req, res) {
         if (rslt.length <= 0) {
             sendResponse(res, 400, "Token does not exist");
         } else {
-            userUtils.deleteUser(rslt[0].User_id, function() {
+            userUtils.deleteUser(rslt[0].id, function() {
                 sendResponse(res, 200, "Account deleted");
             });
         }
