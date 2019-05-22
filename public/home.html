@@ -138,6 +138,7 @@
 <!-- Récupérer les données de l'utilisateur connecté-->
 <script>
     var userSchoolId = ''
+    var myId = ''
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
@@ -149,7 +150,7 @@
             type: 'GET',
         }).done(function(dt) {
             var user = dt.message;
-            console.log('MY INFO', user)
+            myId = user.id
             userSchoolId = user.School_id;
         })
     });
@@ -170,7 +171,6 @@
             var users = data.message
             for (var i = 0; i < users.length; i++) {
                 var age = calculateAge(users[i].birth_date)
-                console.log('profil', users[i])
                 var card = ' <div class="col-sm-12 col-lg-6" id="here">'
                 var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id="'
                 photo += users[i].id
@@ -205,8 +205,8 @@
                 rest += users[i].id
                 rest += ')" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>'
                 rest += ' <button class="bouton17" onclick="deleteUser('
-                rest += users[i].id
-                rest += '"><i class="fa fa-times fa-5x"></i></button>'
+                rest += users[i].id + ',' + myId
+                rest += ')"><i class="fa fa-times fa-5x"></i></button>'
                 rest += '</div></div></div>'
                 container.innerHTML += photo + user + city + bio + myHobby + rest;
             }
@@ -221,7 +221,48 @@
     function sendRequest(id) {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
-        console.log('ID', id)
+        $.ajax({
+            url: 'http://localhost:8080/sendRequest/',
+            type: 'POST',
+            headers: {
+                "authorization": tk,
+            },
+            data: {
+                "user_id_receiver": id
+            }
+        }).done(function(data) {
+            console.log('Sent request!', id)
+            $("#" + id + "> span.badge").css("display", "block");
+        })
+    }
+</script>
+<!-- Delete user -->
+<script>
+    function deleteUser(id_requester, id_receiver) {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: 'http://localhost:8080/rejectUser/',
+            type: 'PUT',
+            headers: {
+                "authorization": tk,
+            },
+            data: {
+                "user_id_receiver": id_receiver,
+                "user_id_requester": id_requester
+
+            }
+        }).done(function(data) {
+            console.log('request rejected!', id_receiver, id_requester)
+            $("#" + id_requester).remove();
+        })
+    }
+</script>
+<!-- Block user -->
+<script>
+    function sendRequest(id) {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
         $.ajax({
             url: 'http://localhost:8080/sendRequest/',
             type: 'POST',
@@ -259,8 +300,7 @@
 </script>
 <script>
     function calculateAge(birthday_str) {
-        console.log(birthday_str)
-            // birthday is a date
+        // birthday is a date
         var birthday = new Date(birthday_str);
         var ageDifMs = Date.now() - birthday;
         var ageDate = new Date(ageDifMs); // miliseconds from epoch

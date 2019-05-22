@@ -86,31 +86,9 @@
 
                         <!-- Profil like list -->
                         <div class="card-body contacts_body">
-                            <ui class="contacts">
-                                <li class="actives">
-                                    <div class="d-flex bd-highlight">
-                                        <div class="img_cont">
-                                            <img src="./asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img">
-                                            <span class="online_icon offline"></span>
-                                        </div>
-                                        <div class="user_info">
-                                            <span>NAME</span>
-                                            <p>NAME logout datetime</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex bd-highlight">
-                                        <div class="img_cont">
-                                            <img src="./asset/images/photo-1531251445707-1f000e1e87d0.jpg" class="rounded-circle user_img">
-                                            <span class="online_icon"></span>
-                                        </div>
-                                        <div class="user_info">
-                                            <span>NAME</span>
-                                            <p>NAME logout datetime</p>
-                                        </div>
-                                    </div>
-                                </li>
+                            <ui class="contacts" id="here">
+
+
                             </ui>
                         </div>
                         <!-- End Profil like list -->
@@ -232,6 +210,8 @@
 <!-- SCRIPTS -->
 <!-- Bootstrap core JavaScript -->
 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="./asset/vendor/jquery/jquery.min.js"></script>
 <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -244,5 +224,50 @@
 
 <!-- Custom scripts for this template -->
 <script src="./asset/js/agency.min.js"></script>
+<!-- Récupérer les données de l'utilisateur connecté-->
+<script>
+    var userSchoolId = ''
+    var myId = ''
+    $(document).ready(function() {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: 'http://localhost:8080/user/',
+            headers: {
+                "authorization": tk
+            },
+            type: 'GET',
+        }).done(function(dt) {
+            var user = dt.message;
+            myId = user.id
+            userSchoolId = user.School_id;
+        })
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: 'http://localhost:8080/friends',
+            type: 'GET',
+            headers: {
+                "authorization": tk
+            }
+        }).done(function(data) {
+            var container = document.querySelector("#here");
+            var users = data.message
+            for (var i = 0; i < users.length; i++) {
+                var element = ' <li class="actives"> <div class="d-flex bd-highlight"><div class="img_cont"><img src="'
+                    // element += users[i].profile_picture;
+                element += 'class="rounded-circle user_img"><span class="online_icon offline"></span> </div> <div class="user_info"><span>'
+                element += users[i].first_name + ' ' + users[i].last_name;
+                element += '</span><p>NAME logout datetime</p></div></div></li>'
+                container.innerHTML += element;
+            }
+
+        });
+    });
+</script>
 
 </html>

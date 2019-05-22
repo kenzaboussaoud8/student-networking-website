@@ -173,7 +173,6 @@
                 url: 'http://localhost:8080/users/',
                 type: 'GET',
             }).done(function(dt) {
-                console.log('data', dt)
                 var users = dt.message;
                 $("table > tbody").html("")
                 for (var i = 0; i < users.length; i++) {
@@ -191,8 +190,6 @@
     <!-- On click, accept user -->
     <script>
         function approve(id) {
-            console.log('click')
-            console.log(id);
             $.ajax({
                 url: 'http://localhost:8080/approveRegistery/',
                 type: 'POST',
@@ -206,7 +203,6 @@
                     alert('error');
                 }
             }).done(function(data) {
-                console.log("data", data);
                 $("#" + id).remove();
             })
         };
@@ -214,8 +210,6 @@
     <!-- On click, DELETE user -->
     <script>
         function deleteUser(id) {
-            console.log('click')
-            console.log(id);
             $.ajax({
                 url: 'http://localhost:8080/deleteUser/',
                 type: 'POST',
@@ -229,7 +223,6 @@
                     alert('error');
                 }
             }).done(function(data) {
-                console.log("data", data);
                 $("#" + id).remove();
             })
         };
