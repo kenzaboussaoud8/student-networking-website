@@ -236,7 +236,7 @@ function modifyUserInfo(req, res) {
     // Recovering user id from access token
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
-        if (result.length > O) {
+        if (result.length > 0) {
             const userId = result[0].id;
             userUtils.updateUserInfo(userId, req.body, function(err, result) {
                 if (result) {
