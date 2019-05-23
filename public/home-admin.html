@@ -249,7 +249,8 @@
                     }
                 }).done(function(data) {
                     console.log('Logged out!')
-                    window.location.href = 'index-admin.html';
+                    window.location.href = '/index-admin.html';
+                    localStorage.clear();
                 })
             })
         })();
