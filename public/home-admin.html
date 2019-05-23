@@ -139,120 +139,129 @@
         </div>
     </footer>
 
+</body>
+<!-- SCRIPTS -->
+<!-- Bootstrap core JavaScript -->
+<script src="./asset/vendor/jquery/jquery.min.js"></script>
+<script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPTS -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="./asset/vendor/jquery/jquery.min.js"></script>
-    <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Contact form JavaScript -->
+<script src="./asset/js/jqBootstrapValidation.js"></script>
+<script src="./asset/js/contact_me.js"></script>
 
-    <!-- Contact form JavaScript -->
-    <script src="./asset/js/jqBootstrapValidation.js"></script>
-    <script src="./asset/js/contact_me.js"></script>
+<!-- Custom scripts for this template -->
+<script src="./asset/js/agency.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.0/js/mdb.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Custom scripts for this template -->
-    <script src="./asset/js/agency.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.0/js/mdb.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<!-- Jquery Data table containing list of users -->
+<script>
+    var myTable = undefined;
+    $(document).ready(function() {
+        myTable = $('#example').DataTable({});
+    });
+</script>
+<!-- Filling the data table-->
 
-    <!-- Jquery Data table containing list of users -->
-    <script>
-        var myTable = undefined;
-        $(document).ready(function() {
-            myTable = $('#example').DataTable({});
-        });
-    </script>
-    <!-- Filling the data table-->
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'http://localhost:8080/users/',
+            type: 'GET',
+        }).done(function(dt) {
+            var users = dt.message;
+            $("table > tbody").html("")
+            for (var i = 0; i < users.length; i++) {
+                let user_data = users[i];
+                $("table > tbody").append(" <tr id='" + user_data.id + "'> <td class='id'> " + user_data.id +
+                    " </td> <td> " + user_data.first_name + " </td> <td> " + user_data.last_name +
+                    " </td><td> " + user_data.email +
+                    " </td> <td> " + user_data.gender + " </td> <td> " +
+                    dateBDDToDateForm(user_data.birth_date) + " </td><td> " +
+                    user_data.student_card + " </td><td> " + " <button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>" + "</td></tr>")
+            }
+        })
+    });
+</script>
+<!-- On click, accept user -->
+<script>
+    function approve(id) {
+        $.ajax({
+            url: 'http://localhost:8080/approveRegistery/',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function(result) {
+                alert('ok');
+            },
+            error: function(result) {
+                alert('error');
+            }
+        }).done(function(data) {
+            $("#" + id).remove();
+        })
+    };
+</script>
+<!-- On click, DELETE user -->
+<script>
+    function deleteUser(id) {
+        $.ajax({
+            url: 'http://localhost:8080/deleteUser/',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function(result) {
+                alert('ok');
+            },
+            error: function(result) {
+                alert('error');
+            }
+        }).done(function(data) {
+            deleteItem(id)
+        })
+    };
+</script>
+<!-- Formatting date -->
+<script>
+    function dateBDDToDateForm(date) {
+        return date.split('T')[0]
+    }
+</script>
 
-    <script>
-        $(document).ready(function() {
+<!-- Script de déconnexion -->
+<script>
+    (function() {
+        $("#logout").click(function(e) {
+            // on récupère le token depuis le localStorage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/users/',
-                type: 'GET',
-            }).done(function(dt) {
-                var users = dt.message;
-                $("table > tbody").html("")
-                for (var i = 0; i < users.length; i++) {
-                    let user_data = users[i];
-                    $("table > tbody").append(" <tr id='" + user_data.id + "'> <td class='id'> " + user_data.id +
-                        " </td> <td> " + user_data.first_name + " </td> <td> " + user_data.last_name +
-                        " </td><td> " + user_data.email +
-                        " </td> <td> " + user_data.gender + " </td> <td> " +
-                        dateBDDToDateForm(user_data.birth_date) + " </td><td> " +
-                        user_data.student_card + " </td><td> " + " <button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>" + "</td></tr>")
-                }
-            })
-        });
-    </script>
-    <!-- On click, accept user -->
-    <script>
-        function approve(id) {
-            $.ajax({
-                url: 'http://localhost:8080/approveRegistery/',
-                type: 'POST',
-                data: {
-                    id: id
-                },
-                success: function(result) {
-                    alert('ok');
-                },
-                error: function(result) {
-                    alert('error');
+                url: 'http://localhost:8080/logout/',
+                type: 'DELETE',
+                headers: {
+                    "authorization": tk,
                 }
             }).done(function(data) {
-                $("#" + id).remove();
+                console.log('Logged out!')
+                window.location.href = '/index-admin.html';
+                localStorage.clear();
             })
-        };
-    </script>
-    <!-- On click, DELETE user -->
-    <script>
-        function deleteUser(id) {
-            $.ajax({
-                url: 'http://localhost:8080/deleteUser/',
-                type: 'POST',
-                data: {
-                    id: id
-                },
-                success: function(result) {
-                    alert('ok');
-                },
-                error: function(result) {
-                    alert('error');
-                }
-            }).done(function(data) {
-                $("#" + id).remove();
-            })
-        };
-    </script>
-    <!-- Formatting date -->
-    <script>
-        function dateBDDToDateForm(date) {
-            return date.split('T')[0]
+        })
+    })();
+</script>
+<script>
+    function deleteItem(elementId) {
+        if (confirm("Etes-vous sûr?")) {
+            $("#" + elementId).remove();
         }
-    </script>
-
-    <!-- Script de déconnexion -->
-    <script>
-        (function() {
-            $("#logout").click(function(e) {
-                // on récupère le token depuis le localStorage
-                let tk = localStorage.getItem("token");
-                e.preventDefault();
-                $.ajax({
-                    url: 'http://localhost:8080/logout/',
-                    type: 'DELETE',
-                    headers: {
-                        "authorization": tk,
-                    }
-                }).done(function(data) {
-                    console.log('Logged out!')
-                    window.location.href = 'index-admin.html';
-                })
-            })
-        })();
-    </script>
+        return false;
+    }
+</script>
 
 </html>
