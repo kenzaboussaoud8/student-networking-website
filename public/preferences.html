@@ -24,9 +24,7 @@
     <!-- Custom styles for this template -->
     <link href="./asset/css/agency.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
+      
         
         table {
             font-size: 1em;
@@ -82,10 +80,10 @@
 
             <div class="container-fluid">
 
-                <ul class="nav nav-pills">
-                    <li><a href="profil.html">Mon profil</a></li>
-                    <li class="active"><a href="preferences.html">Mes préférences</a></li>
-                </ul>
+                
+                    <a href="profil.html">Mon profil</a>
+                   <a href="preferences.html"><br>Mes préférences</a>
+                
                 <div class="row">
                     <!-- User card-->
                     <div class="col-lg-2 col-md-2">
@@ -104,9 +102,11 @@
 
                     </div>
                     <!-- User info-->
-                    <div class="col">
+                    <div class="col" style="
+                    padding-left: 170px;
+                ">
                         <div class="header">
-                            <h4 class="title">Modifier mes préférences</h4>
+                            <h4 class="title">Mes préférences de recherche</h4>
                         </div>
                         <div class="col-lg-6">
                             <div class="alert alert-success alert-dismissible fade show" style="display: none" role="alert" id="alert">
@@ -121,23 +121,31 @@
                             <form>
                                 <div class="row">
 
-                                    <div class="col-md-8">
+                                    <div class="col-md-8" style="
+                                    margin-top: 25px;
+                                ">
                                         <div class="form-group">
-                                            <div class="form-check form-check-inline col-sm-2">
+                                            <div class="form-check form-check-inline col-sm-2" style="margin-right: 70px;">
 
-                                                <i class="fas fa-mars"></i>
-                                                <input class="form-check-input" type="radio" name="sexe" id="SexeHomme" value="homme">
+                                                <i class="fas fa-mars fa-3x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeHomme" value="homme" style="
+                                                margin-left: 15px;
+                                            ">
                                                 <label class="form-check-label" for="SexeHomme">Homme</label>
                                             </div>
-                                            <div class="form-check form-check-inline col-sm-2">
-                                                <i class="fas fa-venus"></i>
-                                                <input class="form-check-input" type="radio" name="sexe" id="SexeFemme" value="femme">
+                                            <div class="form-check form-check-inline col-sm-2" style="margin-right: 70px;">
+                                                <i class="fas fa-venus fa-3x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeFemme" value="femme" style="
+                                                margin-left: 15px;
+                                            ">
                                                 <label class="form-check-label" for="SexeFemme">Femme</label>
                                             </div>
 
-                                            <div class="form-check form-check-inline col-sm-2">
-                                                <i class="fas fa-venus-mars"></i>
-                                                <input class="form-check-input" type="radio" name="sexe" id="SexeBi" value="bisexuel">
+                                            <div class="form-check form-check-inline col-sm-2" style="margin-right: 70px;">
+                                                <i class="fas fa-venus-mars fa-3x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeBi" value="bisexuel" style="
+                                                margin-left: 15px;
+                                            ">
                                                 <label class="form-check-label" for="SexeBi">Bisexuel</label>
                                             </div>
                                         </div>
@@ -145,7 +153,7 @@
                                 </div>
 
 
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="padding-left: 0px;">
                                     <div class="form-group">
                                         <label for="loisirs" class="mr-2">
                                                         Mes loisirs
@@ -173,7 +181,8 @@
 
                                 <div id="slider-range" style="width: 200px;"></div>
                                 <div class="text-center">
-                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd">Valider</button>
+                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd" style="background-color: #c63837;
+                                    border-color: #c63837;">Valider</button>
                                 </div>
                             </form>
                         </div>
