@@ -267,9 +267,16 @@
 
             }
         }).done(function(data) {
-            console.log('request rejected!', id_receiver, id_requester)
-            $("#" + id_requester).remove();
+            deleteItem(id_requester);
         })
+    }
+</script>
+<script>
+    function deleteItem(elementId) {
+        if (confirm("Etes-vous sûr?")) {
+            $("#" + elementId).remove();
+        }
+        return false;
     }
 </script>
 <!-- Block user -->
