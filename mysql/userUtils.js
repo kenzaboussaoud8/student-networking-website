@@ -434,6 +434,7 @@ function blockContact(requestId, callback) {
 }
 
 function getMatchingProfiles(user, callback) {
+    console.log('USER', user)
     // get user's information
     var id = user.id;
     // GENDER
@@ -497,9 +498,9 @@ function getMatchingProfiles(user, callback) {
         getUserQuery.sql +=
             "usr.birth_date BETWEEN " +
             mySqlConnection.connection().escape(interest_birthdate_max) +
-            "AND " +
+            " AND " +
             mySqlConnection.connection().escape(interest_birthdate_min) +
-            "AND ";
+            " AND ";
     }
     // Matching cities
     if (city_id) {

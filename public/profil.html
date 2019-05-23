@@ -28,7 +28,7 @@
 <body id="page-top" style="display: none">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;">
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="home.html">Love Academy</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,37 +62,48 @@
 
     </header>
 
-    <section>
+    <section style="
+    padding-top: 50px;
+">
         <div class="content">
 
             <div class="container-fluid">
 
-                <ul class="nav nav-pills">
-                    <li class="active"><a href="#">Mon profil</a></li>
-                    <li><a href="preferences.html">Mes préférences</a></li>
-                </ul>
                 <div class="row">
                     <!-- User card-->
                     <div class="col-lg-2 col-md-2">
                         <div class="card card-user">
                             <div class="content ">
                                 <div class="author ">
-                                    <img class="card-img-top" src="" alt="user profile picture" id="profilepicture">
-                                    <h4 class="username text-center" id="username"><br />
+                                    <img class="card-img-top" src="" alt="user profile picture" id="profilepicture" style="
+                                    border: black;
+                                    border-style: solid;
+                                ">
+                                    <h4 class="username text-center" id="username" style="
+                                    margin-top: 20px;
+                                "><br />
                                     </h4>
                                 </div>
                                 <input style="border:none" type="text" class="form-control border-input text-center" id="bio" placeholder="bio">
                             </div>
                             <hr>
 
+                            <a href="preferences.html" style="
+                            text-align: center;
+                        "><br>Mes préférences</a>
+
                         </div>
 
                     </div>
                     <!-- User info-->
-                    <div class="col">
+                    <div class="col" style="
+                    padding-left: 70px;
+                ">
                         <div class="header">
-                            <h4 class="title">Edit Profile</h4>
+                            <h2 class="title" style="margin-bottom: 32px;">Mon profil</h4>
                         </div>
+
+                        
                         <div class="col-lg-6">
                             <div class="alert alert-success alert-dismissible fade show" style="display: none" role="alert" id="alert">
                                 Votre profil a été mis à jour !
@@ -116,13 +127,13 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Nom</label>
                                             <input type="text" class="form-control border-input" id="lastname" placeholder="lastname" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Prénom</label>
                                             <input type="text" class="form-control border-input" id="firstname" placeholder="firstname" readonly>
@@ -133,21 +144,30 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="col-xs-6">
-                                                <label>Sexe</label>
-                                                <div class="form-check form-check-inline col-sm-2">
-                                                    <input class="form-check-input" type="radio" name="sexe" id="SexeHomme" value="homme">
+                                                <label>Sexe :</label>
+                                            </div>
+                                                <div class="form-check form-check-inline col-sm-2" style="
+                                                margin-right: 70px;
+                                            ">
+                                                        <i class="fas fa-mars fa-2x"></i>
+                                                    <input class="form-check-input" type="radio" name="sexe" id="SexeHomme" value="homme" style="
+                                                    margin-left: 10px;
+                                                ">
                                                     <label class="form-check-label" for="SexeHomme">Homme</label>
                                                 </div>
                                                 <div class="form-check form-check-inline col-sm-2">
-                                                    <input class="form-check-input" type="radio" name="sexe" id="SexeFemme" value="femme">
+                                                        <i class="fas fa-venus fa-2x"></i>
+                                                    <input class="form-check-input" type="radio" name="sexe" id="SexeFemme" value="femme" style="
+                                                    margin-left: 10px;
+                                                ">
                                                     <label class="form-check-label" for="SexeFemme">Femme</label>
                                                 </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Mot de passe</label>
                                             <input type="password" class="form-control border-input" id="password" placeholder="password">
@@ -155,7 +175,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Date de naissance</label>
                                             <input type="date" class="form-control border-input" id="birthdate" placeholder="birthdate">
@@ -163,7 +183,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6">
+                                    <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
                                             <label>Ville</label>
                                             <select type="text" class="form-control border-input" id="city" placeholder="city">
@@ -174,7 +194,7 @@
 
 
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6">
+                                    <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
                                             <label>Ecole</label>
                                             <select type="text" class="form-control border-input" id="school" placeholder="school">
@@ -182,8 +202,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center">
-                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd">Valider</button>
+                                <div class="">
+                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd"style="background-color: #c63837;
+                                    border-color: #c63837;">Valider</button>
                                 </div>
                             </form>
                         </div>

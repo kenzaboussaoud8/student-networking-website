@@ -64,10 +64,16 @@
             </div>
     </header>
     <main class="mt-auto h-100">
-        <div class="jumbotron" style="background: #ffffff; padding-bottom: 0px;">
-            <h1>Ta messagerie </h1>
-            <p>Ici, tu peux communiquer avec ceux qui ont matché !</p>
+        <div class="jumbotron" style="background: #ffffff; padding-bottom: 0px; text-align: center;">
+                <h1 style="
+                margin-bottom: 25px;
+            ">Ta messagerie </h1>
+
+            <hr class="style-two" style="width: 25%;">
+
         </div>
+
+
         <div class="row" style="height:100%;">
             <div class="row align-items-center" style="width:100%">
                 <div class="col-2 offset-2 chat">
@@ -86,9 +92,31 @@
 
                         <!-- Profil like list -->
                         <div class="card-body contacts_body">
-                            <ui class="contacts" id="here">
-
-
+                            <ui class="contacts">
+                                <li class="actives">
+                                    <div class="d-flex bd-highlight">
+                                        <div class="img_cont">
+                                            <img src="./asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img">
+                                            <span class="online_icon offline"></span>
+                                        </div>
+                                        <div class="user_info">
+                                            <span>NAME</span>
+                                            <p>NAME logout datetime</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex bd-highlight">
+                                        <div class="img_cont">
+                                            <img src="./asset/images/photo-1531251445707-1f000e1e87d0.jpg" class="rounded-circle user_img">
+                                            <span class="online_icon"></span>
+                                        </div>
+                                        <div class="user_info">
+                                            <span>NAME</span>
+                                            <p>NAME logout datetime</p>
+                                        </div>
+                                    </div>
+                                </li>
                             </ui>
                         </div>
                         <!-- End Profil like list -->
@@ -106,7 +134,7 @@
                                     <img src="./asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img">
                                     <span class="online_icon"></span>
                                 </div>
-                                <div class="user_info">
+                                <div class="user_info_header">
                                     <span>Chat with name contact</span>
                                     <p>Number Messages</p>
                                 </div>
@@ -210,8 +238,6 @@
 <!-- SCRIPTS -->
 <!-- Bootstrap core JavaScript -->
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="./asset/vendor/jquery/jquery.min.js"></script>
 <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
