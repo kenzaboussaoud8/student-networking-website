@@ -270,7 +270,8 @@
             }
         }).done(function(data) {
             console.log('Sent request to user id:!', userId)
-            $("#" + userId).remove();
+            deleteItem(userId);
+
         })
     }
 </script>
@@ -305,5 +306,12 @@
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 </script>
-
+<script>
+    function deleteItem(elementId) {
+        if (confirm("Etes-vous sûr?")) {
+            $("#" + elementId).remove();
+        }
+        return false;
+    }
+</script>
 </html
