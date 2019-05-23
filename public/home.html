@@ -183,7 +183,7 @@
                 photo += '"> '
                 photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
                 photo += users[i].profile_picture;
-                var user = '"><span id="status" style = "display: none" class="badge badge-pill badge-secondary">En attente</span>';
+                var user = '"><span id="status" style = "display: none" class="badge badge-pill badge-secondary">En attente</span><span id="request" style = "display: none" class="badge badge-pill badge-danger">Plus de demandes? Revenez demain!</span>';
                 user += '<div class="card-body text-center"> <h5 class="card-title mb-0" id="username-age">'
 
                 if (users[i].School_id == userSchoolId) {
@@ -235,10 +235,18 @@
             },
             data: {
                 "user_id_receiver": id
+            },
+            statusCode: {
+                200: function() {
+                    $("#" + id + "> span.badge").css("display", "block");
+                },
+                401: function() {
+                    console.log("hey")
+                    $("#" + id + "> span#request.badge").css("display", "block");
+                }
             }
         }).done(function(data) {
             console.log('Sent request!', id)
-            $("#" + id + "> span.badge").css("display", "block");
         })
     }
 </script>
@@ -265,12 +273,12 @@
     }
 </script>
 <!-- Block user -->
-<script>
+<!-- <script>
     function sendRequest(id) {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/sendRequest/',
+            url: 'http://localhost:8080/blockUser/',
             type: 'POST',
             headers: {
                 "authorization": tk,
@@ -283,7 +291,7 @@
             $("#" + id + "> span.badge").css("display", "block");
         })
     }
-</script>
+</script> -->
 <!-- Script de déconnexion -->
 <script>
     (function() {

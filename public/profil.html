@@ -301,7 +301,6 @@
                 $.each(result, function(k, v) {
                     dropdown.append('<option value="' + v.id + '">' + v[value] + '</option>');
                 });
-                // 
                 if (initialValue) {
                     dropdown.val(initialValue);
                 }
@@ -394,7 +393,6 @@
                 City_id: $("#city").val(),
                 School_id: $("#school").val()
             };
-            // $('#myAlert').modal();
             // on récupère le token depuis le localStorage
             let tk = localStorage.getItem("token");
             e.preventDefault();

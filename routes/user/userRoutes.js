@@ -321,9 +321,23 @@ function sendRequest(req, res) {
         if (rslt.length <= 0) {
             sendResponse(res, 400, "Token does not exist");
         } else {
-            userUtils.sendRequest(rslt[0].id, user_id_receiver, function() {
-                sendResponse(res, 200, "Request sent");
-            });
+            if (rslt[0].gender == 'homme') {
+                userUtils.countRequests(rslt[0], function(err, resultat) {
+                    count = resultat[0].nbRequests
+                    if (count >= 5) {
+                        sendResponse(res, 401, "You used all ur requests")
+                    } else {
+                        userUtils.sendRequest(rslt[0].id, user_id_receiver, function() {
+                            sendResponse(res, 200, "Request sent");
+                        });
+                    }
+                })
+            } else {
+                userUtils.sendRequest(rslt[0].id, user_id_receiver, function() {
+                    sendResponse(res, 200, "Request sent");
+                });
+            }
+
         }
     });
 }
