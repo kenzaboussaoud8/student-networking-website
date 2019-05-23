@@ -142,6 +142,12 @@
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
+        console.log('token', tk)
+        if (!tk) {
+            window.location.href = '/index.html';
+            return
+        }
+        $("body").show();
         $.ajax({
             url: 'http://localhost:8080/user/',
             headers: {
@@ -293,7 +299,9 @@
                 }
             }).done(function(data) {
                 console.log('Logged out!')
-                window.location.href = 'index.html';
+                window.location.href = '/index.html';
+                localStorage.clear();
+
             })
         })
     })();

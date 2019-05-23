@@ -479,10 +479,11 @@ function getMatchingProfiles(user, callback) {
                 getUserQuery.sql +=
                     "usr.gender = " +
                     mySqlConnection.connection().escape(interest_gender) +
-                    "AND ";
+                    "AND ((";
                 getUserQuery.sql +=
                     "usr.interest_gender = " +
                     mySqlConnection.connection().escape(gender) +
+                    ") OR (usr.interest_gender = 'les deux')) " +
                     "AND ";
             }
         } else {
@@ -555,7 +556,7 @@ function getFriends(user, callback) {
     // Hobbies
     const getUserQuery = {
         sql: "SELECT DISTINCT usr.*  FROM User as usr " +
-            "LEFT JOIN Request ON Request.User_id_requester = usr.id" +
+            "LEFT JOIN Request ON Request.User_id_requester = usr.id OR Request.User_id_receiver = usr.id " +
             " WHERE "
 
     };

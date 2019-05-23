@@ -39,7 +39,7 @@
     </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" style="display: none">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -137,8 +137,8 @@
 
                                             <div class="form-check form-check-inline col-sm-2">
                                                 <i class="fas fa-venus-mars"></i>
-                                                <input class="form-check-input" type="radio" name="sexe" id="SexeBi" value="bisexuel">
-                                                <label class="form-check-label" for="SexeBi">Bisexuel</label>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeBi" value="both">
+                                                <label class="form-check-label" for="SexeBi">Les deux</label>
                                             </div>
                                         </div>
                                     </div>
@@ -244,7 +244,7 @@
 <!-- Custom scripts for this template -->
 <script src="./asset/js/agency.min.js"></script>
 
-<!-- Récupérer les données de l'utilisateur connecté-->
+<!-- Get connected user's info-->
 <script>
     var min_slider_value = 18;
     var max_slider_value = 99;
@@ -252,7 +252,12 @@
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
-        // hoooby
+        console.log('token', tk)
+        if (!tk) {
+            window.location.href = '/index.html';
+            return
+        }
+        $("body").show();
         $.ajax({
             url: 'http://localhost:8080/userHobby',
             headers: {
@@ -261,8 +266,10 @@
             type: 'GET',
         }).done(function(dt) {
             var user = dt.message[0];
-            document.getElementById('hobbies').value = user.Hobbies_id;
-
+            $('#hobbies').val(user.Hobbies_id);
+            if (!$('#hobbies').val()) {
+                $('#hobbies')[0]["initialValue"] = user.Hobbies_id
+            }
         })
         $.ajax({
             url: 'http://localhost:8080/user/',
@@ -273,82 +280,70 @@
         }).done(function(dt) {
             var user = dt.message;
             $("input[name=sexe][value=" + user.interest_gender + "]").prop('checked', true);
-            document.getElementById('city').value = user.interest_city_id;
-            document.getElementById('bio').value = user.bio;
-            document.getElementById('profilepicture').src = user.profile_picture;
+            $('#city').val(user.interest_city_id);
+            if (!$('#city').val()) {
+                $('#city')[0]["initialValue"] = user.interest_city_id
+            }
+            $('#bio').val(user.bio);
+            $('#profilepicture').src = user.profile_picture;
             var min_slider_value = user.interest_age.split('-')[0];
             var max_slider_value = user.interest_age.split('-')[1];
             $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
-
         })
 
     });
 </script>
+<!-- Dropdown build function -->
 <script>
-    $(document).ready(function() {
-
-        var helpers = {
-            buildDropdown: function(result, dropdown, emptyMessage) {
+    function buildDropdown(result, value, dropdown, emptyMessage) {
+        {
+            var initialValue = dropdown[0]["initialValue"];
+            // Check result isnt empty
+            if (result != '') {
                 // Remove current options
                 dropdown.html('');
                 // Add the empty option with the empty message
                 dropdown.append('<option value="">' + emptyMessage + '</option>');
-                // Check result isnt empty
-                if (result != '') {
-                    // Loop through each of the results and append the option to the dropdown
-                    $.each(result, function(k, v) {
-                        dropdown.append('<option value="' + v.id + '">' + v.hobby + '</option>');
-                    });
+                // Loop through each of the results and append the option to the dropdown
+                $.each(result, function(k, v) {
+                    dropdown.append('<option value="' + v.id + '">' + v[value] + '</option>');
+                });
+                // 
+                if (initialValue) {
+                    dropdown.val(initialValue);
                 }
             }
         }
-
-
+    }
+</script>
+<!-- Get list of hobbies and fill dropdown -->
+<script>
+    $(document).ready(function() {
         $.ajax({
             type: "GET",
             url: 'http://localhost:8080/hobbies',
             success: function(data) {
                 var hobby = data.message
-                helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(hobby)),
+                buildDropdown(jQuery.parseJSON(JSON.stringify(hobby)), "hobby",
                     $('#hobbies'),
                     'Select an option'
+
                 );
             }
         });
     });
 </script>
-
+<!-- Get list of cities and fill dropdown -->
 <script>
     $(document).ready(function() {
-
-        var helpers = {
-            buildDropdown: function(result, dropdown, emptyMessage) {
-                // Remove current options
-                dropdown.html('');
-                // Add the empty option with the empty message
-                dropdown.append('<option value="">' + emptyMessage + '</option>');
-                // Check result isnt empty
-                if (result != '') {
-                    // Loop through each of the results and append the option to the dropdown
-                    $.each(result, function(k, v) {
-                        dropdown.append('<option value="' + v.id + '">' + v.cityname + '</option>');
-                    });
-                }
-            }
-        }
-
-
         $.ajax({
             type: "GET",
             url: 'http://localhost:8080/cities',
             success: function(data) {
                 var city = data.message
-                helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(city)),
+                buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
                     $('#city'),
-                    'Select an option'
-                );
+                    'Select an option');
             }
         });
     });
@@ -357,8 +352,7 @@
 <script>
     (function() {
         $("#submitForm").click(function(e) {
-            // $('#myAlert').modal();
-            // on récupère le token depuis le localStorage
+            // retrieve token from local storage
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
@@ -396,11 +390,11 @@
         })
     })();
 </script>
-<!-- Script de déconnexion -->
+<!-- Logout -->
 <script>
     (function() {
         $("#logout").click(function(e) {
-            // on récupère le token depuis le localStorage
+            // retrieve token from local storage
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
@@ -411,16 +405,21 @@
                 }
             }).done(function(data) {
                 console.log('Logged out!')
-                window.location.href = 'index.html';
+                window.location.href = '/index.html';
+                localStorage.clear();
+
             })
         })
     })();
 </script>
+<!-- Transform date -->
 <script>
     function dateBDDToDateForm(date) {
         return date.split('T')[0]
     }
 </script>
+<!-- Age range Slider function -->
+
 <script>
     $(document).ready(function() {
         $("#slider-range").slider({

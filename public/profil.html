@@ -25,7 +25,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" style="display: none">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -102,7 +102,7 @@
                             </div>
                         </div>
 
-                    
+
                         <div class="content">
                             <form>
                                 <div class="row">
@@ -286,80 +286,39 @@
 <!-- Custom scripts for this template -->
 <script src="./asset/js/agency.min.js"></script>
 
-
-<!-- Getting the list of cities available-->
+<!-- Dropdown build function -->
 <script>
-    $(document).ready(function() {
-
-        var helpers = {
-            buildDropdown: function(result, dropdown, emptyMessage) {
+    function buildDropdown(result, value, dropdown, emptyMessage) {
+        {
+            var initialValue = dropdown[0]["initialValue"];
+            // Check result isnt empty
+            if (result != '') {
                 // Remove current options
                 dropdown.html('');
                 // Add the empty option with the empty message
                 dropdown.append('<option value="">' + emptyMessage + '</option>');
-                // Check result isnt empty
-                if (result != '') {
-                    // Loop through each of the results and append the option to the dropdown
-                    $.each(result, function(k, v) {
-                        dropdown.append('<option value="' + v.id + '">' + v.name + '</option>');
-                    });
+                // Loop through each of the results and append the option to the dropdown
+                $.each(result, function(k, v) {
+                    dropdown.append('<option value="' + v.id + '">' + v[value] + '</option>');
+                });
+                // 
+                if (initialValue) {
+                    dropdown.val(initialValue);
                 }
             }
         }
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8080/schools',
-            success: function(data) {
-                var school = data.message;
-                helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(school)),
-                    $('#school'),
-                    'Select an option'
-                );
-            }
-        });
-    });
+    }
 </script>
-
+<!-- Get connected user's info-->
 <script>
     $(document).ready(function() {
-
-        var helpers = {
-            buildDropdown: function(result, dropdown, emptyMessage) {
-                // Remove current options
-                dropdown.html('');
-                // Add the empty option with the empty message
-                dropdown.append('<option value="">' + emptyMessage + '</option>');
-                // Check result isnt empty
-                if (result != '') {
-                    // Loop through each of the results and append the option to the dropdown
-                    $.each(result, function(k, v) {
-                        dropdown.append('<option value="' + v.id + '">' + v.cityname + '</option>');
-                    });
-                }
-            }
-        }
-
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8080/cities',
-            success: function(data) {
-                var city = data.message;
-
-                helpers.buildDropdown(
-                    jQuery.parseJSON(JSON.stringify(city)),
-                    $('#city'),
-                    'Select an option'
-                );
-            }
-        });
-    });
-</script>
-<!-- Récupérer les données de l'utilisateur connecté-->
-<script>
-    $(document).ready(function() {
-        // on récupère le token depuis le localStorage
+        // retrieve token from local storage
         let tk = localStorage.getItem("token");
+        if (!tk) {
+            window.location.href = '/index.html';
+            return
+        }
+        $("body").show();
         $.ajax({
             url: 'http://localhost:8080/user/',
             headers: {
@@ -368,21 +327,58 @@
             type: 'GET',
         }).done(function(dt) {
             var user = dt.message;
-            document.getElementById('firstname').value = user.first_name;
-            document.getElementById('lastname').value = user.last_name;
-            document.getElementById('email').value = user.email;
-            document.getElementById('password').value = user.password;
-            document.getElementById('birthdate').value = dateBDDToDateForm(user.birth_date);
+            $('#firstname').val(user.first_name);
+            $('#lastname').val(user.last_name);
+            $('#email').val(user.email);
+            $('#password').val(user.password);
+            $('#birthdate').val(dateBDDToDateForm(user.birth_date));
             $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
-            document.getElementById('bio').value = user.bio;
-            document.getElementById('profilepicture').src = user.profile_picture;
-            document.getElementById('school').value = user.School_id;
-            document.getElementById('username').innerText = user.first_name + ' ' + user.last_name;
-            document.getElementById('city').value = user.City_id;
-
-
-
+            $('#bio').val(user.bio);
+            $('#profilepicture').src = user.profile_picture;
+            $('#school').val(user.School_id);
+            if (!$('#school').val()) {
+                $('#school')[0]["initialValue"] = user.School_id
+            }
+            $('#username').innerText = user.first_name + ' ' + user.last_name;
+            $('#city').val(user.City_id);
+            if (!$('#city').val()) {
+                $('#city')[0]["initialValue"] = user.City_id
+            }
         })
+
+    });
+</script>
+
+<!-- Getting the list of cities available-->
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/schools',
+            success: function(data) {
+                var school = data.message;
+                buildDropdown(jQuery.parseJSON(JSON.stringify(school)), "name",
+                    $('#school'),
+                    'Select an option')
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/cities',
+            success: function(data) {
+                var city = data.message;
+                buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
+                    $('#city'),
+                    'Select an option')
+
+            }
+        });
     });
 </script>
 
@@ -472,7 +468,10 @@
                 }
             }).done(function(data) {
                 console.log('Logged out!')
-                window.location.href = 'index.html';
+                window.location.href = '/index.html';
+                // clear local storage
+                localStorage.clear();
+
             })
         })
     })();
