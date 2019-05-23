@@ -291,8 +291,7 @@
     function buildDropdown(result, value, dropdown, emptyMessage) {
         {
             var initialValue = dropdown[0]["initialValue"];
-            console.log('initial value for ' + value + " ", initialValue)
-                // Check result isnt empty
+            // Check result isnt empty
             if (result != '') {
                 // Remove current options
                 dropdown.html('');
@@ -315,7 +314,6 @@
     $(document).ready(function() {
         // retrieve token from local storage
         let tk = localStorage.getItem("token");
-        console.log('token', tk)
         if (!tk) {
             window.location.href = '/index.html';
             return
