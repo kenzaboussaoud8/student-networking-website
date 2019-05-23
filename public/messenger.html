@@ -27,9 +27,9 @@
 
 
 
-<body>
+<body style="display: none">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;" >
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;">
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="home.html">Love Academy</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -250,5 +250,57 @@
 
 <!-- Custom scripts for this template -->
 <script src="./asset/js/agency.min.js"></script>
+<!-- Récupérer les données de l'utilisateur connecté-->
+<script>
+    var userSchoolId = ''
+    var myId = ''
+    $(document).ready(function() {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        console.log('token', tk)
+        if (!tk) {
+            window.location.href = '/index.html';
+            return
+        }
+        $("body").show();
+        $.ajax({
+            url: 'http://localhost:8080/user/',
+            headers: {
+                "authorization": tk
+            },
+            type: 'GET',
+        }).done(function(dt) {
+            var user = dt.message;
+            myId = user.id
+            userSchoolId = user.School_id;
+        })
+
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        $.ajax({
+            url: 'http://localhost:8080/friends',
+            type: 'GET',
+            headers: {
+                "authorization": tk
+            }
+        }).done(function(data) {
+            var container = document.querySelector("#here");
+            var users = data.message
+            for (var i = 0; i < users.length; i++) {
+                var element = ' <li class="actives"> <div class="d-flex bd-highlight"><div class="img_cont"><img src="'
+                    // element += users[i].profile_picture;
+                element += 'class="rounded-circle user_img"><span class="online_icon offline"></span> </div> <div class="user_info"><span>'
+                element += users[i].first_name + ' ' + users[i].last_name;
+                element += '</span><p>NAME logout datetime</p></div></div></li>'
+                container.innerHTML += element;
+            }
+
+        });
+    });
+</script>
 
 </html>

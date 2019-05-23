@@ -25,7 +25,7 @@
 
 </head>
 
-<body id='page-top'>
+<body id='page-top' style="display: none">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;">
@@ -144,6 +144,12 @@
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
+        console.log('token', tk)
+        if (!tk) {
+            window.location.href = '/index.html';
+            return
+        }
+        $("body").show();
         $.ajax({
             url: 'http://localhost:8080/user/',
             headers: {
@@ -267,7 +273,8 @@
             }
         }).done(function(data) {
             console.log('Sent request to user id:!', userId)
-            $("#" + userId).remove();
+            deleteItem(userId);
+
         })
     }
 </script>
@@ -286,7 +293,9 @@
                 }
             }).done(function(data) {
                 console.log('Logged out!')
-                window.location.href = 'index.html';
+                window.location.href = '/index.html';
+                localStorage.clear();
+
             })
         })
     })();
@@ -300,5 +309,12 @@
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 </script>
-
-</html>
+<script>
+    function deleteItem(elementId) {
+        if (confirm("Etes-vous sûr?")) {
+            $("#" + elementId).remove();
+        }
+        return false;
+    }
+</script>
+</html

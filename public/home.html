@@ -146,6 +146,12 @@
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
+        console.log('token', tk)
+        if (!tk) {
+            window.location.href = '/index.html';
+            return
+        }
+        $("body").show();
         $.ajax({
             url: 'http://localhost:8080/user/',
             headers: {
@@ -181,7 +187,7 @@
                 photo += '"> '
                 photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
                 photo += users[i].profile_picture;
-                var user = '"><span id="status" style = "display: none" class="badge badge-pill badge-secondary">En attente</span>';
+                var user = '"><span id="status" style = "display: none" class="badge badge-pill badge-secondary">En attente</span><span id="request" style = "display: none" class="badge badge-pill badge-danger">Plus de demandes? Revenez demain!</span>';
                 user += '<div class="card-body text-center"> <h5 class="card-title mb-0" id="username-age">'
 
                 if (users[i].School_id == userSchoolId) {
@@ -233,10 +239,18 @@
             },
             data: {
                 "user_id_receiver": id
+            },
+            statusCode: {
+                200: function() {
+                    $("#" + id + "> span.badge").css("display", "block");
+                },
+                401: function() {
+                    console.log("hey")
+                    $("#" + id + "> span#request.badge").css("display", "block");
+                }
             }
         }).done(function(data) {
             console.log('Sent request!', id)
-            $("#" + id + "> span.badge").css("display", "block");
         })
     }
 </script>
@@ -257,18 +271,25 @@
 
             }
         }).done(function(data) {
-            console.log('request rejected!', id_receiver, id_requester)
-            $("#" + id_requester).remove();
+            deleteItem(id_requester);
         })
     }
 </script>
-<!-- Block user -->
 <script>
+    function deleteItem(elementId) {
+        if (confirm("Etes-vous sûr?")) {
+            $("#" + elementId).remove();
+        }
+        return false;
+    }
+</script>
+<!-- Block user -->
+<!-- <script>
     function sendRequest(id) {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/sendRequest/',
+            url: 'http://localhost:8080/blockUser/',
             type: 'POST',
             headers: {
                 "authorization": tk,
@@ -281,7 +302,7 @@
             $("#" + id + "> span.badge").css("display", "block");
         })
     }
-</script>
+</script> -->
 <!-- Script de déconnexion -->
 <script>
     (function() {
@@ -297,7 +318,9 @@
                 }
             }).done(function(data) {
                 console.log('Logged out!')
-                window.location.href = 'index.html';
+                window.location.href = '/index.html';
+                localStorage.clear();
+
             })
         })
     })();
