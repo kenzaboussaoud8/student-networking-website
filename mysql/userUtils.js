@@ -26,7 +26,8 @@ module.exports = {
     getAdminApproval: getAdminApproval,
     deleteUser: deleteUser,
     getUserFromId: getUserFromId,
-    getFriends: getFriends
+    getFriends: getFriends,
+    countRequests: countRequests
 };
 
 function getRequests(userId, callback) {
@@ -306,9 +307,8 @@ function updateUserHobby(userId, body, callback) {
     mySqlConnection.query(updateHobbyQuery, sqlCallback, data);
 }
 
-
-
 function sendRequest(userId, userIdReceiver, callback) {
+
     var requestSentQuery =
         "INSERT INTO Request(User_id_requester, User_id_receiver, request_status, sent_date ) VALUES (?,?,?,NOW())";
 
@@ -637,4 +637,32 @@ function deleteUser(userId, callback) {
     };
     //execute the query to get the user
     mySqlConnection.query(deleteUserQuery, sqlCallback, id);
+}
+
+function countRequests(user, callback) {
+    // get user's information
+    var id = user.id;
+    const countRequestsQuery = {
+        sql: "SELECT COUNT(Request.id) as nbRequests FROM Request " +
+            "JOIN User ON User.id = Request.User_id_requester " +
+            " WHERE Date(Request.sent_date) = CURDATE() "
+    };
+
+    if (id) {
+        countRequestsQuery.sql += " AND User.id = " +
+            mySqlConnection.connection().escape(id);
+
+    }
+
+    //holds the results  from the query
+    const sqlCallback = dataResponseObject => {
+        //calculate if user exists or assign null if results is null
+        const count = dataResponseObject.results;
+        //check if there are any users with this username and return the appropriate value
+        callback(dataResponseObject.error, count);
+    };
+
+    mySqlConnection.query(countRequestsQuery, sqlCallback);
+
+
 }
