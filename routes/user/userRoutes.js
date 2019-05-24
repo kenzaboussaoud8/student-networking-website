@@ -363,13 +363,15 @@ function acceptRequest(req, res) {
 handles the api call to reject a contact request
 */
 function rejectRequest(req, res) {
-    var requestId = req.body.requestId;
+    var user_id_requester = req.body.user_id_requester;
+    var user_id_receiver = req.body.user_id_receiver;
+
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, rslt) {
         if (rslt.length <= 0) {
             sendResponse(res, 400, "Token does not exist");
         } else {
-            userUtils.rejectRequest(requestId, function() {
+            userUtils.rejectRequest(user_id_requester, user_id_receiver, function() {
                 sendResponse(res, 200, "Request sent");
             });
         }
