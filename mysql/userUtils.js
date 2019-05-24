@@ -349,11 +349,11 @@ function acceptRequest(requestId, callback) {
     mySqlConnection.query(acceptRequestQuery, sqlCallback, data);
 }
 
-function rejectRequest(requestId, callback) {
+function rejectRequest(user_id_requester, user_id_receiver, callback) {
     const rejectRequestQuery = {
-        sql: "UPDATE Request SET request_status = ?, last_modified = (NOW()) WHERE id = ?"
+        sql: "UPDATE Request SET request_status = ?, last_modified = (NOW()) WHERE User_id_requester = ? AND User_id_receiver = ?"
     };
-    const data = ["2", requestId];
+    const data = ["2", user_id_requester, user_id_receiver];
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
         //calculate if user exists or assign null if results is null
@@ -435,7 +435,7 @@ function blockContact(requestId, callback) {
 
 function getMatchingProfiles(user, callback) {
     console.log('USER', user)
-    // get user's information
+        // get user's information
     var id = user.id;
     // GENDER
     var gender = user.gender;
@@ -460,7 +460,7 @@ function getMatchingProfiles(user, callback) {
 
     // Hobbies
     const getUserQuery = {
-        sql: "SELECT DISTINCT usr.*, City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name  FROM User as usr " +
+        sql: "SELECT DISTINCT usr.*, City.cityname, User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name, Request.request_status FROM User as usr " +
             "LEFT JOIN City ON City.id = usr.City_id " +
             "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
             "LEFT JOIN School ON School.id = usr.School_id " +
@@ -518,7 +518,7 @@ function getMatchingProfiles(user, callback) {
             mySqlConnection.connection().escape(id);
     }
     getUserQuery.sql +=
-        " AND ((Request.request_status != '2' AND Request.request_status != '3'  AND Request.User_id_requester IS NOT NULL) OR (Request.User_id_requester IS NULL)) ";
+        " AND ((Request.request_status = '0' AND Request.User_id_requester IS NOT NULL) OR (Request.User_id_requester IS NULL)) ";
 
 
     //holds the results  from the query
