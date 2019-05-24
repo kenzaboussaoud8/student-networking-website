@@ -215,7 +215,7 @@
                 rest += users[i].id
                 rest += ')" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>'
                 rest += ' <button class="bouton17" onclick="deleteUser('
-                rest += users[i].id + ',' + myId
+                rest += myId + ',' + users[i].id
                 rest += ')"><i class="fa fa-times fa-5x"></i></button>'
                 rest += '</div></div></div>'
                 container.innerHTML += photo + user + city + bio + myHobby + rest;
@@ -242,10 +242,9 @@
             },
             statusCode: {
                 200: function() {
-                    $("#" + id + "> span.badge").css("display", "block");
+                    $("#" + id + "> span#status.badge").css("display", "block");
                 },
                 401: function() {
-                    console.log("hey")
                     $("#" + id + "> span#request.badge").css("display", "block");
                 }
             }
@@ -271,7 +270,8 @@
 
             }
         }).done(function(data) {
-            deleteItem(id_requester);
+            console.log('rejecting', id_receiver, id_requester)
+            deleteItem(id_receiver);
         })
     }
 </script>
@@ -335,4 +335,4 @@
     }
 </script>
 
-</html
+</html>
