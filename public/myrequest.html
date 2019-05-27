@@ -212,7 +212,7 @@
                     photo += ' <img  class=""  style="height: 400px;width: inherit;border-style: solid;border-width: medium;" id="profilepicture" alt="..." src=" ';
                     photo += user.profile_picture;
                     var user_card = '"><span id="status" style = "display: none" class="badge badge-pill badge-success">Vous avez matché! Envois un message maintenant :)</span>';
-                    user_card += '<div class="card-body text-center" style="max-height: 420px;min-height: 420px;border-style: solid;border-top-style: inherit;/* border-radius: 3px; */border-width: thin;"> <h5 class="card-title mb-0"> <h5 class="card-title mb-0" id="username-age">'
+                    user_card += '<div class="card-body text-center" style="max-height: 420px;min-height: 420px;border-style: solid;border-top-style: inherit;/* border-radius: 3px; */border-width: thin;"> <h5 class="card-title mb-0"> <h5 class="card-title mb-0" style="font-family: montserrat;" id="username-age">'
 
                     if (user.School_id == userSchoolId) {
                         user_card += ' <i class="fas fa-graduation-cap"></i>'
@@ -222,7 +222,7 @@
                     user_card += ', ';
                     user_card += age;
                     user_card += ' ans</h5>'
-                    user += ' <hr style="width: 65%;">'
+                    user_card += ' <hr style="width: 65%;">'
 
                     var city = ' <div class="card-text text-black-50" style="padding-bottom: 15px;" id="school-city">'
                     city += user.name
