@@ -484,6 +484,7 @@ function getMatchingProfiles(user, callback) {
             getUserQuery.sql +=
                 " usr.gender = " +
                 mySqlConnection.connection().escape(interest_gender) +
+
                 "AND ((";
             getUserQuery.sql +=
                 "usr.interest_gender = " +
