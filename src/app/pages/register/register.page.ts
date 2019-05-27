@@ -7,26 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterPage implements OnInit {
 
-  email:string;
-  first_name:string;
-  last_name:string;
-  password:string;
-  birth_date:string;
-  student_card:string;
-  
+  email: string;
+  first_name: string;
+  last_name: string;
+  password: string;
+  birth_date: string;
+  student_card: string;
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  ionViewDidload(){
+  ionViewDidload() {
 
     console.log('ionViewDidLoad RegisterPage');
   }
 
-  Register(){
-    if(this.email.length == 0 || this.first_name.length == 0 || this.last_name.length == 0 || this.password.length == 0 || this.birth_date.length == 0 || this.birth_date.length == 0){
-      alert("Please fill all fields");
+  Register() {
+    if (this.email.length == 0 || this.first_name.length == 0 || this.last_name.length == 0 || this.password.length == 0 || this.birth_date.length == 0 || this.birth_date.length == 0) {
+      alert('Please fill all fields');
     }
   }
 

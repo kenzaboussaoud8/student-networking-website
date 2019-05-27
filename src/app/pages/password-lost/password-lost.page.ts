@@ -7,18 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PasswordLostPage implements OnInit {
 
-  password:string;
-  new_password:string;
-  confirmed_password:string;
+  password: string;
+  new_password: string;
+  confirmed_password: string;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  Modified(){
-    if(this.password.length == 0 || this.new_password.length == 0 || this.confirmed_password.length == 0){
-      alert("Please fill all fields");
+  Modified() {
+    if (this.password.length == 0 || this.new_password.length == 0 || this.confirmed_password.length == 0) {
+      alert('Please fill all fields');
     }
   }
 

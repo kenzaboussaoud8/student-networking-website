@@ -8,7 +8,7 @@ export class UserService {
 
   constructor(private http: HTTP) {}
 
-  getLogin(username: string, password: string){
-    return this.http.get("hihihi", {}, {})
+  getLogin(username: string, password: string) {
+    return this.http.get('hihihi', {}, {});
   }
 }

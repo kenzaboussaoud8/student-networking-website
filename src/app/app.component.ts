@@ -11,11 +11,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
 
   public appMenu = [
-    {title: 'Acceuil', url:'/home', icon: 'list'},
-    {title: 'Messagerie', url:'/messenger', icon: 'list'},
-    {title: 'Mes Demandes', url:'/myrequests', icon: 'list'},
-    {title: 'Mon Compte', url:'/account', icon: 'list'},
-    {title: 'Deconnexion', url:'/showcase', icon: 'list'}
+    {title: 'Acceuil', url: '/home', icon: 'list'},
+    {title: 'Messagerie', url: '/messenger', icon: 'list'},
+    {title: 'Mes Demandes', url: '/myrequests', icon: 'list'},
+    {title: 'Mon Compte', url: '/account', icon: 'list'},
+    {title: 'Deconnexion', url: '/showcase', icon: 'list'}
 
   ];
 

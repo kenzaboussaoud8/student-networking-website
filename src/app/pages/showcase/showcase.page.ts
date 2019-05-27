@@ -8,21 +8,21 @@ import { NavController } from '@ionic/angular';
 })
 export class ShowcasePage implements OnInit {
 
-  email:string;
-  password:string;
+  email: string;
+  password: string;
 
   constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
-  login(){
-    console.log("Email: "+ this.email);
+  login() {
+    console.log('Email: ' + this.email);
 
-    console.log("Password: "+ this.password);
+    console.log('Password: ' + this.password);
   }
 
-  goRegister(){
+  goRegister() {
     this.navCtrl.navigateForward('/register');
   }
 

@@ -58,12 +58,12 @@ socket.on("connection", socket => {
         socket.broadcast.emit("received", { message: msg });
 
         //save chat to the database
-        connect.then(db => {
-            console.log("connected correctly to the server");
+        // connect.then(db => {
+        //     console.log("connected correctly to the server");
 
-            let chatMessage = new Chat({ message: msg, sender: "Anonymous" });
-            chatMessage.save();
-        });
+        //     let chatMessage = new Chat({ message: msg, sender: "Anonymous" });
+        //     chatMessage.save();
+        // });
     });
 });
 

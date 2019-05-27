@@ -8,20 +8,20 @@ import { NavController } from '@ionic/angular';
 })
 export class AccountPage implements OnInit {
 
-  man:string
-  women:string
-  bio:string
+  man: string;
+  women: string;
+  bio: string;
 
   constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
-  goPassword_lost(){
+  goPassword_lost() {
     this.navCtrl.navigateForward('/password-lost');
   }
 
-  goaccountpreference(){
+  goaccountpreference() {
     this.navCtrl.navigateForward('/accountpreference');
   }
 

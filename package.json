@@ -2,11 +2,15 @@
     "name": "student-networking-website",
     "version": "1.0.0",
     "description": "A student networking platform, developped with Ionic, Node.JS and Socket.IO",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build",
+        "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+        "buildNode": "tsc",
+        "prestart": "npm run buildNode",
+        "startNode": "node .",
+        "build": "tsc; ng build",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"
@@ -84,7 +88,7 @@
         "protractor": "~5.4.0",
         "ts-node": "~8.0.0",
         "tslint": "~5.12.0",
-        "typescript": "~3.1.6"
+        "typescript": "^3.1.6"
     },
     "cordova": {
         "plugins": {
