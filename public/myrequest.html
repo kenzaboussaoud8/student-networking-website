@@ -25,7 +25,7 @@
 
 </head>
 
-<body id='page-top' style="display: none">
+<body id='page-top' class="body_background" style="display: none">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;">
@@ -63,22 +63,38 @@
     </header>
 
     <section>
-        <div class="jumbotron" style="background: #ffffff; padding-bottom: 0px; text-align: center;">
-            <h1>Tes demandes de contact </h1>
+            <div class="jumbotron" style="background: #ffffff;padding-bottom: 100px;margin-bottom: 150px;padding-top: 90px;border-bottom-style: solid;border-top-style: solid;">
+                    <h1 style="
+                    text-align: center;
+                ">Tes demandes de contact </h1>
+                <hr class="style-two" style="width: 25%;">
+                </div>
+                
+                <!-- Page Content -->
+        <div class="container" style="
+        max-width: 1500px;
+    ">
+                <div class="card border-0 shadow my-5" style="height: inherit;">
+                  <div class="card-body p-5" style="
+                  background-color: white;
+              ">
+                    <h1 class="font-weight-light">Fixed Full Page Background Image</h1>
+                    <p class="lead">In this snippet, the background image is fixed to the body element. Content on the page will scroll, but the image will remain in a fixed position!</p>
+                    <p class="lead">Scroll down...</p>
+                    <div class="container-fluid" style="margin-top: 50px;margin-left: 100px;width:auto;"">
+                            <div class="row" id="here">
+                                <!-- Team Member 1 -->
+                
+                            </div>
+                        </div>
+                    <p class="lead mb-0">You've reached the end!</p>
+                  </div>
+                </div>
 
-            <hr class="style-two" style="width: 25%;">
-
-            <p>Ici, tu peux accepter ou refuser une demande de contact</p>
-        </div>
-        <!-- Page Content -->
-        <div class="container-fluid" style="margin-top: 50px; margin-left: 30px; width:auto">
-            <div class="row" id="here">
-
-            </div>
-            <!-- /.row -->
-
-        </div>
-        <!-- /.container -->
+                <div style="height: 50px"></div>
+              </div>
+        
+        <!-- /.row -->
         <!-- Footer -->
         <footer class="footer">
             <div class="container">
@@ -190,13 +206,13 @@
                     var user = dt.message[0]
                     var age = calculateAge(user.birth_date)
                     var card = ' <div class="col-sm-12 col-lg-6" id="here">'
-                    var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id="'
+                    var photo = '<div class="card h-100 border-0 shadow" style="width: 350px;margin-right: 45px;margin-bottom: 130px;" id="'
                     photo += user.id
                     photo += '"> '
-                    photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
+                    photo += ' <img  class=""  style="height: 400px;width: inherit;border-style: solid;border-width: medium;" id="profilepicture" alt="..." src=" ';
                     photo += user.profile_picture;
                     var user_card = '"><span id="status" style = "display: none" class="badge badge-pill badge-success">Vous avez matché! Envois un message maintenant :)</span>';
-                    user_card += '<div class="card-body text-center"> <h5 class="card-title mb-0" id="username-age">'
+                    user_card += '<div class="card-body text-center" style="max-height: 420px;min-height: 420px;border-style: solid;border-top-style: inherit;/* border-radius: 3px; */border-width: thin;"> <h5 class="card-title mb-0"> <h5 class="card-title mb-0" id="username-age">'
 
                     if (user.School_id == userSchoolId) {
                         user_card += ' <i class="fas fa-graduation-cap"></i>'
@@ -206,19 +222,20 @@
                     user_card += ', ';
                     user_card += age;
                     user_card += ' ans</h5>'
+                    user += ' <hr style="width: 65%;">'
 
-                    var city = ' <div class="card-text text-black-50" id="school-city">'
+                    var city = ' <div class="card-text text-black-50" style="padding-bottom: 15px;" id="school-city">'
                     city += user.name
                     city += ', ';
                     city += user.cityname;
                     city += '</div>'
-                    var bio = '<p class="card-text" id="bio"> <b>Bio</b> '
+                    var bio = '<b style="font-size: larger;">Bio</b> <hr style="width: 25%;"> <p class="card-text" style="margin-bottom: 35px;" id="bio">  '
                     bio += user.bio
                     bio += '</p>'
-                    var myHobby = ' <p class="card-text" id="hobby">'
-                    myHobby += '<i class="fas fa-thumbs-up"></i>   '
+                    var myHobby = ' <p class="card-text" style="font-weight: bold;" id="hobby"> '
+                    myHobby += ''
                     myHobby += user.hobby
-                    myHobby += '</p>'
+                    myHobby += '  <i class="fas fa-thumbs-up fa-2x" style="font-weight: normal;"></i> </p> '
                     var rest = '<button class="bouton18" onclick="acceptRequest('
                     rest += user.requestId + ',' + user.id
                     rest += ')" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>'

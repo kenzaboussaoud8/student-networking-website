@@ -26,7 +26,7 @@
 </head>
 
 
-<body id='page-top'>
+<body id='page-top' class="body_background">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;">
@@ -63,24 +63,40 @@
         </section>
     </header>
     <section>
-        <div class="jumbotron" style="background: #ffffff; padding-bottom: 0px;">
+        <div class="jumbotron" style="background: #ffffff;padding-bottom: 100px;margin-bottom: 150px;padding-top: 90px;border-bottom-style: solid;border-top-style: solid;">
             <h1 style="
             text-align: center;
         ">Trouve ton match! </h1>
-        </div>
-
         <hr class="style-two" style="width: 25%;">
+        </div>
         
         <!-- Page Content -->
-        <div class="container-fluid" style="margin-top: 50px; margin-left: 30px; width:auto">
-            <div class="row" id="here">
-                <!-- Team Member 1 -->
+        <div class="container" style="
+        max-width: 1500px;
+    ">
+                <div class="card border-0 shadow my-5" style="height: inherit;">
+                  <div class="card-body p-5" style="
+                  background-color: white;
+              ">
+                    <h1 class="font-weight-light">Fixed Full Page Background Image</h1>
+                    <p class="lead">In this snippet, the background image is fixed to the body element. Content on the page will scroll, but the image will remain in a fixed position!</p>
+                    <p class="lead">Scroll down...</p>
+                    <div class="container-fluid" style="margin-top: 50px;margin-left: 100px;width:auto;"">
+                            <div class="row" id="here">
+                                <!-- Team Member 1 -->
+                
+                            </div>
+                        </div>
+                    <p class="lead mb-0">You've reached the end!</p>
+                  </div>
+                </div>
 
-            </div>
-        </div>
+                <div style="height: 50px"></div>
+              </div>
+        
         <!-- /.row -->
 
-        </div>
+        
         <!-- /.container -->
         <!-- Footer -->
         <footer class="footer">
@@ -182,13 +198,13 @@
             for (var i = 0; i < users.length; i++) {
                 var age = calculateAge(users[i].birth_date)
                 var card = ' <div class="col-sm-12 col-lg-6" id="here">'
-                var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id="'
+                var photo = '<div class="card h-100 border-0 shadow" style="width: 350px;margin-right: 45px;margin-bottom: 130px;" id="'
                 photo += users[i].id
                 photo += '"> '
-                photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
+                photo += ' <img  class="" style="height: 400px;width: inherit;border-style: solid;border-width: medium;" id="profilepicture" alt="..." src=" ';
                 photo += users[i].profile_picture;
                 var user = '"><span id="status" style = "display: none" class="badge badge-pill badge-secondary">En attente</span><span id="request" style = "display: none" class="badge badge-pill badge-danger">Plus de demandes? Revenez demain!</span>';
-                user += '<div class="card-body text-center"> <h5 class="card-title mb-0" id="username-age">'
+                user += '<div class="card-body text-center" style="max-height: 420px;min-height: 420px;border-style: solid;border-top-style: inherit;/* border-radius: 3px; */border-width: thin;"> <h5 class="card-title mb-0" style="font-family: montserrat;"" id="username-age">'
 
                 if (users[i].School_id == userSchoolId) {
                     user += ' <i class="fas fa-graduation-cap"></i>'
@@ -198,19 +214,20 @@
                 user += ', ';
                 user += age;
                 user += ' ans</h5>'
+                user += ' <hr style="width: 65%;">'
 
-                var city = ' <div class="card-text text-black-50" id="school-city">'
-                city += users[i].name
+                var city = ' <div class="card-text text-black-50" style="padding-bottom: 15px;" id="school-city">'
+                city += users[i].name 
                 city += ', ';
                 city += users[i].cityname;
                 city += '</div>'
-                var bio = '<p class="card-text" id="bio"> <b>Bio</b> '
+                var bio = '<b style="font-size: larger;">Bio</b> <hr style="width: 25%;"> <p class="card-text" style="margin-bottom: 35px;" id="bio">  '
                 bio += users[i].bio
                 bio += '</p>'
-                var myHobby = ' <p class="card-text" id="hobby">'
-                myHobby += '<i class="fas fa-thumbs-up"></i>   '
+                var myHobby = ' <p class="card-text" style="font-weight: bold;" id="hobby"> '
+                myHobby += ''
                 myHobby += users[i].hobby
-                myHobby += '</p>'
+                myHobby += '  <i class="fas fa-thumbs-up fa-2x" style="font-weight: normal;"></i> </p> '
                 var rest = '<button class="bouton18" onclick="sendRequest('
                 rest += users[i].id
                 rest += ')" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>'
