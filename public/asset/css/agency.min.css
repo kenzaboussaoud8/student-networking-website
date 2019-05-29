@@ -44,6 +44,7 @@ h6 {
 .page-section {
     padding: 100px 0;
     padding-top: 70px;
+    padding-bottom: 80px;
 }
 
 .page-section h2.section-heading {
@@ -762,13 +763,13 @@ ul.social-buttons li a:hover {
     padding: 0.75rem 0 !important;
     overflow-y: auto;
     white-space: nowrap;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 2px solid rgba(0,0,0,.125);
 
 }
 
 .msg_card_body {
     overflow-y: auto;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 2px solid rgba(0,0,0,.125);
 }
 
 .card-header {
@@ -1061,4 +1062,22 @@ hr.style-two {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+  }
+  
+  .body_background2 {
+    background: url('https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  }
+
+  .carousel-item {
+    height: 65vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   }
