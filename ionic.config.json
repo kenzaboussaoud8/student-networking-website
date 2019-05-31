@@ -1,7 +1,0 @@
-{
-  "name": "LoveAcademy",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}
