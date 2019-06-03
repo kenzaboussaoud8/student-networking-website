@@ -18,7 +18,7 @@ export class AppComponent {
     {title: 'Messagerie', url:'/messenger', icon: 'list'},
     {title: 'Mes Demandes', url:'/myrequests', icon: 'list'},
     {title: 'Mon Compte', url:'/account', icon: 'list'},
-    // {title: 'Deconnexion', url:'/showcase', icon: 'list'}
+    {title: 'Deconnexion', url:'/showcase', icon: 'list'}
 
   ];
 
@@ -29,20 +29,20 @@ export class AppComponent {
     private statusBar: StatusBar,
     public navCtrl: NavController, 
     private userService: UserService, 
-    private  router:  Router
+    private router:  Router
   ) {
     this.initializeApp();
   }
 
-  logout(){
-    this.userService.Logout(this.token)
-    .then(data => {
-      console.log(data);
-      this.navCtrl.navigateForward('/showcase');
-     }, error => {
-      console.log(error);
-    });
-  }
+  // logout(){
+  //   this.userService.Logout(this.token)
+  //   .then(data => {
+  //     console.log(data);
+  //     this.navCtrl.navigateForward('/showcase');
+  //    }, error => {
+  //     console.log(error);
+  //   });
+  // }
 
   initializeApp() {
     this.platform.ready().then(() => {

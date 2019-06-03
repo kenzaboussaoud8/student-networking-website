@@ -13,74 +13,68 @@
     </ion-avatar>
     <ion-item>
         <ion-list>
-    <ion-label>Name</ion-label>
-    <ion-label>Firstname</ion-label>
-    <ion-label>Email: xxxxxxxxgmail.com</ion-label>
+    <ion-label>{{last_name}}</ion-label>
+    <ion-label>{{first_name}}</ion-label>
+    <ion-label>Email: {{email}}</ion-label>
     <ion-text>Mot de passe: <ion-button size="small" (click)="goPassword_lost()">Modifier</ion-button></ion-text>
     </ion-list>
   </ion-item>
 
     <ion-item>
         <ion-label position="stacked">Bio :</ion-label>
-        <ion-textarea  autocapitalize="true" placeholder="Décrivez-vous...." value="" type="text" [(ngModel)]="bio"></ion-textarea>
+        <ion-textarea  autocapitalize="true" placeholder="Décrivez-vous...." value="" type="text" [(ngModel)]="bio">{{bio}}</ion-textarea>
       </ion-item>
-
-    <ion-list-header>Sexe :</ion-list-header>
     
+      
+
     <ion-list>
+        <ion-list-header>Sexe :</ion-list-header>
+        <ion-radio-group>
+        
         <ion-item>
           <ion-label>Homme</ion-label>
-          <ion-toggle [(ngModel)]="man"></ion-toggle>
+          <ion-radio slot='end' value='homme'  checked="gender === 'homme' ? true : false"></ion-radio>
         </ion-item>
-      
+    
         <ion-item>
           <ion-label>Femme</ion-label>
-          <ion-toggle [(ngModel)]="woman"></ion-toggle>
+          <ion-radio slot='end' [value]='femme' checked="gender === 'femme' ? true : false"></ion-radio>
         </ion-item>
+        
+      </ion-radio-group>
       </ion-list>
 
-    <ion-list-header>Votre école</ion-list-header>
+    
 
   <ion-list>
-
+      <ion-list-header>Votre école</ion-list-header>
     <ion-item>
       <ion-label>Ecole</ion-label>
       <ion-select placeholder="Select One">
-        <ion-select-option value="school">xxxxxxx</ion-select-option>
+        <ion-select-option *ngFor="let school of schools">{{school.name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
   </ion-list>
 
-      <ion-list-header>Votre ville</ion-list-header>
+      
 
       <ion-list>
+          <ion-list-header>Votre ville</ion-list-header>
       <ion-item>
         <ion-label>Ville</ion-label>
         <ion-select placeholder="Select One">
-          <ion-select-option value="city">xxxxxxx</ion-select-option>
+          <ion-select-option *ngFor="let city of cities">{{city.cityname}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-    </ion-list>
-    
-        <ion-list-header>Notifications :</ion-list-header>
+    </ion-list>        
      
           <ion-list>
             <ion-item>
-              <ion-label>Sur Love Academy</ion-label>
+              <ion-label>Notifications :</ion-label>
               <ion-toggle [(ngModel)]="notification_all"></ion-toggle>
             </ion-item>
-          
-            <ion-item>
-              <ion-label>Email</ion-label>
-              <ion-toggle [(ngModel)]="notification_email"></ion-toggle>
-            </ion-item>
-
-            <ion-item>
-                <ion-label>Bureau et Mobile</ion-label>
-                <ion-toggle [(ngModel)]="notification_desk_mobile"></ion-toggle>
-              </ion-item>
             </ion-list>
 
             </ion-content>

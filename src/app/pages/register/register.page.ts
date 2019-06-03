@@ -35,7 +35,7 @@ export class RegisterPage implements OnInit {
       .then(data => {
         console.log(data);
         this.navCtrl.navigateForward('/home');
-      }, error => {
+      }).catch(error => {
         console.log(error);
       });
     }
