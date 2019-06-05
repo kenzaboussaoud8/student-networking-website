@@ -151,7 +151,7 @@
         }
         $("body").show();
         $.ajax({
-            url: 'http://localhost:8080/user/',
+            url: '/user/',
             headers: {
                 "authorization": tk
             },
@@ -167,7 +167,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/requests',
+            url: '/requests',
             type: 'GET',
             headers: {
                 "authorization": tk
@@ -177,7 +177,7 @@
             for (var i = 0; i < senders.length; i++) {
                 var senderId = senders[i].User_id_requester;
                 $.ajax({
-                    url: 'http://localhost:8080/userId/',
+                    url: '/userId/',
                     headers: {
                         "authorization": tk
                     },
@@ -240,7 +240,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/acceptRequest/',
+            url: '/acceptRequest/',
             type: 'PUT',
             headers: {
                 "authorization": tk,
@@ -263,7 +263,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/rejectRequest/',
+            url: '/rejectRequest/',
             type: 'PUT',
             headers: {
                 "authorization": tk,
@@ -286,7 +286,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/logout/',
+                url: '/logout/',
                 type: 'DELETE',
                 headers: {
                     "authorization": tk,

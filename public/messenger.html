@@ -65,7 +65,7 @@
     </header>
     <main class="mt-auto h-100">
         <div class="jumbotron" style="background: #ffffff; padding-bottom: 0px; text-align: center;">
-                <h1 style="
+            <h1 style="
                 margin-bottom: 25px;
             ">Ta messagerie </h1>
 
@@ -264,7 +264,7 @@
         }
         $("body").show();
         $.ajax({
-            url: 'http://localhost:8080/user/',
+            url: '/user/',
             headers: {
                 "authorization": tk
             },
@@ -282,7 +282,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/friends',
+            url: '/friends',
             type: 'GET',
             headers: {
                 "authorization": tk

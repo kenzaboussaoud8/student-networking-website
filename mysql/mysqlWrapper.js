@@ -17,8 +17,9 @@ function initConnection() {
     connection = mysql.createConnection({
         host: "localhost",
         user: "root",
-        password: "",
-        database: "LoveAcademy"
+        password: "strongPassword1&",
+        database: "LoveAcademy",
+        port: "3306"
     });
     return connection;
 }

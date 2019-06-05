@@ -170,7 +170,7 @@
 <script>
     $(document).ready(function() {
         $.ajax({
-            url: 'http://localhost:8080/users/',
+            url: '/users/',
             type: 'GET',
         }).done(function(dt) {
             var users = dt.message;
@@ -191,7 +191,7 @@
 <script>
     function approve(id) {
         $.ajax({
-            url: 'http://localhost:8080/approveRegistery/',
+            url: '/approveRegistery/',
             type: 'POST',
             data: {
                 id: id
@@ -211,7 +211,7 @@
 <script>
     function deleteUser(id) {
         $.ajax({
-            url: 'http://localhost:8080/deleteUser/',
+            url: '/deleteUser/',
             type: 'POST',
             data: {
                 id: id
@@ -242,7 +242,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/logout/',
+                url: '/logout/',
                 type: 'DELETE',
                 headers: {
                     "authorization": tk,

@@ -54,16 +54,16 @@
     <header class="masthead">
         <div class="container">
             <div class="intro-text">
-                <div class="intro-heading" >Bienvenue à la Love Academy ! </div>
+                <div class="intro-heading">Bienvenue à la Love Academy ! </div>
                 <div class="intro-lead-in" style="
                         margin-top: 130px;
                         margin-bottom: 45px;
                     ">Téléchargez notre application mobile</div>
 
-                <a  href="#"><img  src="./asset/images/google-chplay.png" alt="android" style="
+                <a href="#"><img src="./asset/images/google-chplay.png" alt="android" style="
                     width: 250px;
-                "  /></a>
-                <a  href="#"><img src="./asset/images/download-on-app-store.png" alt="ios" style="
+                " /></a>
+                <a href="#"><img src="./asset/images/download-on-app-store.png" alt="ios" style="
                 width: 250px;
                 border-color: white;
                 border-style: ridge;
@@ -286,7 +286,7 @@
         $("#modalLoginForm").submit(function(e) {
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/login',
+                url: '/login',
                 type: 'POST',
                 withCredentials: true,
                 data: {
@@ -339,7 +339,7 @@
             e.preventDefault();
             // Making the ajax call
             $.ajax({
-                url: 'http://localhost:8080/register',
+                url: '/register',
                 type: 'POST',
                 data: {
                     password: $("input[id='password_register' ]").val(),

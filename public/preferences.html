@@ -283,7 +283,7 @@
         }
         $("body").show();
         $.ajax({
-            url: 'http://localhost:8080/userHobby',
+            url: '/userHobby',
             headers: {
                 "authorization": tk
             },
@@ -296,7 +296,7 @@
             }
         })
         $.ajax({
-            url: 'http://localhost:8080/user/',
+            url: '/user/',
             headers: {
                 "authorization": tk
             },
@@ -345,7 +345,7 @@
     $(document).ready(function() {
         $.ajax({
             type: "GET",
-            url: 'http://localhost:8080/hobbies',
+            url: '/hobbies',
             success: function(data) {
                 var hobby = data.message
                 buildDropdown(jQuery.parseJSON(JSON.stringify(hobby)), "hobby",
@@ -362,7 +362,7 @@
     $(document).ready(function() {
         $.ajax({
             type: "GET",
-            url: 'http://localhost:8080/cities',
+            url: '/cities',
             success: function(data) {
                 var city = data.message
                 buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
@@ -380,7 +380,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                    url: 'http://localhost:8080/modifyUserInterests',
+                    url: '/modifyUserInterests',
                     type: 'PUT',
                     headers: {
                         "authorization": tk
@@ -398,7 +398,7 @@
                 })
                 // hobby
             $.ajax({
-                url: 'http://localhost:8080/addHobby',
+                url: '/addHobby',
                 type: 'POST',
                 headers: {
                     "authorization": tk
@@ -422,7 +422,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/logout/',
+                url: '/logout/',
                 type: 'DELETE',
                 headers: {
                     "authorization": tk,
