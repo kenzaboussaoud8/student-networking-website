@@ -247,14 +247,14 @@
 
 
                     </div>
-                    <div class="md-form mb-2">
+                    <form method='post' action='/upload' enctype='multipart/form-data' class="md-form mb-2">
                         <i class="fas fa-file prefix grey-text"></i>
-                        <input type="file" class="form-control-file validate" id="studentcard">
+                        <input type="file" name ='image' class="form-control-file validate" id="studentcard">
                         <label data-error="wrong" data-success="right" for="studentcard">Carte d'étudiant
                                     </label>
                         <br>
                         <span id="SignUpmessageSpan" style="color:red"></span>
-                    </div>
+                                </form>
 
                     <div class="modal-footer d-flex justify-content-center">
                         <button class="btn btn-deep-orange" type="submit">Je m'enregistre</button>
