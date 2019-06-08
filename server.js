@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const cors = require("cors");
 const path = require("path");
+const router = express.Router();
 var multer = require('multer');
 // Autoriser un accès public à l'API
 expressApp.use(function(request, response, next) {
@@ -20,9 +21,9 @@ expressApp.use(function(request, response, next) {
 // Set the bodyParser to parse the urlencoded post data
 expressApp.use(bodyParser.urlencoded({ extended: true }));
 
-const userRoutes = require("./routes/user/userRoutes")(express.Router());
-const chatRoutes = require("./routes/user/chatRoutes")(express.Router());
-const adminRoutes = require("./routes/admin/adminRoutes")(express.Router());
+const userRoutes = require("./routes/user/userRoutes")(router);
+const chatRoutes = require("./routes/user/chatRoutes")(router);
+const adminRoutes = require("./routes/admin/adminRoutes")(router);
 
 // Set the authRoutes for registration and & login requests
 expressApp.use("/", userRoutes);
@@ -49,14 +50,15 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage: storage }).single('userPhoto');
+var upload = multer({ storage: storage }).single('studentCard');
 
 expressApp.post('/upload', function(req, res) {
     upload(req, res, function(err) {
         if (err) {
             return res.end("Error uploading file.");
         }
-        res.end("File is uploaded");
+        req.url = "/register";
+        router.handle(req, res, function() {});
     });
 });
 // Setting up the connexion to the mongo database
