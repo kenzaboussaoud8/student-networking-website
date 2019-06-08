@@ -46,7 +46,9 @@ var storage = multer.diskStorage({
         callback(null, './uploads');
     },
     filename: function(req, file, callback) {
-        callback(null, file.fieldname + '-' + Date.now());
+        const studentcardFilename = req.body.email + '-' + Date.now();
+        req.body.student_card = studentcardFilename;
+        callback(null, studentcardFilename);
     }
 });
 
