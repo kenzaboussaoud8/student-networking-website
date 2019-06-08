@@ -70,7 +70,6 @@ function saveUserInDB(user, callback) {
     var password = user.password;
     var birth_date = user.birth_date;
     var gender = user.gender;
-    var student_card = user.student_card.replace("C:\\fakepath\\", "");
 
     // uplading card to amazon s3
     // var student_card_location = amazon.uploadToServer(student_card);
