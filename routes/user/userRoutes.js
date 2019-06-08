@@ -44,6 +44,8 @@ module.exports = router => {
     return router;
 };
 
+module.exports.registerUser = registerUser
+
 
 function getUser(req, res) {
     // Recovering user id from access token
