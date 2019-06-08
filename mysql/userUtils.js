@@ -70,10 +70,7 @@ function saveUserInDB(user, callback) {
     var password = user.password;
     var birth_date = user.birth_date;
     var gender = user.gender;
-
-    // uplading card to amazon s3
-    // var student_card_location = amazon.uploadToServer(student_card);
-    var student_card_location = "test";
+    var student_card = user.student_card;
     console.log("Generating a token");
     // create a token
     const user_token = jwt.sign({ user },
@@ -94,7 +91,7 @@ function saveUserInDB(user, callback) {
             first_name,
             last_name,
             birth_date,
-            student_card_location,
+            student_card,
             gender
         ];
         //execute the query to register the user
