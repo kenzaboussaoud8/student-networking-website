@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const cors = require("cors");
 const path = require("path");
-
+var multer = require('multer');
 // Autoriser un accès public à l'API
 expressApp.use(function(request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
@@ -39,57 +39,26 @@ expressApp.get("/helpdesk", function(req, res) {
     res.redirect("index-admin.html");
 });
 
-// Include the node file module
-var fs = require('fs');
-
-// Include ImageMagick
-var im = require('imagemagick');
-
-// Post files
-expressApp.post('/upload', function(req, res) {
-  fs.readFile(req.files.image.path, function (err, data) {
-    var imageName = req.files.image.name
-    /// If there's an error
-    if(!imageName){
-      console.log("There was an error")
-      res.redirect("/");
-      res.end();
-    } else {
-      var newPath = __dirname + "/uploads/fullsize/" + imageName;
-      var thumbPath = __dirname + "/uploads/thumbs/" + imageName;
-      // write file to uploads/fullsize folder
-      fs.writeFile(newPath, data, function (err) {
-        // write file to uploads/thumbs folder
-        im.resize({
-          srcPath: newPath,
-          dstPath: thumbPath,
-          width:   200
-        }, function(err, stdout, stderr){
-          if (err) throw err;
-          console.log('resized image to fit within 200x200px');
-        });
-         res.redirect("/uploads/fullsize/" + imageName);
-      });
+// upload files
+var storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, './uploads');
+    },
+    filename: function(req, file, callback) {
+        callback(null, file.fieldname + '-' + Date.now());
     }
-  });
 });
 
-// Show files
-expressApp.get('/uploads/fullsize/:file', function (req, res){
-  file = req.params.file;
-  var img = fs.readFileSync(__dirname + "/uploads/fullsize/" + file);
-  res.writeHead(200, {'Content-Type': 'image/jpg' });
-  res.end(img, 'binary');
+var upload = multer({ storage: storage }).single('userPhoto');
+
+expressApp.post('/upload', function(req, res) {
+    upload(req, res, function(err) {
+        if (err) {
+            return res.end("Error uploading file.");
+        }
+        res.end("File is uploaded");
+    });
 });
-
-expressApp.get('/uploads/thumbs/:file', function (req, res){
-  file = req.params.file;
-  var img = fs.readFileSync(__dirname + "/uploads/thumbs/" + file);
-  res.writeHead(200, {'Content-Type': 'image/jpg' });
-  res.end(img, 'binary');
-});
-
-
 // Setting up the connexion to the mongo database
 const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
