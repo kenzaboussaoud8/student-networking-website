@@ -30,6 +30,8 @@ expressApp.use("/", userRoutes);
 expressApp.use("/", adminRoutes);
 // Serving static files
 expressApp.use(express.static(path.join(__dirname, "public")));
+expressApp.use(express.static(path.join(__dirname, "uploads")));
+
 //
 expressApp.get("/", function(req, res) {
     res.redirect("index.html");
