@@ -100,39 +100,59 @@ function checkBirthDate(date) {
     return age >= 18;
 }
 
+/**
+ * checking if data entered by user exists and is valid 
+ * @param {*} body 
+ */
 function checkRegisteryForm(body) {
     var email = body.email;
     var first_name = body.first_name;
     var last_name = body.last_name;
     var password = body.password;
     var birth_date = body.birth_date;
-    var student_card = body.student_card;
-
-    if (!(
-            first_name &&
-            last_name &&
-            password &&
-            email &&
-            birth_date &&
-            student_card
-        )) {
+    var errorMessage = undefined
+        // check if data exists
+    if (!first_name) {
+        errorMessage = "Prénom manquant";
+    } else if (!last_name) {
+        errorMessage = "Nom manquant";
+    } else if (!password) {
+        errorMessage = "Mot de passe manquant";
+    } else if (!birth_date) {
+        errorMessage = "Date de naissance manquante";
+    } else if (!email) {
+        errorMessage = "Email manquant";
+    }
+    if (errorMessage) {
         return {
             success: false,
-            error: 401,
-            message: "Missing one or many required information"
+            error: 400,
+            message: errorMessage
         };
     }
-    if (!(
-            checkString(first_name) &&
-            checkString(last_name) &&
-            checkPassword(password) &&
-            checkEmail(email) &&
-            checkBirthDate(birth_date)
-        ))
+    // check if data is valid
+    var ValidityErrorMessage = undefined
+    if (!checkString(first_name)) {
+        ValidityErrorMessage = "Prénom non valide";
+    } else if (!checkString(last_name)) {
+        ValidityErrorMessage = "Nom non valide";
+    } else if (!checkPassword(password)) {
+        ValidityErrorMessage = "Mot de passe pas assez sécurisé : Au moins une majuscule, minuscule, un chiffre et un caractère spécial";
+    } else if (!checkEmail(email)) {
+        ValidityErrorMessage = "Email erroné";
+    } else if (!checkBirthDate(birth_date)) {
+        ValidityErrorMessage = "Vous devez avoir plus de 18 ans pour accéder au site";
+    }
+    if (ValidityErrorMessage) {
         return {
             success: false,
-            error: 404,
-            message: "One or many incorrect data"
+            error: 400,
+            message: ValidityErrorMessage
         };
-    return { success: true };
+    }
+    return {
+        success: true,
+        error: 200,
+        message: "Succès"
+    };
 }

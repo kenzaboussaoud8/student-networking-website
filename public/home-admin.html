@@ -24,7 +24,18 @@
     <link href="./asset/css/agency.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
-
+    <style>
+        img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            width: 150px;
+        }
+        
+        img:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+    </style>
 
 
 </head>
@@ -73,6 +84,8 @@
                 <thead>
                     <tr>
                         <th class="th-sm" id="id">id
+                        </th>
+                        <th class="th-sm">Date d'inscription
                         </th>
                         <th class="th-sm">Prénom
                         </th>
@@ -178,11 +191,13 @@
             for (var i = 0; i < users.length; i++) {
                 let user_data = users[i];
                 $("table > tbody").append(" <tr id='" + user_data.id + "'> <td class='id'> " + user_data.id +
-                    " </td> <td> " + user_data.first_name + " </td> <td> " + user_data.last_name +
+                    " </td> <td> " + dateBDDToDateForm(user_data.creation_date) + " </td> <td> " + user_data.first_name + " </td> <td> " +
+                    user_data.last_name +
                     " </td><td> " + user_data.email +
                     " </td> <td> " + user_data.gender + " </td> <td> " +
-                    dateBDDToDateForm(user_data.birth_date) + " </td><td> " +
-                    user_data.student_card + " </td><td> " + " <button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>" + "</td></tr>")
+                    dateBDDToDateForm(user_data.birth_date) + " </td><td> <a href='" +
+                    user_data.student_card +
+                    "'><img src='" + user_data.student_card + "' style='width:100px'></img></a> </td><td> " + " <button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>" + "</td></tr>")
             }
         })
     });
