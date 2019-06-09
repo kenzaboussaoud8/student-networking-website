@@ -19,7 +19,6 @@ export class AppComponent {
     {title: 'Mes Demandes', url:'/myrequests', icon: 'list'},
     {title: 'Mon Compte', url:'/account', icon: 'list'},
     {title: 'Deconnexion', url:'/showcase', icon: 'list'}
-
   ];
 
 
