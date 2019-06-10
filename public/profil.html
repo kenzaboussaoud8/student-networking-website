@@ -22,7 +22,7 @@
 
     <!-- Custom styles for this template -->
     <link href="./asset/css/agency.min.css" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body id="page-top" style="display: none">
@@ -186,7 +186,7 @@
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
                                             <label>Ville</label>
-                                            <select type="text" class="form-control border-input" id="city" placeholder="city">
+                                            <select class="js-example-basic-single" type="text" id="city" placeholder="city">
                                                 </select>
                                         </div>
                                     </div>
@@ -197,7 +197,7 @@
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
                                             <label>Ecole</label>
-                                            <select type="text" class="form-control border-input" id="school" placeholder="school">
+                                            <select class="js-example-basic-single" type="text" class="form-control border-input" id="school" placeholder="school">
                                                 </select>
                                         </div>
                                     </div>
@@ -306,6 +306,7 @@
 
 <!-- Custom scripts for this template -->
 <script src="./asset/js/agency.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 
 <!-- Dropdown build function -->
 <script>
@@ -369,7 +370,7 @@
     });
 </script>
 
-<!-- Getting the list of cities available-->
+<!-- Getting the list of schools and cities available-->
 <script>
     $(document).ready(function() {
         $.ajax({
@@ -500,4 +501,12 @@
         return date.split('T')[0]
     }
 </script>
-</html
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            width: '100%'
+        });
+    });
+</script>
+
+</html>
