@@ -87,12 +87,11 @@ function getUserFromAccessToken(userToken, callback) {
     const userTokenQuery = {
 
         sql: "SELECT usr.*, City.cityname," +
-            "User_has_Hobbies.Hobbies_id, Hobbies.hobby, School.name " +
+            "GROUP_CONCAT(User_has_Hobbies.Hobbies_id) AS list_of_hobbies, School.name " +
             "FROM User as usr  " +
             "JOIN Access_tokens ON Access_tokens.user_id = usr.id " +
             "LEFT JOIN City  ON City.id = usr.City_id " +
             "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
-            "LEFT JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id " +
             "LEFT JOIN School ON School.id = usr.School_id " +
             " WHERE Access_tokens.access_token = " + mySqlConnection.connection().escape(userToken)
     };

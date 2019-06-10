@@ -264,8 +264,12 @@ function modifyUserInterests(req, res) {
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
         const userId = result[0].id;
-        userUtils.updateUserInfo(userId, req.body, function() {
-            sendResponse(res, 200, "Successfully changed");
+        userUtils.updateUserInfo(userId, req.body, function(err, result) {
+            if (result) {
+                sendResponse(res, 200, "Successfully changed");
+            } else {
+                sendResponse(res, 400, "Error");
+            }
         });
     });
 }
@@ -278,8 +282,12 @@ function addHobby(req, res) {
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
         const userId = result[0].id;
-        userUtils.updateUserHobby(userId, req.body, function() {
-            sendResponse(res, 200, "Hobby successfully changed");
+        userUtils.updateUserHobby(userId, req.body, function(err, result) {
+            if (result) {
+                sendResponse(res, 200, "Successfully changed");
+            } else {
+                sendResponse(res, 400, "Error");
+            }
         });
     });
 }
