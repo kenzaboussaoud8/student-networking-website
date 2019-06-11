@@ -5,7 +5,8 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const cors = require("cors");
 const path = require("path");
-
+const router = express.Router();
+var multer = require('multer');
 // Autoriser un accès public à l'API
 expressApp.use(function(request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
@@ -20,15 +21,17 @@ expressApp.use(function(request, response, next) {
 // Set the bodyParser to parse the urlencoded post data
 expressApp.use(bodyParser.urlencoded({ extended: true }));
 
-const userRoutes = require("./routes/user/userRoutes")(express.Router());
-const chatRoutes = require("./routes/user/chatRoutes")(express.Router());
-const adminRoutes = require("./routes/admin/adminRoutes")(express.Router());
+const userRoutes = require("./routes/user/userRoutes")(router);
+const chatRoutes = require("./routes/user/chatRoutes")(router);
+const adminRoutes = require("./routes/admin/adminRoutes")(router);
 
 // Set the authRoutes for registration and & login requests
 expressApp.use("/", userRoutes);
 expressApp.use("/", adminRoutes);
 // Serving static files
 expressApp.use(express.static(path.join(__dirname, "public")));
+expressApp.use(express.static(path.join(__dirname, "uploads")));
+
 //
 expressApp.get("/", function(req, res) {
     res.redirect("index.html");
@@ -37,6 +40,30 @@ expressApp.get("/", function(req, res) {
 // admin access
 expressApp.get("/helpdesk", function(req, res) {
     res.redirect("index-admin.html");
+});
+
+// upload files
+var storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, './uploads');
+    },
+    filename: function(req, file, callback) {
+        const studentcardFilename = req.body.email + '-' + Date.now();
+        req.body.student_card = studentcardFilename;
+        callback(null, studentcardFilename);
+    }
+});
+
+var upload = multer({ storage: storage }).single('studentCard');
+
+expressApp.post('/upload', function(req, res) {
+    upload(req, res, function(err) {
+        if (err) {
+            return res.end("Error uploading file.");
+        }
+        req.url = "/register";
+        router.handle(req, res, function() {});
+    });
 });
 // Setting up the connexion to the mongo database
 const mongoose = require("mongoose");

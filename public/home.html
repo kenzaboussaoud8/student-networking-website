@@ -73,6 +73,13 @@
         </div>
 
 
+        <hr class="style-two" style="width: 25%;">
+
+        <!-- Page Content -->
+        <div class="container-fluid" style="margin-top: 50px; margin-left: 30px; width:auto">
+            <div class="row" id="here">
+                <!-- Team Member 1 -->
+
     <header>
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
@@ -214,7 +221,7 @@
         }
         $("body").show();
         $.ajax({
-            url: 'http://localhost:8080/user/',
+            url: '/user/',
             headers: {
                 "authorization": tk
             },
@@ -232,7 +239,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/profiles',
+            url: '/profiles',
             type: 'GET',
             headers: {
                 "authorization": tk
@@ -294,7 +301,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/sendRequest/',
+            url: '/sendRequest/',
             type: 'POST',
             headers: {
                 "authorization": tk,
@@ -321,7 +328,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/rejectUser/',
+            url: '/rejectUser/',
             type: 'PUT',
             headers: {
                 "authorization": tk,
@@ -351,7 +358,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/blockUser/',
+            url: '/blockUser/',
             type: 'POST',
             headers: {
                 "authorization": tk,
@@ -373,7 +380,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/logout/',
+                url: '/logout/',
                 type: 'DELETE',
                 headers: {
                     "authorization": tk,

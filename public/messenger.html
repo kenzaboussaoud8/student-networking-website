@@ -63,13 +63,14 @@
 
             </div>
     </header>
+
     <main class="mt-auto h-100 body_background2">
             <div class="jumbotron" style="background: #ffffff;padding-bottom: 40px;margin-bottom: 0px;padding-top: 40px;border-bottom-style: solid;border-top-style: solid;">
                     <hr class="style-two" style="width: 25%;">
                     <h1 style="text-align: center;font-size: 50px;font-family: Montserrat;font-weight: lighter;">Messagerie</h1>
                     <hr class="style-two" style="width: 25%;">
                     </div>
-                    
+
 
 
                     <div class="container" style="max-width: 1500px;margin-top: 200px;margin-bottom: 250px;"">
@@ -271,7 +272,7 @@
         }
         $("body").show();
         $.ajax({
-            url: 'http://localhost:8080/user/',
+            url: '/user/',
             headers: {
                 "authorization": tk
             },
@@ -289,7 +290,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: 'http://localhost:8080/friends',
+            url: '/friends',
             type: 'GET',
             headers: {
                 "authorization": tk

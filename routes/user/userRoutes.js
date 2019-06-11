@@ -44,6 +44,8 @@ module.exports = router => {
     return router;
 };
 
+module.exports.registerUser = registerUser
+
 
 function getUser(req, res) {
     // Recovering user id from access token
@@ -95,6 +97,7 @@ function getUserHobby(req, res) {
  */
 function registerUser(req, res) {
     var body = req.body;
+    console.log(req.body)
     console.log(`authRoutesMethods: registerUser: req.body is:`, body);
     var validity = utils.checkRegisteryForm(body);
     // Check obligatory fields
@@ -107,6 +110,8 @@ function registerUser(req, res) {
             } else {
                 //register the user in the db
                 userUtils.saveUserInDB(req.body, dataResponseObject => {
+                    // save student_card
+                    // utils.saveStudentCard(req, res)
                     // send mail
                     utils.sendMail(req.body.email);
                     //create message for the api response
@@ -259,8 +264,12 @@ function modifyUserInterests(req, res) {
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
         const userId = result[0].id;
-        userUtils.updateUserInfo(userId, req.body, function() {
-            sendResponse(res, 200, "Successfully changed");
+        userUtils.updateUserInfo(userId, req.body, function(err, result) {
+            if (result) {
+                sendResponse(res, 200, "Successfully changed");
+            } else {
+                sendResponse(res, 400, "Error");
+            }
         });
     });
 }
@@ -273,8 +282,12 @@ function addHobby(req, res) {
     var token = req.headers["authorization"].replace("Bearer ", "");
     tokenUtils.getUserFromAccessToken(token, function(err, result) {
         const userId = result[0].id;
-        userUtils.updateUserHobby(userId, req.body, function() {
-            sendResponse(res, 200, "Hobby successfully changed");
+        userUtils.updateUserHobby(userId, req.body, function(err, result) {
+            if (result) {
+                sendResponse(res, 200, "Successfully changed");
+            } else {
+                sendResponse(res, 400, "Error");
+            }
         });
     });
 }

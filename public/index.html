@@ -12,7 +12,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="./asset/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom fonts for this template -->
     <link href="./asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -53,17 +52,19 @@
     <!-- Header -->
     <header class="masthead">
         <div class="container">
+
             <div class="intro-text" style=" padding-bottom: 100px; padding-top: 300px;">
                 <div class="intro-heading" >Bienvenue à la Love Academy ! </div>
+
                 <div class="intro-lead-in" style="
                 margin-top: 130px;
                 margin-bottom: 100px;
             ">Téléchargez notre application mobile</div>
 
-                <a  href="#"><img  src="./asset/images/google-chplay.png" alt="android" style="
+                <a href="#"><img src="./asset/images/google-chplay.png" alt="android" style="
                     width: 250px;
-                "  /></a>
-                <a  href="#"><img src="./asset/images/download-on-app-store.png" alt="ios" style="
+                " /></a>
+                <a href="#"><img src="./asset/images/download-on-app-store.png" alt="ios" style="
                 width: 250px;
                 border-color: white;
                 border-style: ridge;
@@ -196,7 +197,7 @@
     <!-- Pop Up Register -->
     <div class="modal" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form class="modal-content">
+            <form class="modal-content" id="uploadForm" action="/upload" enctype="multipart/form-data" method="POST">
                 <div class="modal-header text-center">
                     <h4 class="modal-title w-100 font-weight-bold">S'enregistrer</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -206,26 +207,26 @@
                 <div class="modal-body mx-3">
                     <div class="md-form mb-2">
                         <i class="fas fa-user prefix grey-text"></i>
-                        <input type="text" id="firstname" class="form-control validate">
+                        <input type="text" id="firstname" name="first_name" class="form-control validate">
                         <label data-error="wrong" data-success="right" for="orangeForm-firstname">Prénom</label>
                     </div>
                     <div class="md-form mb-2">
                         <i class="fas fa-user prefix grey-text"></i>
-                        <input type="text" id="lastname" class="form-control validate">
+                        <input type="text" id="lastname" name="last_name" class="form-control validate">
                         <label data-error="wrong" data-success="right" for="orangeForm-lastname">Nom</label>
                     </div>
                     <div class="md-form mb-2">
                         <i class="fas fa-envelope prefix grey-text"></i>
-                        <input type="email" id="email_register" class="form-control validate">
+                        <input type="email" id="email_register" name="email" class="form-control validate">
                         <label data-error="wrong" data-success="right" for="orangeForm-email">Adresse électronique</label>
                     </div>
                     <div class="md-form mb-2">
                         <i class="fas fa-lock prefix grey-text"></i>
-                        <input type="password" id="password_register" class="form-control validate">
+                        <input type="password" id="password_register" name="password" class="form-control validate">
                         <label data-error="wrong" data-success="right" for="orangeForm-pass">Mot de passe</label>
                     </div>
                     <div class="md-form mb-2">
-                        <input type="date" id="birthdate" class="form-control">
+                        <input type="date" id="birthdate" name="birth_date" class="form-control">
                         <label class="form-check-label" for="birthdate"></label>
                         <!-- <i class="fas fa-user prefix grey-text"></i>
                                 <input type="text" id="orangeForm-birthdate" class="form-control validate date form_datetime"> -->
@@ -244,32 +245,29 @@
                             <input type="radio" class="form-check-input" id="sexeM" name="sexe" value="Homme">
                             <label class="form-check-label" for="materialInline2">Homme</label>
                         </div>
-
-
                     </div>
                     <div class="md-form mb-2">
                         <i class="fas fa-file prefix grey-text"></i>
-                        <input type="file" class="form-control-file validate" id="studentcard">
+                        <input type="file" name="studentCard" class="form-control-file validate" id="studentcard">
                         <label data-error="wrong" data-success="right" for="studentcard">Carte d'étudiant
                                     </label>
                         <br>
                         <span id="SignUpmessageSpan" style="color:red"></span>
                     </div>
-
                     <div class="modal-footer d-flex justify-content-center">
                         <button class="btn btn-deep-orange" type="submit">Je m'enregistre</button>
                     </div>
             </form>
             </div>
         </div>
+
         <!-- Pop Up Register -->
-
-
 </body>
 <!-- SCRIPTS -->
 <!-- Bootstrap core JavaScript -->
 <script src="./asset/vendor/jquery/jquery.min.js"></script>
 <script src="./asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 
 <!-- Plugin JavaScript -->
 <script src="./asset/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -286,7 +284,7 @@
         $("#modalLoginForm").submit(function(e) {
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/login',
+                url: '/login',
                 type: 'POST',
                 withCredentials: true,
                 data: {
@@ -317,60 +315,72 @@
         })
     })();
 </script>
-<!-- Student card to s3 -->
-<script>
-    function imageToDataImage() {
-        // getting student card
-        var preview = document.querySelector('#studentcard');
-        var file = document.querySelector('#studentcard[type=file]').files[0];
-        var reader = new FileReader();
-        reader.addEventListener("load", function() {
-            preview.src = reader.result;
-            var read = reader.result;
-            return reader.result
-        })
-    }
-</script>
 
 <!-- Register -->
 <script>
-    (function() {
-        $("#modalRegisterForm").submit(function(e) {
+    // (function() {
+    //     $("#modalRegisterForm").submit(function(e) {
+    //         e.preventDefault();
+    //         // Making the register call
+    //         $.ajax({
+    //             url: '/register',
+    //             type: 'POST',
+    //             data: {
+    //                 password: $("input[id='password_register' ]").val(),
+    //                 first_name: $("input[id='firstname' ]").val(),
+    //                 last_name: $("input[id='lastname' ]").val(),
+    //                 email: $("input[id='email_register' ]").val(),
+    //                 gender: $("input[name='sexe' ]:checked").val(),
+    //                 birth_date: $("input[id='birthdate']").val(),
+    //                 student_card: "test",
+    //             },
+    //             statusCode: {
+    //                 200: function() {
+    //                     $("#SignUpmessageSpan").text("Votre inscription a bien été prise en compte.");
+    //                 },
+    //                 401: function() {
+    //                     $("#SignUpmessageSpan").text("Une ou plusieurs informations sont manquantes");
+    //                 },
+    //                 404: function() {
+    //                     $("#SignUpmessageSpan").text("Champ(s) invalide(s). Veuillez réessayer");
+    //                 },
+    //                 400: function() {
+    //                     $("#SignUpmessageSpan").text("Cet utilisateur existe déjà.");
+    //                 }
+    //             }
+    //         }).done(function(res) {
+    //             console.log('You are registered')
+    //             localStorage.setItem("token", res.message.token);
+    //             alert("Merci de votre inscription. Vous allez recevoir un email de confirmation sous peu :)");
+    //         })
+    //     });
+    // })();
+</script>
+<script>
+    $(document).ready(function() {
+        $('#uploadForm').submit(function(e) {
             e.preventDefault();
-            // Making the ajax call
-            $.ajax({
-                url: 'http://localhost:8080/register',
-                type: 'POST',
-                data: {
-                    password: $("input[id='password_register' ]").val(),
-                    first_name: $("input[id='firstname' ]").val(),
-                    last_name: $("input[id='lastname' ]").val(),
-                    email: $("input[id='email_register' ]").val(),
-                    gender: $("input[name='sexe' ]:checked").val(),
-                    birth_date: $("input[id='birthdate' ]").val(),
-                    student_card: "test",
-                },
-                statusCode: {
-                    200: function() {
-                        $("#SignUpmessageSpan").text("Votre inscription a bien été prise en compte.");
+            $("#status").empty().text("File is uploading...");
+            $(this).ajaxSubmit({
+
+                    error: function(xhr) {
+                        console.log(xhr)
+                        console.log(xhr.responseJSON.message)
+                        $("#SignUpmessageSpan").text(xhr.responseJSON.message);
                     },
-                    401: function() {
-                        $("#SignUpmessageSpan").text("Une ou plusieurs informations sont manquantes");
-                    },
-                    404: function() {
-                        $("#SignUpmessageSpan").text("Champ(s) invalide(s). Veuillez réessayer");
-                    },
-                    400: function() {
-                        $("#SignUpmessageSpan").text("Cet utilisateur existe déjà.");
+
+                    success: function(response) {
+                        $("#SignUpmessageSpan").empty().text(response);
+                        console.log(response);
+                        console.log('You are registered')
+                        localStorage.setItem("token", response.message.token);
+                        alert("Merci de votre inscription. Vous allez recevoir un email de confirmation sous peu :)");
                     }
-                }
-            }).done(function(res) {
-                console.log('You are registered')
-                localStorage.setItem("token", res.message.token);
-                alert("You 've been sent an email! Go check :)");
-            })
+                })
+                //Very important line, it disable the page refresh.
+            return false;
         });
-    })();
+    });
 </script>
 <!-- Si le user a déjà un token, on le log automatiquement -->
 <script>

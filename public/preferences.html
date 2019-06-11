@@ -20,7 +20,7 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="./asset/css/agency.min.css" rel="stylesheet">
     
@@ -154,7 +154,7 @@
                                         <label for="loisirs" class="mr-2">
                                                         Mes loisirs
                                                     </label>
-                                        <select type="text" class="form-control border-input" id="hobbies" placeholder="Loisirs">
+                                        <select class="js-example-basic-multiple" name="Loisirs[]" multiple="multiple" type="text" class="form-control border-input" id="hobbies" placeholder="Loisirs">
                                                          
                                                       </select>
                                     </div>
@@ -167,7 +167,7 @@
                                         margin-top: 15px;
                                     ">
                                             <label>Ville</label>
-                                            <select type="text" class="form-control border-input" id="city" placeholder="city"></select>
+                                            <select class="js-example-basic-single" type="text" class="form-control border-input" id="city" placeholder="city"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -253,6 +253,7 @@
 
 <!-- Custom scripts for this template -->
 <script src="./asset/js/agency.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 
 <!-- Get connected user's info-->
 <script>
@@ -262,14 +263,13 @@
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
-        console.log('token', tk)
         if (!tk) {
             window.location.href = '/index.html';
             return
         }
         $("body").show();
         $.ajax({
-            url: 'http://localhost:8080/userHobby',
+            url: '/userHobby',
             headers: {
                 "authorization": tk
             },
@@ -282,23 +282,29 @@
             }
         })
         $.ajax({
-            url: 'http://localhost:8080/user/',
+            url: '/user/',
             headers: {
                 "authorization": tk
             },
             type: 'GET',
         }).done(function(dt) {
             var user = dt.message;
-            $("input[name=sexe][value=" + user.interest_gender + "]").prop('checked', true);
-            $('#city').val(user.interest_city_id);
-            if (!$('#city').val()) {
-                $('#city')[0]["initialValue"] = user.interest_city_id
+
+            $("input[name='sexe'][value='" + user.interest_gender + "']").prop('checked', true);
+
+            if (!$('#hobbies').val()) {
+                $('#hobbies')[0]["initialValue"] = user.list_of_hobbies
             }
             $('#bio').val(user.bio);
             $('#profilepicture').src = user.profile_picture;
             var min_slider_value = user.interest_age.split('-')[0];
             var max_slider_value = user.interest_age.split('-')[1];
             $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
+            $('#city').val(user.interest_city_id);
+            if (!$('#city').val()) {
+                $('#city')[0]["initialValue"] = user.interest_city_id
+            }
+
         })
 
     });
@@ -331,7 +337,7 @@
     $(document).ready(function() {
         $.ajax({
             type: "GET",
-            url: 'http://localhost:8080/hobbies',
+            url: '/hobbies',
             success: function(data) {
                 var hobby = data.message
                 buildDropdown(jQuery.parseJSON(JSON.stringify(hobby)), "hobby",
@@ -348,7 +354,7 @@
     $(document).ready(function() {
         $.ajax({
             type: "GET",
-            url: 'http://localhost:8080/cities',
+            url: '/cities',
             success: function(data) {
                 var city = data.message
                 buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
@@ -366,7 +372,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                    url: 'http://localhost:8080/modifyUserInterests',
+                    url: '/modifyUserInterests',
                     type: 'PUT',
                     headers: {
                         "authorization": tk
@@ -376,6 +382,7 @@
                         interest_gender: $("input[name='sexe']:checked").val(),
                         interest_city_id: $("#city").val(),
                         interest_age: min_slider_value + '-' + max_slider_value,
+                        Hobbies_id: $("#hobbies").val()
 
                     }
                 }).done(function(data) {
@@ -383,20 +390,28 @@
                     $("#alert").css("display", "block");
                 })
                 // hobby
-            $.ajax({
-                url: 'http://localhost:8080/addHobby',
-                type: 'POST',
-                headers: {
-                    "authorization": tk
-                },
-                data: {
-                    Hobby_id: $("#hobbies").val(),
+            $('select').on('select2:select', function(e) {
+                var data = e.params.data;
+                console.log('ghr kanjerb')
+                console.log(data);
+                $.ajax({
+                    url: '/addHobby',
+                    type: 'POST',
+                    headers: {
+                        "authorization": tk
+                    },
+                    data: {
 
-                }
-            }).done(function(data) {
-                console.log('Hobby Modified!')
-                $("#alert").css("display", "block");
-            })
+                        Hobby_id: data.id,
+
+                    }
+                }).done(function(data) {
+                    console.log('Hobby Modified!')
+                    $("#alert").css("display", "block");
+                })
+
+            });
+
         })
     })();
 </script>
@@ -408,7 +423,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/logout/',
+                url: '/logout/',
                 type: 'DELETE',
                 headers: {
                     "authorization": tk,
@@ -429,7 +444,6 @@
     }
 </script>
 <!-- Age range Slider function -->
-
 <script>
     $(document).ready(function() {
         $("#slider-range").slider({
@@ -445,6 +459,18 @@
         });
         $("#age").val($("#slider-range").slider("values", 0) +
             " ans - " + $("#slider-range").slider("values", 1) + " ans");
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            width: '100%'
+        });
+        $('.js-example-basic-multiple').select2({
+            width: '100%',
+            maximumSelectionLength: 3
+        });
+
     });
 </script>
 

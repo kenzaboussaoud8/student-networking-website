@@ -22,7 +22,7 @@
 
     <!-- Custom styles for this template -->
     <link href="./asset/css/agency.min.css" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body id="page-top" style="display: none;">
@@ -102,7 +102,7 @@
                             <h2 class="title" style="margin-bottom: 32px;">Mon profil</h4>
                         </div>
 
-                        
+
                         <div class="col-lg-6">
                             <div class="alert alert-success alert-dismissible fade show" style="display: none" role="alert" id="alert">
                                 Votre profil a été mis à jour !
@@ -145,23 +145,23 @@
                                             <div class="col-xs-6">
                                                 <label>Sexe :</label>
                                             </div>
-                                                <div class="form-check form-check-inline col-sm-2" style="
+                                            <div class="form-check form-check-inline col-sm-2" style="
                                                 margin-right: 70px;
                                             ">
-                                                        <i class="fas fa-mars fa-2x"></i>
-                                                    <input class="form-check-input" type="radio" name="sexe" id="SexeHomme" value="homme" style="
+                                                <i class="fas fa-mars fa-2x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeHomme" value="homme" style="
                                                     margin-left: 10px;
                                                 ">
-                                                    <label class="form-check-label" for="SexeHomme">Homme</label>
-                                                </div>
-                                                <div class="form-check form-check-inline col-sm-2">
-                                                        <i class="fas fa-venus fa-2x"></i>
-                                                    <input class="form-check-input" type="radio" name="sexe" id="SexeFemme" value="femme" style="
+                                                <label class="form-check-label" for="SexeHomme">Homme</label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-sm-2">
+                                                <i class="fas fa-venus fa-2x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeFemme" value="femme" style="
                                                     margin-left: 10px;
                                                 ">
-                                                    <label class="form-check-label" for="SexeFemme">Femme</label>
-                                                </div>
-                                            
+                                                <label class="form-check-label" for="SexeFemme">Femme</label>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +185,7 @@
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
                                             <label>Ville</label>
-                                            <select type="text" class="form-control border-input" id="city" placeholder="city">
+                                            <select class="js-example-basic-single" type="text" id="city" placeholder="city">
                                                 </select>
                                         </div>
                                     </div>
@@ -196,13 +196,13 @@
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
                                             <label>Ecole</label>
-                                            <select type="text" class="form-control border-input" id="school" placeholder="school">
+                                            <select class="js-example-basic-single" type="text" class="form-control border-input" id="school" placeholder="school">
                                                 </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="">
-                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd"style="background-color: #c63837;
+                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd" style="background-color: #c63837;
                                     border-color: #c63837;">Valider</button>
                                 </div>
                             </form>
@@ -305,6 +305,7 @@
 
 <!-- Custom scripts for this template -->
 <script src="./asset/js/agency.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 
 <!-- Dropdown build function -->
 <script>
@@ -339,7 +340,7 @@
         }
         $("body").show();
         $.ajax({
-            url: 'http://localhost:8080/user/',
+            url: '/user/',
             headers: {
                 "authorization": tk
             },
@@ -368,12 +369,12 @@
     });
 </script>
 
-<!-- Getting the list of cities available-->
+<!-- Getting the list of schools and cities available-->
 <script>
     $(document).ready(function() {
         $.ajax({
             type: "GET",
-            url: 'http://localhost:8080/schools',
+            url: '/schools',
             success: function(data) {
                 var school = data.message;
                 buildDropdown(jQuery.parseJSON(JSON.stringify(school)), "name",
@@ -389,7 +390,7 @@
 
         $.ajax({
             type: "GET",
-            url: 'http://localhost:8080/cities',
+            url: '/cities',
             success: function(data) {
                 var city = data.message;
                 buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
@@ -417,7 +418,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/modifyUserInfo',
+                url: '/modifyUserInfo',
                 type: 'PUT',
                 headers: {
                     "authorization": tk
@@ -440,7 +441,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/modifyPassword',
+                url: '/modifyPassword',
                 type: 'PUT',
                 headers: {
                     "authorization": tk
@@ -479,7 +480,7 @@
             let tk = localStorage.getItem("token");
             e.preventDefault();
             $.ajax({
-                url: 'http://localhost:8080/logout/',
+                url: '/logout/',
                 type: 'DELETE',
                 headers: {
                     "authorization": tk,
@@ -499,4 +500,12 @@
         return date.split('T')[0]
     }
 </script>
-</html
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            width: '100%'
+        });
+    });
+</script>
+
+</html>
