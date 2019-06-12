@@ -25,7 +25,7 @@ module.exports = {
  */
 function saveAccessToken(accessToken, userID, callback) {
 
-    const getUserQuery = { sql: "INSERT INTO access_tokens (access_token, user_id) VALUES (?,?) ON DUPLICATE KEY UPDATE access_token = ?" };
+    const getUserQuery = { sql: "INSERT INTO Access_tokens (access_token, user_id) VALUES (?,?) ON DUPLICATE KEY UPDATE access_token = ?" };
     const dataGetuserQuery = [accessToken, userID, accessToken];
 
 
@@ -51,7 +51,7 @@ function saveAccessToken(accessToken, userID, callback) {
  */
 function getUserAccessToken(userId, callback) {
     //create query using the data in the req.body to register the user in the db
-    const getAccessToken = { sql: "SELECT access_token FROM access_tokens WHERE user_id = ?" };
+    const getAccessToken = { sql: "SELECT access_token FROM Access_tokens WHERE user_id = ?" };
     const dataGetAccessToken = [userId];
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
@@ -93,7 +93,8 @@ function getUserFromAccessToken(userToken, callback) {
             "LEFT JOIN City  ON City.id = usr.City_id " +
             "LEFT JOIN User_has_Hobbies ON User_has_Hobbies.User_id = usr.id " +
             "LEFT JOIN School ON School.id = usr.School_id " +
-            " WHERE Access_tokens.access_token = " + mySqlConnection.connection().escape(userToken)
+            " WHERE Access_tokens.access_token = " + mySqlConnection.connection().escape(userToken) +
+            " GROUP BY usr.id, City.cityname, School.name;"
     };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
