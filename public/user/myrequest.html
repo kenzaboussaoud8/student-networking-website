@@ -207,7 +207,7 @@
         let tk = localStorage.getItem("token");
         console.log('token', tk)
         if (!tk) {
-            window.location.href = '/index.html';
+            window.location.href = 'index.html';
             return
         }
         $("body").show();
@@ -355,7 +355,7 @@
                 }
             }).done(function(data) {
                 console.log('Logged out!')
-                window.location.href = '/index.html';
+                window.location.href = 'index.html';
                 localStorage.clear();
 
             })
