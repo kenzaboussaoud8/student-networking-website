@@ -462,14 +462,14 @@ function getMatchingProfiles(user, callback) {
             "LEFT JOIN School ON School.id = usr.School_id " +
             "LEFT JOIN Hobbies ON Hobbies.id = User_has_Hobbies.Hobbies_id " +
             "LEFT JOIN Request ON Request.User_id_requester = usr.id OR Request.User_id_receiver = usr.id" +
-            " WHERE (("
+            " WHERE "
     };
     // Matching genders
     console.log('gender', gender)
     if (gender) {
         if (interest_gender == 'les deux') {
             getUserQuery.sql +=
-                " usr.interest_gender = " +
+                "(( usr.interest_gender = " +
                 mySqlConnection.connection().escape(gender) +
                 ") OR (usr.interest_gender = 'les deux')) " +
                 " AND (( " +
@@ -478,9 +478,11 @@ function getMatchingProfiles(user, callback) {
                 "AND "
         } else {
             getUserQuery.sql +=
+
                 "usr.gender = " +
                 mySqlConnection.connection().escape(interest_gender) +
                 ") AND ((";
+
             getUserQuery.sql +=
                 "usr.interest_gender = " +
                 mySqlConnection.connection().escape(gender) +

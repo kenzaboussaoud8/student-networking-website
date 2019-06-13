@@ -23,9 +23,13 @@
     <!-- Custom styles for this template -->
     <link href="./asset/css/agency.min.css" rel="stylesheet">
 
+    <!-- Carousel script -->  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
-<body id='page-top' style="display: none">
+<body id='page-top' class="body_background" style="display: none">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;">
@@ -62,25 +66,82 @@
         </section>
     </header>
 
-    <section>
-        <div class="jumbotron" style="background: #ffffff; padding-bottom: 0px; text-align: center;">
-            <h1>Tes demandes de contact </h1>
-
-            <hr class="style-two" style="width: 25%;">
-
-            <p>Ici, tu peux accepter ou refuser une demande de contact</p>
+    <div class="jumbotron" style="background: #ffffff;padding-bottom: 40px;margin-bottom: 0px;padding-top: 40px;border-bottom-style: solid;border-top-style: solid;">
+        <hr class="style-two" style="width: 25%;">
+        <h1 style="text-align: center;font-size: 50px;font-family: Montserrat;font-weight: lighter;">Demandes de contact </h1>
+        <hr class="style-two" style="width: 25%;">
         </div>
-        <!-- Page Content -->
-        <div class="container-fluid" style="margin-top: 50px; margin-left: 30px; width:auto">
-            <div class="row" id="here">
 
+
+    <header>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner" role="listbox">
+                <!-- Slide One - Set the background image for this slide in the line below -->
+                <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1494859632785-32abaf5241f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1978&q=80')">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-4">Love Academy</h3>
+                    <p class="lead">Love is everywhere</p>
+                  </div>
+                </div>
+                <!-- Slide Two - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1497120573086-6219573cf71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80')">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-4">Love Academy</h3>
+                    <p class="lead">Love is now</p>
+                  </div>
+                </div>
+                <!-- Slide Three - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1494774157365-9e04c6720e47?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-4">Love Academy</h3>
+                    <p class="lead">Love awaits</p>
+                  </div>
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
             </div>
-            <!-- /.row -->
+          </header>
 
-        </div>
-        <!-- /.container -->
+    <section>
+            <div class="jumbotron" style="background: #ffffff;padding-bottom: 80px;margin-bottom: 150px;padding-top: 80px;border-bottom-style: solid;border-top-style: solid;">
+                    <h1 style="text-align: center;">Profils en attente de contact</h1>
+                <hr class="style-two" style="width: 25%;margin-bottom: 30px;margin-top: 30px;">
+                <p class="lead" style="text-align: center;">Ici ce sont les profils ayant effectué une demande de contact avec toi,<br> tu peux accepter ou refuser leur demande !</p>
+                </div>
+                
+                
+                <!-- Page Content -->
+        <div class="container" style=" max-width: 1500px;">
+                <div class="card border-0 shadow my-5" style="height: inherit;">
+                  <div class="card-body p-5" style="background-color: white; border-style: solid;">
+                    <div class="container-fluid" style="margin-top: 50px;margin-left: 100px;width:auto;"">
+                            <div class="row" id="here">
+                                <!-- Team Member 1 -->
+                
+                            </div>
+                        </div>
+                  </div>
+                </div>
+
+                <div style="height: 100px"></div>
+              </div>
+            
+        
+        <!-- /.row -->
         <!-- Footer -->
-        <footer class="footer">
+        <footer class="footer" style="border-top-style: solid;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
@@ -190,13 +251,13 @@
                     var user = dt.message[0]
                     var age = calculateAge(user.birth_date)
                     var card = ' <div class="col-sm-12 col-lg-6" id="here">'
-                    var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id="'
+                    var photo = '<div class="card h-100 border-0 shadow" style="width: 350px;margin-right: 45px;margin-bottom: 130px;" id="'
                     photo += user.id
                     photo += '"> '
-                    photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
+                    photo += ' <img  class=""  style=" border-top-left-radius: 10px;border-top-right-radius: 10px;height: 400px;width: inherit;border-style: solid;border-width: medium;" id="profilepicture" alt="..." src=" ';
                     photo += user.profile_picture;
                     var user_card = '"><span id="status" style = "display: none" class="badge badge-pill badge-success">Vous avez matché! Envois un message maintenant :)</span>';
-                    user_card += '<div class="card-body text-center"> <h5 class="card-title mb-0" id="username-age">'
+                    user_card += '<div class="card-body text-center" style=" border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;max-height: 420px;min-height: 420px;border-style: solid;border-top-style: inherit;/* border-radius: 3px; */border-width: thin;"> <h5 class="card-title mb-0"> <h5 class="card-title mb-0" style="font-family: montserrat;" id="username-age">'
 
                     if (user.School_id == userSchoolId) {
                         user_card += ' <i class="fas fa-graduation-cap"></i>'
@@ -206,19 +267,20 @@
                     user_card += ', ';
                     user_card += age;
                     user_card += ' ans</h5>'
+                    user_card += ' <hr style="width: 65%;">'
 
-                    var city = ' <div class="card-text text-black-50" id="school-city">'
+                    var city = ' <div class="card-text text-black-50" style="padding-bottom: 15px;" id="school-city">'
                     city += user.name
                     city += ', ';
                     city += user.cityname;
                     city += '</div>'
-                    var bio = '<p class="card-text" id="bio"> <b>Bio</b> '
+                    var bio = '<b style="font-size: larger;">Bio</b> <hr style="width: 25%;"> <p class="card-text" style="margin-bottom: 35px;" id="bio">  '
                     bio += user.bio
                     bio += '</p>'
-                    var myHobby = ' <p class="card-text" id="hobby">'
-                    myHobby += '<i class="fas fa-thumbs-up"></i>   '
+                    var myHobby = ' <p class="card-text" style="font-weight: bold;" id="hobby"> '
+                    myHobby += ''
                     myHobby += user.hobby
-                    myHobby += '</p>'
+                    myHobby += '  <i class="fas fa-thumbs-up fa-2x" style="font-weight: normal;"></i> </p> '
                     var rest = '<button class="bouton18" onclick="acceptRequest('
                     rest += user.requestId + ',' + user.id
                     rest += ')" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>'

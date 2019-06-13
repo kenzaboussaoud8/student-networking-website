@@ -44,6 +44,7 @@ h6 {
 .page-section {
     padding: 100px 0;
     padding-top: 70px;
+    padding-bottom: 80px;
 }
 
 .page-section h2.section-heading {
@@ -63,7 +64,7 @@ h6 {
 
 @media (min-width:768px) {
     section {
-        padding: 30px 0px;
+        padding: 0px 0px;
     }
 }
 
@@ -175,7 +176,7 @@ img::-moz-selection {
         background-color: transparent
     }
     #mainNav .navbar-brand {
-        font-size: 1.75em;
+        font-size: 2.5em;
         -webkit-transition: all .3s;
         transition: all .3s
     }
@@ -723,7 +724,8 @@ ul.social-buttons li a:hover {
 
 .bouton18 {
     width: 60px;
-    height: 60px;
+    height: 142px;
+    padding-right: 170px;
     background: #fff;
     border-color: gray;
     font: bold 13px Arial;
@@ -761,13 +763,13 @@ ul.social-buttons li a:hover {
     padding: 0.75rem 0 !important;
     overflow-y: auto;
     white-space: nowrap;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 2px solid rgba(0,0,0,.125);
 
 }
 
 .msg_card_body {
     overflow-y: auto;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 2px solid rgba(0,0,0,.125);
 }
 
 .card-header {
@@ -1045,3 +1047,37 @@ hr.style-two {
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
+
+#color {
+
+    background: #4f0a0ad6;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+/* Set a background image by replacing the URL below */
+.body_background {
+    background: url('https://source.unsplash.com/twukN12EN7c/1920x1080') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  }
+  
+  .body_background2 {
+    background: url('https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  }
+
+  .carousel-item {
+    height: 65vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
