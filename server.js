@@ -34,12 +34,12 @@ expressApp.use(express.static(path.join(__dirname, "uploads")));
 
 //
 expressApp.get("/", function(req, res) {
-    res.redirect("index.html");
+    res.redirect("/user/index.html");
 });
 
 // admin access
 expressApp.get("/helpdesk", function(req, res) {
-    res.redirect("index-admin.html");
+    res.redirect("/admin/index-admin.html");
 });
 
 // upload files
