@@ -422,7 +422,6 @@ header.masthead .intro-text .intro-heading {
 }
 
 .timeline>li {
-    position: relative;
     min-height: 50px;
     margin-bottom: 50px
 }
@@ -1079,12 +1078,16 @@ hr.style-two {
     -o-background-size: cover;
 }
 
-.carousel-item {
-    height: 65vh;
-    min-height: 350px;
+  .carousel-item {
+    min-height: 600px;
     background: no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-}
+  }
+
+  label{
+
+    font-weight: bold;
+  }
