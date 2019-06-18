@@ -316,46 +316,6 @@
     })();
 </script>
 
-<!-- Register -->
-<script>
-    // (function() {
-    //     $("#modalRegisterForm").submit(function(e) {
-    //         e.preventDefault();
-    //         // Making the register call
-    //         $.ajax({
-    //             url: '/register',
-    //             type: 'POST',
-    //             data: {
-    //                 password: $("input[id='password_register' ]").val(),
-    //                 first_name: $("input[id='firstname' ]").val(),
-    //                 last_name: $("input[id='lastname' ]").val(),
-    //                 email: $("input[id='email_register' ]").val(),
-    //                 gender: $("input[name='sexe' ]:checked").val(),
-    //                 birth_date: $("input[id='birthdate']").val(),
-    //                 student_card: "test",
-    //             },
-    //             statusCode: {
-    //                 200: function() {
-    //                     $("#SignUpmessageSpan").text("Votre inscription a bien été prise en compte.");
-    //                 },
-    //                 401: function() {
-    //                     $("#SignUpmessageSpan").text("Une ou plusieurs informations sont manquantes");
-    //                 },
-    //                 404: function() {
-    //                     $("#SignUpmessageSpan").text("Champ(s) invalide(s). Veuillez réessayer");
-    //                 },
-    //                 400: function() {
-    //                     $("#SignUpmessageSpan").text("Cet utilisateur existe déjà.");
-    //                 }
-    //             }
-    //         }).done(function(res) {
-    //             console.log('You are registered')
-    //             localStorage.setItem("token", res.message.token);
-    //             alert("Merci de votre inscription. Vous allez recevoir un email de confirmation sous peu :)");
-    //         })
-    //     });
-    // })();
-</script>
 <script>
     $(document).ready(function() {
         $('#uploadForm').submit(function(e) {
