@@ -159,7 +159,7 @@
 
     <!--  Modals -->
     <!-- Pop Up Login -->
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade show" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form class="modal-content">
                 <div class="modal-header text-center">
@@ -195,7 +195,7 @@
     </div>
     <!-- Pop up Login -->
     <!-- Pop Up Register -->
-    <div class="modal" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade show" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form class="modal-content" id="uploadForm" action="/upload" enctype="multipart/form-data" method="POST">
                 <div class="modal-header text-center">
@@ -330,7 +330,7 @@
                     },
 
                     success: function(response) {
-                        $("#SignUpmessageSpan").empty().text(response);
+                        $("#SignUpmessageSpan").empty().text(response.message);
                         console.log(response);
                         console.log('You are registered')
                         localStorage.setItem("token", response.message.token);
