@@ -142,12 +142,14 @@
                             </div>
                             <!-- End send message -->
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </main>
     <footer class="footer">
+
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -233,6 +235,8 @@
 
     });
 
+</script>
+<script>
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
@@ -296,6 +300,19 @@
             socket.emit('chat message', $('#chatMessage').val());
         }
     }
+            var container = document.querySelector("#here");
+            var users = data.message
+            for (var i = 0; i < users.length; i++) {
+                var element = ' <li class="actives"> <div class="d-flex bd-highlight"><div class="img_cont"><img src="'
+                    // element += users[i].profile_picture;
+                element += 'class="rounded-circle user_img"><span class="online_icon offline"></span> </div> <div class="user_info"><span>'
+                element += users[i].first_name + ' ' + users[i].last_name;
+                element += '</span><p>NAME logout datetime</p></div></div></li>'
+                container.innerHTML += element;
+            }
+
+        });
+    });
 </script>
 
 </html>
