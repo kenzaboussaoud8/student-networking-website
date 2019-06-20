@@ -3,6 +3,7 @@ const express = require("express");
 const expressApp = express();
 const bodyParser = require("body-parser");
 const http = require("http");
+var server = http.createServer(expressApp);
 const cors = require("cors");
 const path = require("path");
 const router = express.Router();
@@ -28,6 +29,7 @@ const adminRoutes = require("./routes/admin/adminRoutes")(router);
 // Set the authRoutes for registration and & login requests
 expressApp.use("/", userRoutes);
 expressApp.use("/", adminRoutes);
+expressApp.use("/", chatRoutes);
 // Serving static files
 expressApp.use(express.static(path.join(__dirname, "public")));
 expressApp.use(express.static(path.join(__dirname, "uploads")));
@@ -70,32 +72,37 @@ const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 
 // Requiring socket.io
+console.log("Setting up socket.io")
 const io = require("socket.io");
-const socket = io(http);
+const chatUtils = require("./routes/user/chatUtils");
+const socket = io(server);
 
 // Set the server to listen to messages
 socket.on("connection", socket => {
-    console.log("user connected");
+    console.log("socket: user connected");
+    // TODO: save in logged in table
     socket.on("disconnect", function() {
-        console.log("user disconnected");
+        console.log("socket: user disconnected");
+        // TODO: drop from logged in table
     });
     socket.on("chat message", function(msg) {
         console.log("message: " + msg);
-        //broadcast message to everyone in port:5000 except yourself.
-        socket.broadcast.emit("received", { message: msg });
-
-        //save chat to the database
-        connect.then(db => {
-            console.log("connected correctly to the server");
-
-            let chatMessage = new Chat({ message: msg, sender: "Anonymous" });
-            chatMessage.save();
-        });
+        let sender = "Anonymouks";
+        let receiver = "Anonymouks";
+        let chatMessage = { message: msg, sender: sender, receiver: receiver }
+            // broadcast message to everyone in port:5000 except yourself.
+        socket.emit("message", chatMessage);
+        socket.broadcast.emit("message", chatMessage);
+        chatUtils.saveMessage(chatMessage);
     });
 });
 
 // Listening to port
 const PORT = 8080;
-expressApp.listen(PORT, function() {
+server.listen(PORT, function() {
     console.log("Server is running on Port", PORT);
+});
+
+server.listen(3000, function() {
+    console.log('listening on *:3000');
 });

@@ -799,7 +799,7 @@ ul.social-buttons li a:hover {
 .type_msg {
     background-color: rgb(249, 249, 249) !important;
     border: 0 !important;
-    color: white !important;
+    color: black !important;
     height: 60px !important;
     overflow-y: auto;
 }
