@@ -21,6 +21,9 @@
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="../asset/vendor/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body class="login">
@@ -43,7 +46,7 @@
                             <input type="password" id="password" class="form-control" placeholder="Password" required="" />
                         </div>
                         <div>
-                            <a id="login" class="btn btn-default submit" href="index.html">Log in</a>
+                            <a id="login" class="btn btn-default submit">Log in</a>
                             <a class="reset_pass" href="#">Lost your password?</a>
                         </div>
 
@@ -72,7 +75,7 @@
 <!-- Login -->
 <script>
     (function() {
-        $("#login").submit(function(e) {
+        $("#login").click(function(e) {
             e.preventDefault();
             $.ajax({
                 url: '/login',
