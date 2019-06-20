@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Love Academy</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../asset/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="../asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="../asset/css/agency.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body id="page-top" style="display: none;">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="home.html">Love Academy</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              Menu
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="home.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="myrequest.html">Demandes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="messenger.html">Messagerie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="profil.html">Mon profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" id="logout">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <header class="masthead">
+        <section class="page-section"></section>
+
+    </header>
+
+    <section style="padding-top: 50px;">
+        <div class="content">
+
+            <div class="container-fluid" >
+
+                <div class="row">
+                    <!-- User card-->
+                    <div class="col-lg-2 col-md-2" style=" border-top-style: solid; border-right-style: solid;">
+                        <div class="card card-user">
+                            <div class="content ">
+                                <div class="author ">
+                                    <img class="card-img-top" src="" alt="user profile picture" id="profilepicture" style="
+                                    border: black;
+                                    border-style: solid;
+                                ">
+                                    <h4 class="username text-center" id="username" style="
+                                    margin-top: 20px;
+                                "><br />
+                                    </h4>
+                                </div>
+                                <input style="border:none" type="text" class="form-control border-input text-center" id="bio" placeholder="bio">
+                            </div>
+                            <hr>
+
+                            <a href="preferences.html" style="
+                            text-align: center;
+                        "><br>Mes préférences</a>
+
+                        </div>
+
+                    </div>
+                    <!-- User info-->
+                    <div class="col" style="
+                    padding-left: 70px;
+                    padding-bottom: 70px;
+                ">
+                        <div class="header">
+                            <h2 class="title" style="margin-bottom: 32px;">Mon profil</h4>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <div class="alert alert-success alert-dismissible fade show" style="display: none" role="alert" id="alert">
+                                Votre profil a été mis à jour !
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                            </div>
+                        </div>
+
+
+                        <div class="content">
+                            <form>
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Adresse electronique</label>
+                                            <input type="email" class="form-control border-input" id="email" placeholder="email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Nom</label>
+                                            <input type="text" class="form-control border-input" id="lastname" placeholder="lastname" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Prénom</label>
+                                            <input type="text" class="form-control border-input" id="firstname" placeholder="firstname" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-xs-6">
+                                                <label>Sexe :</label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-sm-2" style="
+                                                margin-right: 70px;
+                                            ">
+                                                <i class="fas fa-mars fa-2x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeHomme" value="homme" style="
+                                                    margin-left: 10px;
+                                                ">
+                                                <label class="form-check-label" for="SexeHomme">Homme</label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-sm-2">
+                                                <i class="fas fa-venus fa-2x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeFemme" value="femme" style="
+                                                    margin-left: 10px;
+                                                ">
+                                                <label class="form-check-label" for="SexeFemme">Femme</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Mot de passe</label>
+                                            <input type="password" class="form-control border-input" id="password" placeholder="password">
+                                            <button type="button" id="updatePassword" name="updatePassword" class="btn btn-primary" data-toggle="modal" data-target="#modalUpdatePasswordForm">Modifier</button> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Date de naissance</label>
+                                            <input type="date" class="form-control border-input" id="birthdate" placeholder="birthdate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="form-group">
+                                            <label>Ville</label>
+                                            <select class="js-example-basic-single" type="text" id="city" placeholder="city">
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="form-group">
+                                            <label>Ecole</label>
+                                            <select class="js-example-basic-single" type="text" class="form-control border-input" id="school" placeholder="school">
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd" style="background-color: #c63837;
+                                    border-color: #c63837;">Valider</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="modalUpdatePasswordForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Modifier le mot de passe</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <div class="modal-body mx-2">
+                    <div class="md-form mb-3">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="oldPassword" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass">Veuillez entrer votre mot de passe</label>
+                    </div>
+
+                    <div class="md-form mb-3">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="newPassword" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass2">Veuillez entrer un nouveau mot de passe</label>
+                    </div>
+
+                    <div class="md-form mb-3">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="confirmPassword" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass3">Confirmez votre nouveau mot de passe</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-default" id="modifyPass">Valider</button>
+                </div>
+                <span id="messageSpan" style="color:red"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="border-top-style: solid;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright KVA Corporate 2019</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item">
+                            <a href="mentions_legales.html">Mentions légales</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="cgu.html">Conditions d'utilisation</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<!-- SCRIPTS -->
+<!-- Bootstrap core JavaScript -->
+<script src="../asset/vendor/jquery/dist/jquery.min.js"></script>
+<script src="../asset/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../asset/js/jquery.easing.min.js"></script>
+
+<!-- Contact form JavaScript -->
+<script src="../asset/js/jqBootstrapValidation.js"></script>
+<script src="../asset/js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../asset/js/agency.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<!-- Dropdown build function -->
+<script>
+    function buildDropdown(result, value, dropdown, emptyMessage) {
+        {
+            var initialValue = dropdown[0]["initialValue"];
+            // Check result isnt empty
+            if (result != '') {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Loop through each of the results and append the option to the dropdown
+                $.each(result, function(k, v) {
+                    dropdown.append('<option value="' + v.id + '">' + v[value] + '</option>');
+                });
+                if (initialValue) {
+                    dropdown.val(initialValue);
+                }
+            }
+        }
+    }
+</script>
+<!-- Get connected user's info-->
+<script>
+    $(document).ready(function() {
+        // retrieve token from local storage
+        let tk = localStorage.getItem("token");
+        if (!tk) {
+            window.location.href = 'index.html';
+            return
+        }
+        $("body").show();
+        $.ajax({
+            url: '/user/',
+            headers: {
+                "authorization": tk
+            },
+            type: 'GET',
+        }).done(function(dt) {
+            var user = dt.message;
+            $('#firstname').val(user.first_name);
+            $('#lastname').val(user.last_name);
+            $('#email').val(user.email);
+            $('#password').val(user.password);
+            $('#birthdate').val(dateBDDToDateForm(user.birth_date));
+            $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
+            $('#bio').val(user.bio);
+            $('#profilepicture').src = user.profile_picture;
+            $('#school').val(user.School_id);
+            if (!$('#school').val()) {
+                $('#school')[0]["initialValue"] = user.School_id
+            }
+            $('#username').innerText = user.first_name + ' ' + user.last_name;
+            $('#city').val(user.City_id);
+            if (!$('#city').val()) {
+                $('#city')[0]["initialValue"] = user.City_id
+            }
+        })
+
+    });
+</script>
+
+<!-- Getting the list of schools and cities available-->
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: '/schools',
+            success: function(data) {
+                var school = data.message;
+                buildDropdown(jQuery.parseJSON(JSON.stringify(school)), "name",
+                    $('#school'),
+                    'Select an option')
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $.ajax({
+            type: "GET",
+            url: '/cities',
+            success: function(data) {
+                var city = data.message;
+                buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
+                    $('#city'),
+                    'Select an option')
+
+            }
+        });
+    });
+</script>
+
+<!-- Modify info -->
+<script>
+    (function() {
+        $("#submitForm").click(function(e) {
+            data = {
+                email: $("input[id='email']").val(),
+                bio: $("input[id='bio']").val(),
+                gender: $("input[name='sexe']:checked").val(),
+                birth_date: $("input[id='birthdate']").val(),
+                City_id: $("#city").val(),
+                School_id: $("#school").val()
+            };
+            // on récupère le token depuis le localStorage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                url: '/modifyUserInfo',
+                type: 'PUT',
+                headers: {
+                    "authorization": tk
+                },
+                data: data
+            }).done(function(data) {
+                console.log('Info Modified!')
+                $("#alert").css("display", "block");
+
+            })
+        })
+    })();
+</script>
+
+<script>
+    (function() {
+        $("#modifyPass").click(function(e) {
+            $('#myAlert').modal();
+            // on récupère le token depuis le localStorage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                url: '/modifyPassword',
+                type: 'PUT',
+                headers: {
+                    "authorization": tk
+                },
+                data: {
+                    password: $("input[id='oldPassword']").val(),
+                    newPassword: $("input[id='newPassword']").val(),
+                    confirmPassword: $("input[id='confirmPassword']").val()
+                },
+                statusCode: {
+                    200: function() {
+                        $("#messageSpan").text("Votre mot de passe a été changé avec succès");
+                    },
+                    403: function() {
+                        $("#messageSpan").text("Les mots de passe entrés ne correspondent pas");
+                    },
+                    401: function() {
+                        $("#messageSpan").text("Le mot de passe entré n'est pas assez sécurisé");
+                    },
+                    400: function() {
+                        $("#messageSpan").text("Mot de passe erroné");
+                    }
+                }
+            }).done(function(data) {
+                console.log('Password Modified!')
+
+            })
+        })
+    })();
+</script>
+<!-- Script de déconnexion -->
+<script>
+    (function() {
+        $("#logout").click(function(e) {
+            // on récupère le token depuis le localStorage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                url: '/logout/',
+                type: 'DELETE',
+                headers: {
+                    "authorization": tk,
+                }
+            }).done(function(data) {
+                console.log('Logged out!')
+                window.location.href = 'index.html';
+                // clear local storage
+                localStorage.clear();
+
+            })
+        })
+    })();
+</script>
+<script>
+    function dateBDDToDateForm(date) {
+        return date.split('T')[0]
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            width: '100%'
+        });
+    });
+</script>
+
+</html>

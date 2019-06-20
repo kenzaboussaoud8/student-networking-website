@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Love Academy</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../asset/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="../asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="../asset/css/agency.min.css" rel="stylesheet">
+
+
+    <style>
+        table {
+            font-size: 1em;
+        }
+        
+        .ui-draggable,
+        .ui-droppable {
+            background-position: top;
+        }
+    </style>
+</head>
+
+<body id='page-top' style="display: none;">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="position: absolute;">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="home.html">Love Academy</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              Menu
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="home.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="myrequest.html">Demandes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="messenger.html">Messagerie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="profil.html">Mon profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" id="logout">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <header class="masthead">
+        <section class="page-section"></section>
+    </header>
+
+    <section style="padding-top: 50px;">
+
+        <div class="content">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <!-- User card-->
+                    <div class="col-lg-2 col-md-2" style=" border-top-style: solid; border-right-style: solid;">
+                        <div class="card card-user">
+                            <div class="content ">
+                                <div class="author ">
+                                    <img class="card-img-top" src="" alt="user profile picture" id="profilepicture" style="
+                                    border: black;
+                                    /* border: 15px; */
+                                    border-style: solid;
+                                    border-radius: rounded;
+                                ">
+                                    <h4 class="username text-center" id="username"><br />
+                                    </h4>
+                                </div>
+                                <input style="border:none" type="text" class="form-control border-input text-center" id="bio" placeholder="bio">
+                            </div>
+                            <hr>
+
+                            <a href="profil.html" style="
+                            text-align: center;
+                        ">Mon profil</a>
+
+                        </div>
+
+                    </div>
+                    <!-- User info-->
+                    <div class="col" style="padding-left: 200px;height: 70vh;">
+                        <div class="header">
+                            <h2 class="title" style="
+                            margin-bottom: 45px;
+                        ">Mes préférences de recherche</h4>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="alert alert-success alert-dismissible fade show" style="display: none" role="alert" id="alert">
+                                Vos préférences ont été mises à jour !
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <form>
+                                <div class="row">
+
+                                    <div class="col-md-8" style="
+                                    margin-top: 25px;
+                                ">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline col-sm-2" style="margin-right: 70px;">
+
+                                                <i class="fas fa-mars fa-3x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeHomme" value="homme" style="
+                                                margin-left: 15px;
+                                            ">
+                                                <label class="form-check-label" for="SexeHomme">Homme</label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-sm-2" style="margin-right: 70px;">
+                                                <i class="fas fa-venus fa-3x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeFemme" value="femme" style="
+                                                margin-left: 15px;
+                                            ">
+                                                <label class="form-check-label" for="SexeFemme">Femme</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline col-sm-2" style="margin-right: 70px;">
+                                                <i class="fas fa-venus-mars fa-3x"></i>
+                                                <input class="form-check-input" type="radio" name="sexe" id="SexeBi" value="les deux" style="
+                                                margin-left: 15px;
+                                            ">
+                                                <label class="form-check-label" for="SexeBi">Bisexuel</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6" style="padding-left: 0px;">
+                                    <div class="form-group" style="
+                                    margin-top: 15px;
+                                ">
+                                        <label for="loisirs" class="mr-2">
+                                                        Mes loisirs
+                                                    </label>
+                                        <select class="js-example-basic-multiple" name="Loisirs[]" multiple="multiple" type="text" class="form-control border-input" id="hobbies" placeholder="Loisirs">
+                                                         
+                                                      </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group" style="
+                                        margin-top: 15px;
+                                    ">
+                                            <label>Ville</label>
+                                            <select class="js-example-basic-single" type="text" class="form-control border-input" id="city" placeholder="city"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p style="
+                                margin-top: 15px;
+                                margin-bottom: 16px;
+                            ">
+                                    <label for="amount">Age:</label>
+                                    <input type="text" id="age" readonly style="border:0; color:#f6931f; font-weight:bold; margin-left: 7px;">
+                                </p>
+
+                                <div id="slider-range" style="width: 200px; margin-left: 8px;"></div>
+                                <div class="text-center">
+                                    <button type="submit" id="submitForm" class="btn btn-info btn-fill btn-wd" style="background-color: #c63837;
+                                    border-color: #c63837;">Valider</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer" style="border-top-style: solid;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright KVA Corporate 2019</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item">
+                            <a href="mentions_legales.html">Mentions légales</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="cgu.html">Conditions d'utilisation</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+<!-- SCRIPTS -->
+<!-- SCRIPTS -->
+<!-- Bootstrap core JavaScript -->
+<script src="../asset/vendor/jquery/dist/jquery.min.js"></script>
+<script src="../asset/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../asset/js/jquery.easing.min.js"></script>
+
+<!-- Contact form JavaScript -->
+<script src="../asset/js/jqBootstrapValidation.js"></script>
+<script src="../asset/js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../asset/js/agency.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+
+<!-- Get connected user's info-->
+<script>
+    var min_slider_value = 18;
+    var max_slider_value = 99;
+
+    $(document).ready(function() {
+        // on récupère le token depuis le localStorage
+        let tk = localStorage.getItem("token");
+        if (!tk) {
+            window.location.href = 'index.html';
+            return
+        }
+        $("body").show();
+        $.ajax({
+            url: '/userHobby',
+            headers: {
+                "authorization": tk
+            },
+            type: 'GET',
+        }).done(function(dt) {
+            var user = dt.message[0];
+            $('#hobbies').val(user.Hobbies_id);
+            if (!$('#hobbies').val()) {
+                $('#hobbies')[0]["initialValue"] = user.Hobbies_id
+            }
+        })
+        $.ajax({
+            url: '/user/',
+            headers: {
+                "authorization": tk
+            },
+            type: 'GET',
+        }).done(function(dt) {
+            var user = dt.message;
+
+            $("input[name='sexe'][value='" + user.interest_gender + "']").prop('checked', true);
+
+            if (!$('#hobbies').val()) {
+                $('#hobbies')[0]["initialValue"] = user.list_of_hobbies
+            }
+            $('#bio').val(user.bio);
+            $('#profilepicture').src = user.profile_picture;
+            var min_slider_value = user.interest_age.split('-')[0];
+            var max_slider_value = user.interest_age.split('-')[1];
+            $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
+            $('#city').val(user.interest_city_id);
+            if (!$('#city').val()) {
+                $('#city')[0]["initialValue"] = user.interest_city_id
+            }
+
+        })
+
+    });
+</script>
+<!-- Dropdown build function -->
+<script>
+    function buildDropdown(result, value, dropdown, emptyMessage) {
+        {
+            var initialValue = dropdown[0]["initialValue"];
+            // Check result isnt empty
+            if (result != '') {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Loop through each of the results and append the option to the dropdown
+                $.each(result, function(k, v) {
+                    dropdown.append('<option value="' + v.id + '">' + v[value] + '</option>');
+                });
+                // 
+                if (initialValue) {
+                    dropdown.val(initialValue);
+                }
+            }
+        }
+    }
+</script>
+<!-- Get list of hobbies and fill dropdown -->
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: '/hobbies',
+            success: function(data) {
+                var hobby = data.message
+                buildDropdown(jQuery.parseJSON(JSON.stringify(hobby)), "hobby",
+                    $('#hobbies'),
+                    'Select an option'
+
+                );
+            }
+        });
+    });
+</script>
+<!-- Get list of cities and fill dropdown -->
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: '/cities',
+            success: function(data) {
+                var city = data.message
+                buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
+                    $('#city'),
+                    'Select an option');
+            }
+        });
+    });
+</script>
+<!-- Modify info -->
+<script>
+    (function() {
+        $("#submitForm").click(function(e) {
+            // retrieve token from local storage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                    url: '/modifyUserInterests',
+                    type: 'PUT',
+                    headers: {
+                        "authorization": tk
+                    },
+                    data: {
+                        bio: $("input[id='bio']").val(),
+                        interest_gender: $("input[name='sexe']:checked").val(),
+                        interest_city_id: $("#city").val(),
+                        interest_age: min_slider_value + '-' + max_slider_value,
+                        Hobbies_id: $("#hobbies").val()
+
+                    }
+                }).done(function(data) {
+                    console.log('Info Modified!')
+                    $("#alert").css("display", "block");
+                })
+                // hobby
+            $('select').on('select2:select', function(e) {
+                var data = e.params.data;
+                console.log('ghr kanjerb')
+                console.log(data);
+                $.ajax({
+                    url: '/addHobby',
+                    type: 'POST',
+                    headers: {
+                        "authorization": tk
+                    },
+                    data: {
+
+                        Hobby_id: data.id,
+
+                    }
+                }).done(function(data) {
+                    console.log('Hobby Modified!')
+                    $("#alert").css("display", "block");
+                })
+
+            });
+
+        })
+    })();
+</script>
+<!-- Logout -->
+<script>
+    (function() {
+        $("#logout").click(function(e) {
+            // retrieve token from local storage
+            let tk = localStorage.getItem("token");
+            e.preventDefault();
+            $.ajax({
+                url: '/logout/',
+                type: 'DELETE',
+                headers: {
+                    "authorization": tk,
+                }
+            }).done(function(data) {
+                console.log('Logged out!')
+                window.location.href = 'index.html';
+                localStorage.clear();
+
+            })
+        })
+    })();
+</script>
+<!-- Transform date -->
+<script>
+    function dateBDDToDateForm(date) {
+        return date.split('T')[0]
+    }
+</script>
+<!-- Age range Slider function -->
+<script>
+    $(document).ready(function() {
+        $("#slider-range").slider({
+            range: true,
+            min: min_slider_value,
+            max: max_slider_value,
+            values: [min_slider_value, max_slider_value],
+            slide: function(event, ui) {
+                min_slider_value = ui.values[0];
+                max_slider_value = ui.values[1];
+                $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
+            }
+        });
+        $("#age").val($("#slider-range").slider("values", 0) +
+            " ans - " + $("#slider-range").slider("values", 1) + " ans");
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            width: '100%'
+        });
+        $('.js-example-basic-multiple').select2({
+            width: '100%',
+            maximumSelectionLength: 3
+        });
+
+    });
+</script>
+
+</html>
