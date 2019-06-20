@@ -21,8 +21,6 @@
 
     <!-- Custom styles for this template -->
     <link href="../asset/css/agency.min.css" rel="stylesheet">
-
-
 </head>
 
 
@@ -63,147 +61,95 @@
 
             </div>
     </header>
+    <main class="mt-auto h-100">
+        <div class="jumbotron" style="background: #ffffff; padding-bottom: 0px; text-align: center;">
+            <h1 style="
+                margin-bottom: 25px;
+            ">Ta messagerie </h1>
 
-    <main class="mt-auto h-100 body_background2">
-            <div class="jumbotron" style="background: #ffffff;padding-bottom: 40px;margin-bottom: 0px;padding-top: 40px;border-bottom-style: solid;border-top-style: solid;">
-                    <hr class="style-two" style="width: 25%;">
-                    <h1 style="text-align: center;font-size: 50px;font-family: Montserrat;font-weight: lighter;">Messagerie</h1>
-                    <hr class="style-two" style="width: 25%;">
-                    </div>
+            <hr class="style-two" style="width: 25%;">
 
+        </div>
 
+        <div class="container-fluid">
+            <div class="row" style="height:100%;">
+                <div class="row align-items-center" style="width:100%">
+                    <div class="col-2 offset-2 chat">
+                        <div class="card mb-sm-3 mb-md-0 contacts_card">
 
-                    <div class="container" style="max-width: 1500px;margin-top: 200px;margin-bottom: 250px;"">
-                    <div class="card border-0 shadow my-5" style="height: inherit;">
-                    <div class="card-body p-5" style="background-color: white;border-style: solid; border-radius: 10px;">
-                            
-        <div class="row" style="height:100%;">
-            <div class="row align-items-center" style="width:100%">
-                <div class="col-2 offset-2 chat" style="margin-left: 0px;">
-                    <div class="card mb-sm-3 mb-md-0 contacts_card" style="width: 250px;">
-
-                        <!-- Search Profil -->
-                        <div class="card-header">
-                            <div class="input-group">
-                                <input type="text" placeholder="Search..." name="" class="form-control search">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Search Profil -->
-
-                        <!-- Profil like list -->
-                        <div class="card-body contacts_body">
-                            <ui class="contacts">
-                                <li class="actives">
-                                    <div class="d-flex bd-highlight">
-                                        <div class="img_cont">
-                                            <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img">
-                                            <span class="online_icon offline"></span>
-                                        </div>
-                                        <div class="user_info">
-                                            <span>NAME</span>
-                                            <p>NAME logout datetime</p>
-                                        </div>
+                            <!-- Search Profil -->
+                            <div class="card-header">
+                                <div class="input-group">
+                                    <input type="text" placeholder="Search..." name="" class="form-control search">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex bd-highlight">
-                                        <div class="img_cont">
-                                            <img src="../asset/images/photo-1531251445707-1f000e1e87d0.jpg" class="rounded-circle user_img">
-                                            <span class="online_icon"></span>
-                                        </div>
-                                        <div class="user_info">
-                                            <span>NAME</span>
-                                            <p>NAME logout datetime</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ui>
+                                </div>
+                            </div>
+                            <!-- End Search Profil -->
+
+                            <!-- Profil like list -->
+                            <div class="card-body contacts_body">
+                                <ui class="contacts" id="contacts">
+                                </ui>
+                            </div>
+                            <!-- End Profil like list -->
+
+                            <div class="card-footer"></div>
+
                         </div>
-                        <!-- End Profil like list -->
-
-                        <div class="card-footer"></div>
-
                     </div>
-                </div>
-                <div class="col-6 chat" style="margin-left: 100px;">
-                    <div class="card" style="width: 950px;">
-                        <!-- Header Chat-->
-                        <div class="card-header msg_head">
-                            <div class="d-flex bd-highlight">
-                                <div class="img_cont">
-                                    <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img">
-                                    <span class="online_icon"></span>
+                    <div class="col-6 chat">
+                        <div class="card">
+                            <!-- Header Chat-->
+                            <div class="card-header msg_head">
+                                <div class="d-flex bd-highlight">
+                                    <div class="img_cont">
+                                        <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img">
+                                        <span class="online_icon"></span>
+                                    </div>
+                                    <div class="user_info_header">
+                                        <span>Chat with name contact</span>
+                                        <p>Number Messages</p>
+                                    </div>
                                 </div>
-                                <div class="user_info_header">
-                                    <span>Chat with name contact</span>
-                                    <p>Number Messages</p>
+                                <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+                                <div class="action_menu">
+                                    <ul>
+                                        <li><i class="fas fa-user-circle"></i> View profile</li>
+                                        <li><i class="fas fa-ban"></i> Block</li>
+                                    </ul>
                                 </div>
                             </div>
-                            <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
-                            <div class="action_menu">
-                                <ul>
-                                    <li><i class="fas fa-user-circle"></i> View profile</li>
-                                    <li><i class="fas fa-ban"></i> Block</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End header chat -->
+                            <!-- End header chat -->
 
-                        <!-- Chat -->
-                        <div class="card-body msg_card_body">
-                            <!-- Post User -->
-                            <div class="d-flex justify-content-end mb-4">
-                                <div class="msg_cotainer_send">
-                                    message test
-                                    <span class="msg_time_send">Datetime post, Day</span>
-                                </div>
-                                <div class="img_cont_msg">
-                                    <img src="../asset/images/photo-1527980965255-d3b416303d12.jpg" class="rounded-circle user_img_msg">
-                                </div>
+                            <!-- Chat -->
+                            <div class="card-body msg_card_body" id="chatBody">
                             </div>
-                            <!-- End Post User -->
+                            <!-- End Chat -->
 
-                            <!-- Post contact -->
-                            <div class="d-flex justify-content-start mb-4">
-                                <div class="img_cont_msg">
-                                    <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img_msg">
-                                </div>
-                                <div class="msg_cotainer">
-                                    message test
-                                    <span class="msg_time">Datetime post, Dayay</span>
+                            <!-- Send Message -->
+                            <div class="card-footer">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+                                    </div>
+                                    <textarea name="" class="form-control type_msg" placeholder="Type your message..." id="chatMessage"></textarea>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text send_btn" id="send_btn"><i class="fas fa-location-arrow"></i></span>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- End post contact-->
+                            <!-- End send message -->
                         </div>
-                        <!-- End Chat -->
 
-                        <!-- Send Message -->
-                        <div class="card-footer">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
-                                </div>
-                                <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
-                                <div class="input-group-append">
-                                    <span class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End send message -->
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</div>
-        </div>
     </main>
+    <footer class="footer">
 
-    <footer class="footer" style="border-top-style: solid;">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -260,6 +206,8 @@
 <!-- Custom scripts for this template -->
 <script src="../asset/js/agency.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="../asset/js/socket.io.js"></script>
 <!-- Récupérer les données de l'utilisateur connecté-->
 <script>
     var userSchoolId = ''
@@ -269,7 +217,7 @@
         let tk = localStorage.getItem("token");
         console.log('token', tk)
         if (!tk) {
-            window.location.href = '/user//index.html';
+            window.location.href = '/user/index.html';
             return
         }
         $("body").show();
@@ -286,6 +234,7 @@
         })
 
     });
+
 </script>
 <script>
     $(document).ready(function() {
@@ -298,6 +247,59 @@
                 "authorization": tk
             }
         }).done(function(data) {
+            var container = document.querySelector("#contacts");
+            var users = data.message
+            for (var i = 0; i < users.length; i++) {
+                var element = ' <li class="actives"> <div class="d-flex bd-highlight"><div class="img_cont"><img src="'
+                element += users[i].profile_picture
+                element += '" class="rounded-circle user_img"/><span class="online_icon offline"></span></div><div class="user_info_md"><span class="small">'
+                element += users[i].first_name + ' ' + users[i].last_name;
+                container.innerHTML += element;
+            }
+            setupIo();
+        });
+    });
+
+    function setupIo() {
+        var socket = io();
+        $(() => {
+            getMessages()
+        })
+        $("span#send_btn").click(() => {
+            sendMessage({
+                name: $("#name").val(),
+                message: $("#message").val()
+            });
+        })
+        socket.on('message', addMessages)
+
+        function addMessages(message) {
+            console.log("AddMessage", message);
+            var messageElement = "";
+            if (message.sender == "me") {
+                messageElement = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer_send">' + message.message + '     <span class="msg_time">Datetime post, Dayay </span> </div> </div>'
+            } else {
+                messageElement = '<div class="d-flex justify-content-end mb-4"> <div class="msg_cotainer">' + message.message + '     <span class="msg_time">Datetime post, Dayay </span> </div><div class="img_cont_msg"><img src="../asset/images/photo-1527980965255-d3b416303d12.jpg" class="rounded-circle user_img_msg"></div></div>'
+            }
+            let chatBody = $("#chatBody")
+            chatBody.html(chatBody.html() + messageElement)
+                // scroll to the bottom
+            chatBody[0].scrollTop = chatBody[0].scrollHeight;
+        }
+
+        function getMessages() {
+            $.get('/messages', (data) => {
+                console.log("messages response", data);
+                $("#chatBody").html('')
+                data.forEach(addMessages);
+            })
+        }
+
+        function sendMessage(message) {
+            console.log("Sending message: ", $("#chatMessage").val())
+            socket.emit('chat message', $('#chatMessage').val());
+        }
+    }
             var container = document.querySelector("#here");
             var users = data.message
             for (var i = 0; i < users.length; i++) {

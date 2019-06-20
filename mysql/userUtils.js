@@ -438,6 +438,9 @@ function getMatchingProfiles(user, callback) {
     var interest_gender = user.interest_gender;
     // AGE
     var birth_date = user.birth_date;
+    if (!user.interest_age) {
+        callback({}, [])
+    }
     var interest_age_interval = user.interest_age.split("-");
     var min_age = Number(interest_age_interval[0]);
     var max_age = Number(interest_age_interval[1]);
