@@ -5,6 +5,6 @@ router.get('/');
 
 // Router
 module.exports = router => {
-    router.get("/messages", utils.getMessages);
+    router.post("/messages", utils.getMessages);
     return router;
 };

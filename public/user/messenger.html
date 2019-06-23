@@ -105,12 +105,11 @@
                             <div class="card-header msg_head">
                                 <div class="d-flex bd-highlight">
                                     <div class="img_cont">
-                                        <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img">
+                                        <img src="" class="rounded-circle user_img" id="openConversationImage">
                                         <span class="online_icon"></span>
                                     </div>
                                     <div class="user_info_header">
-                                        <span>Chat with name contact</span>
-                                        <p>Number Messages</p>
+                                        <span>Chat with <span id="openConversationUsername">Anonymous</span></span>
                                     </div>
                                 </div>
                                 <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
@@ -210,8 +209,11 @@
 <script src="../asset/js/socket.io.js"></script>
 <!-- Récupérer les données de l'utilisateur connecté-->
 <script>
-    var userSchoolId = ''
-    var myId = ''
+    var userSchoolId = '';
+    var myId = '';
+    var myName = '';
+    var openConversationUserId = '';
+    var openConversationName = '';
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
@@ -229,12 +231,12 @@
             type: 'GET',
         }).done(function(dt) {
             var user = dt.message;
-            myId = user.id
+            myId = user.id + '';
+            myName = user.first_name + ' ' + user.last_name;
             userSchoolId = user.School_id;
         })
 
     });
-
 </script>
 <script>
     $(document).ready(function() {
@@ -248,71 +250,89 @@
             }
         }).done(function(data) {
             var container = document.querySelector("#contacts");
-            var users = data.message
+            var users = data.message;
+            console.log(users);
+
             for (var i = 0; i < users.length; i++) {
-                var element = ' <li class="actives"> <div class="d-flex bd-highlight"><div class="img_cont"><img src="'
-                element += users[i].profile_picture
-                element += '" class="rounded-circle user_img"/><span class="online_icon offline"></span></div><div class="user_info_md"><span class="small">'
-                element += users[i].first_name + ' ' + users[i].last_name;
+                var user = users[i];
+                var userName = user.first_name + ' ' + user.last_name;
+                var element = ' <li class="actives" id="userId_' + user.id + '" > <div class="d-flex bd-highlight" onclick=\'openNewConversation("' + user.id + '", "' + userName + '", "' + user.profile_picture + '");\'><div class="img_cont"><img src="'
+                element += user.profile_picture;
+                element += '" class="rounded-circle user_img"/><span class="online_icon offline"></span></div><div class="user_info_md"><span class="small">' + userName;
+                element += '</span></div></div></li>';
                 container.innerHTML += element;
             }
+
+            if (users) {
+                openConversationUserId = users[0].id;
+                openNewConversation(users[0].id, users[0].first_name + ' ' + users[0].last_name, users[0].profile_picture);
+            }
+
             setupIo();
         });
     });
 
+    function openNewConversation(id, full_name, img) {
+        console.log("openNewConversation", id, full_name, img);
+        openConversationUserId = id;
+        $("#openConversationUsername").html(full_name);
+        $("#openConversationImage").attr('src', img);
+        getMessages();
+    }
+
+    var socket = undefined;
+
     function setupIo() {
-        var socket = io();
+        console.log("Setup IO");
+        socket = io();
         $(() => {
             getMessages()
         })
         $("span#send_btn").click(() => {
             sendMessage({
-                name: $("#name").val(),
-                message: $("#message").val()
+                sender: myId,
+                receiver: openConversationUserId,
+                message: $("#chatMessage").val()
             });
         })
         socket.on('message', addMessages)
 
-        function addMessages(message) {
-            console.log("AddMessage", message);
-            var messageElement = "";
-            if (message.sender == "me") {
-                messageElement = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer_send">' + message.message + '     <span class="msg_time">Datetime post, Dayay </span> </div> </div>'
-            } else {
-                messageElement = '<div class="d-flex justify-content-end mb-4"> <div class="msg_cotainer">' + message.message + '     <span class="msg_time">Datetime post, Dayay </span> </div><div class="img_cont_msg"><img src="../asset/images/photo-1527980965255-d3b416303d12.jpg" class="rounded-circle user_img_msg"></div></div>'
-            }
-            let chatBody = $("#chatBody")
-            chatBody.html(chatBody.html() + messageElement)
-                // scroll to the bottom
-            chatBody[0].scrollTop = chatBody[0].scrollHeight;
-        }
-
-        function getMessages() {
-            $.get('/messages', (data) => {
-                console.log("messages response", data);
-                $("#chatBody").html('')
-                data.forEach(addMessages);
-            })
-        }
-
-        function sendMessage(message) {
-            console.log("Sending message: ", $("#chatMessage").val())
-            socket.emit('chat message', $('#chatMessage').val());
-        }
     }
-            var container = document.querySelector("#here");
-            var users = data.message
-            for (var i = 0; i < users.length; i++) {
-                var element = ' <li class="actives"> <div class="d-flex bd-highlight"><div class="img_cont"><img src="'
-                    // element += users[i].profile_picture;
-                element += 'class="rounded-circle user_img"><span class="online_icon offline"></span> </div> <div class="user_info"><span>'
-                element += users[i].first_name + ' ' + users[i].last_name;
-                element += '</span><p>NAME logout datetime</p></div></div></li>'
-                container.innerHTML += element;
-            }
 
+    function addMessages(message) {
+        console.log("AddMessage", message);
+        var messageElement = "";
+        if (message.sender === myId) {
+            messageElement = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer_send">' + message.message + '     <span class="msg_time">Datetime post, Dayay </span> </div> </div>'
+        } else {
+            messageElement = '<div class="d-flex justify-content-end mb-4"> <div class="msg_cotainer">' + message.message + '     <span class="msg_time">Datetime post, Dayay </span> </div><div class="img_cont_msg"><img src="../asset/images/photo-1527980965255-d3b416303d12.jpg" class="rounded-circle user_img_msg"></div></div>'
+        }
+        let chatBody = $("#chatBody")
+        chatBody.html(chatBody.html() + messageElement)
+            // scroll to the bottom
+        chatBody[0].scrollTop = chatBody[0].scrollHeight;
+    }
+
+    function sendMessage(message) {
+        console.log("Sending message: ", message)
+        socket.emit('chat message', message);
+    }
+
+
+    function getMessages() {
+        $.ajax({
+            url: '/messages',
+            type: 'POST',
+            withCredentials: true,
+            data: {
+                sender: myId,
+                receiver: openConversationUserId,
+            }
+        }).done(function(data) {
+            $("#chatBody").html('')
+            data.forEach(addMessages);
         });
-    });
+    }
 </script>
 
 </html>

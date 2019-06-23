@@ -87,9 +87,7 @@ socket.on("connection", socket => {
     });
     socket.on("chat message", function(msg) {
         console.log("message: " + msg);
-        let sender = "Anonymouks";
-        let receiver = "Anonymouks";
-        let chatMessage = { message: msg, sender: sender, receiver: receiver }
+        let chatMessage = { message: msg.message, sender: msg.sender, receiver: msg.receiver }
             // broadcast message to everyone in port:5000 except yourself.
         socket.emit("message", chatMessage);
         socket.broadcast.emit("message", chatMessage);
