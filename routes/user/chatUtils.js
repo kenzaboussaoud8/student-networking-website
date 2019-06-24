@@ -25,7 +25,7 @@ function getMessages(req, res, next) {
     res.statusCode = 200;
 
     connect.then(db => {
-        Chat.find({ sender: "Anonymouks" }).then(chat => {
+        Chat.find({ sender: req.body.sender, receiver: req.body.receiver }).then(chat => {
             console.log("chat", chat)
             res.json(chat);
         });
