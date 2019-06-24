@@ -1,4 +1,5 @@
 var nodemailer = require("nodemailer");
+const config = require("../../config.js");
 
 module.exports = {
     checkRegisteryForm: checkRegisteryForm,
@@ -11,8 +12,8 @@ function sendMail(receiverEmail) {
     var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: "loveacademy.customer@gmail.com",
-            pass: "Wgpcgr2018*"
+            user: config.email,
+            pass: config.password
         }
     });
     // Send mail to user
