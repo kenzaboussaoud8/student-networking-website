@@ -41,7 +41,7 @@ expressApp.get("/", function(req, res) {
 
 // admin access
 expressApp.get("/helpdesk", function(req, res) {
-    res.redirect("/admin/index-admin.html");
+    res.redirect("/admin/login.html");
 });
 
 // upload files
