@@ -1,0 +1,74 @@
+{
+    "kind": "analytics#profiles",
+    "username": "kboussaoud8@gmail.com",
+    "totalResults": 2,
+    "startIndex": 1,
+    "itemsPerPage": 1000,
+    "items": [{
+            "id": "196381658",
+            "kind": "analytics#profile",
+            "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/141517851/webproperties/UA-141517851-1/profiles/196381658",
+            "accountId": "141517851",
+            "webPropertyId": "UA-141517851-1",
+            "internalWebPropertyId": "202617981",
+            "name": "Toutes les données du site Web",
+            "currency": "USD",
+            "timezone": "Europe/Paris",
+            "websiteUrl": "http://www.loveacademy.ga",
+            "type": "WEB",
+            "permissions": {
+                "effective": [
+                    "COLLABORATE",
+                    "EDIT",
+                    "MANAGE_USERS",
+                    "READ_AND_ANALYZE"
+                ]
+            },
+            "created": "2019-06-05T17:57:26.429Z",
+            "updated": "2019-06-05T17:57:26.429Z",
+            "eCommerceTracking": false,
+            "botFilteringEnabled": true,
+            "parentLink": {
+                "type": "analytics#webproperty",
+                "href": "https://www.googleapis.com/analytics/v3/management/accounts/141517851/webproperties/UA-141517851-1"
+            },
+            "childLink": {
+                "type": "analytics#goals",
+                "href": "https://www.googleapis.com/analytics/v3/management/accounts/141517851/webproperties/UA-141517851-1/profiles/196381658/goals"
+            }
+        },
+        {
+            "id": "196554360",
+            "kind": "analytics#profile",
+            "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/141698629/webproperties/UA-141698629-1/profiles/196554360",
+            "accountId": "141698629",
+            "webPropertyId": "UA-141698629-1",
+            "internalWebPropertyId": "202815858",
+            "name": "Toutes les données du site Web",
+            "currency": "USD",
+            "timezone": "Europe/Paris",
+            "websiteUrl": "http://www.loveacademy.ga",
+            "type": "WEB",
+            "permissions": {
+                "effective": [
+                    "COLLABORATE",
+                    "EDIT",
+                    "MANAGE_USERS",
+                    "READ_AND_ANALYZE"
+                ]
+            },
+            "created": "2019-06-06T22:26:41.931Z",
+            "updated": "2019-06-06T22:26:41.931Z",
+            "eCommerceTracking": false,
+            "botFilteringEnabled": true,
+            "parentLink": {
+                "type": "analytics#webproperty",
+                "href": "https://www.googleapis.com/analytics/v3/management/accounts/141698629/webproperties/UA-141698629-1"
+            },
+            "childLink": {
+                "type": "analytics#goals",
+                "href": "https://www.googleapis.com/analytics/v3/management/accounts/141698629/webproperties/UA-141698629-1/profiles/196554360/goals"
+            }
+        }
+    ]
+}
