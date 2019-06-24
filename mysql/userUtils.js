@@ -98,6 +98,9 @@ function saveUserInDB(user, callback) {
         mySqlConnection.query(
             registerUserQuery,
             function(result) {
+                if (!result || !result.results) {
+                    return;
+                }
                 var user_id = result.results.insertId;
                 const saveTokenQuery = {
                     sql: "INSERT INTO Access_tokens(access_token, status, expires, user_id) VALUES (?,?,?,?)"

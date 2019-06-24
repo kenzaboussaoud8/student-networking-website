@@ -256,7 +256,7 @@
             for (var i = 0; i < users.length; i++) {
                 var user = users[i];
                 var userName = user.first_name + ' ' + user.last_name;
-                var element = ' <li class="actives" id="userId_' + user.id + '" > <div class="d-flex bd-highlight" onclick=\'openNewConversation("' + user.id + '", "' + userName + '", "' + user.profile_picture + '");\'><div class="img_cont"><img src="'
+                var element = ' <li class="actives" id="userId_' + user.id + '" > <div class="d-flex bd-highlight" style="cursor:pointer;" onclick=\'openNewConversation("' + user.id + '", "' + userName + '", "' + user.profile_picture + '");\'><div class="img_cont"><img src="'
                 element += user.profile_picture;
                 element += '" class="rounded-circle user_img"/><span class="online_icon offline"></span></div><div class="user_info_md"><span class="small">' + userName;
                 element += '</span></div></div></li>';
@@ -289,12 +289,28 @@
             getMessages()
         })
         $("span#send_btn").click(() => {
-            sendMessage({
-                sender: myId,
-                receiver: openConversationUserId,
-                message: $("#chatMessage").val()
-            });
-        })
+                sendMessage({
+                    sender: myId,
+                    receiver: openConversationUserId,
+                    message: $("#chatMessage").val()
+                });
+                $("#chatMessage").val('');
+
+            })
+            // on pressing enter, send msg
+        var textMessage = document.getElementById("chatMessage");
+        textMessage.addEventListener("keyup", function(e) {
+            e.preventDefault();
+            if (e.keyCode === 13) { //checks whether the pressed key is "Enter"
+                sendMessage({
+                    sender: myId,
+                    receiver: openConversationUserId,
+                    message: $("#chatMessage").val()
+                });
+                $("#chatMessage").val('');
+
+            }
+        });
         socket.on('message', addMessages)
 
     }
