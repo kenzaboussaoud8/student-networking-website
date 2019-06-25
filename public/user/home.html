@@ -355,7 +355,7 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: '/blockUser/',
+            url: '/sendRequest/',
             type: 'POST',
             headers: {
                "authorization": tk,
