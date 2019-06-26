@@ -34,7 +34,7 @@ module.exports = router => {
     router.put("/blockContact", blockContact);
     router.put("/rejectUser", rejectUser);
     router.post("/addHobby", addHobby);
-    router.get("/user", getUser);
+    router.get("/me", getUser);
     router.get("/cities", listAllCities);
     router.get("/schools", listAllSchools);
     router.get("/hobbies", listAllHobbies);

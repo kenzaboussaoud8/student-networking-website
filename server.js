@@ -32,7 +32,7 @@ expressApp.use("/", adminRoutes);
 expressApp.use("/", chatRoutes);
 // Serving static files
 expressApp.use(express.static(path.join(__dirname, "public")));
-expressApp.use(express.static(path.join(__dirname, "uploads")));
+expressApp.use('/uploads', express.static(path.join(__dirname, "uploads")));
 
 //
 expressApp.get("/", function(req, res) {

@@ -12,7 +12,7 @@
     <title>LA | Helpdesk </title>
 
     <!-- Bootstrap -->
-    <link href="../asset/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../asset/vendor/bootstrap/dist/css/bootstrap2.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../asset/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
@@ -55,33 +55,23 @@
 
                     <br />
 
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <h3>General</h3>
-                            <ul class="nav side-menu">
-                                <li><a><i class="fa fa-bar-chart-o"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="index.html">First</a></li>
-                                        <li><a href="index2.html">Second</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="users.html"><i class="fa fa-table"></i> Users </a>
-                                </li>
-                                <li><a><i class="fa fa-edit"></i> Modif? </a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tables.html">Tables</a></li>
-                                        <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-desktop"></i> UI Elements</a>
-                                </li>
+               <!-- sidebar menu -->
+               <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">
+                    <h3>General</h3>
+                    <ul class="nav side-menu">
+                        <li><a><i class="fa fa-bar-chart-o"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="index.html">Analytics</a></li>
                             </ul>
-                        </div>
+                        </li>
+                        <li><a href="users.html"><i class="fa fa-table"></i> Users </a>
+                        </li>
+                    </ul>
+                </div>
 
-                    </div>
-                    <!-- /sidebar menu -->
-
+            </div>
+            <!-- /sidebar menu -->
                     <!-- /menu footer buttons -->
                     <div class="sidebar-footer hidden-small">
                         <a data-toggle="tooltip" data-placement="top" title="Settings">
@@ -242,24 +232,26 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <table id="datatable" class="table table-striped table-bordered">
-                                        <thead>
+                                    <table id="users_datatable" class="cell-border compact stripe">
+                                        <!-- <thead>
                                             <tr>
-                                                <th class="th-sm" id="id">id
+                                                <th class="th-sm" id="id">ID
                                                 </th>
-                                                <th class="th-sm">Date d'inscription
+                                                <th class="th-sm">Picture
                                                 </th>
-                                                <th class="th-sm">Prénom
+                                                <th class="th-sm">Registeration date
                                                 </th>
-                                                <th class="th-sm">Nom
+                                                <th class="th-sm">First name
+                                                </th>
+                                                <th class="th-sm">Last name
                                                 </th>
                                                 <th class="th-sm">Email
                                                 </th>
-                                                <th class="th-sm">Sexe
+                                                <th class="th-sm">Gender
                                                 </th>
-                                                <th class="th-sm">Date de naissance
+                                                <th class="th-sm">Birth date
                                                 </th>
-                                                <th class="th-sm">Carte d'étudiant
+                                                <th class="th-sm">Student card
                                                 </th>
                                                 </th>
                                                 <th class="th-sm">Action
@@ -267,7 +259,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        </tbody>
+                                        </tbody> -->
                                     </table>
                                 </div>
                             </div>
@@ -281,7 +273,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+               
                 </div>
                 <div class="clearfix"></div>
             </footer>
@@ -300,21 +292,9 @@
     <!-- iCheck -->
     <script src="../asset/vendor/iCheck/icheck.min.js"></script>
     <!-- Datatables -->
-    <script src="../asset/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../asset/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../asset/vendor/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="../asset/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="../asset/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../asset/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../asset/vendor/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../asset/vendor/jszip/dist/jszip.min.js"></script>
-    <script src="../asset/vendor/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../asset/vendor/pdfmake/build/vfs_fonts.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="build/js/custom.min.js"></script>
@@ -332,7 +312,7 @@
             }
             $("body").show();
             $.ajax({
-                url: '/user/',
+                url: '/me',
                 headers: {
                     "authorization": tk
                 },
@@ -346,28 +326,44 @@
             })
         });
     </script>
+
     <script>
+        var dataSet = []
         $(document).ready(function() {
             $.ajax({
                 url: '/users/',
                 type: 'GET',
             }).done(function(dt) {
                 var users = dt.message;
-                $("table > tbody").html("")
                 for (var i = 0; i < users.length; i++) {
                     let user_data = users[i];
-                    $("table > tbody").append(" <tr id='" + user_data.id + "'> <td class='id'> " + user_data.id +
-                        " </td> <td> " + dateBDDToDateForm(user_data.creation_date) + " </td> <td> " + user_data.first_name + " </td> <td> " +
-                        user_data.last_name +
-                        " </td><td> " + user_data.email +
-                        " </td> <td> " + user_data.gender + " </td> <td> " +
-                        dateBDDToDateForm(user_data.birth_date) + " </td><td> <a href='" +
-                        user_data.student_card +
-                        "'><img src='" + user_data.student_card + "' style='width:100px'></img></a> </td><td> " + " <button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>" + "</td></tr>")
+                    dataSet.push([user_data.id, "<a href='" + user_data.profile_picture +
+                    "'><img src='" + user_data.profile_picture + "' style='width:100px'></img></a>", dateBDDToDateForm(user_data.creation_date), user_data.first_name,
+                    user_data.last_name, user_data.email, user_data.gender,
+                    dateBDDToDateForm(user_data.birth_date),
+                    "<a href=../uploads/" + user_data.student_card + "><img src='../uploads/" + user_data.student_card + "' style='width:100px'></img></a>", "<button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>"]);
+             
                 }
+                $('#users_datatable').DataTable({
+                data: dataSet,
+                columns: [
+                { title: "ID" },
+                { title: "Picture" },
+                { title: "Regisration date" },
+                { title: "First name" },
+                { title: "Last name" },
+                { title: "Email" },
+                { title: "Gender" },
+                { title: "Birth date" },
+                { title: "Student card" },
+                { title: "Action" }
+
+        ]
+            });
             })
         });
     </script>
+
     <!-- On click, accept user -->
     <script>
         function approve(id) {
@@ -378,10 +374,10 @@
                     id: id
                 },
                 success: function(result) {
-                    alert('ok');
+                    alert('Approved');
                 },
                 error: function(result) {
-                    alert('error');
+                    alert('Error. Cannot approve registry');
                 }
             }).done(function(data) {
                 $("#" + id).remove();
@@ -398,13 +394,12 @@
                     id: id
                 },
                 success: function(result) {
-                    alert('ok');
+                    deleteItem(id)
+                    alert('Deleted');
                 },
                 error: function(result) {
                     alert('error');
                 }
-            }).done(function(data) {
-                deleteItem(id)
             })
         };
     </script>
@@ -430,7 +425,7 @@
                     }
                 }).done(function(data) {
                     console.log('Logged out!')
-                    window.location.href = '/index-admin.html';
+                    window.location.href = '/login.html';
                     localStorage.clear();
                 })
             })
@@ -438,12 +433,14 @@
     </script>
     <script>
         function deleteItem(elementId) {
-            if (confirm("Etes-vous sûr?")) {
+            if (confirm("Are you sure?")) {
                 $("#" + elementId).remove();
             }
             return false;
         }
     </script>
+
+  
 </body>
 
 </html>

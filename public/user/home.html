@@ -132,8 +132,8 @@
                     <div class="card border-0 shadow my-5" style="height: inherit;">
                         <div class="card-body p-5" style="background-color: white; border-style: solid;">
 
-                            <div class="container-fluid" style="margin-top: 50px;margin-left: 100px;width:auto;" ">
-                            <div class="row " id="here ">
+                            <div class="container-fluid" style="margin-top: 50px;margin-left: 100px;width:auto;"">
+                            <div class="row" id="here">
                                 <!-- Team Member 1 -->
                 
                             </div>
@@ -141,7 +141,7 @@
                   </div>
                 </div>
 
-                <div style="height: 100px "></div>
+                <div style="height: 100px"></div>
               </div>
 
         
@@ -150,38 +150,38 @@
         
         <!-- /.container -->
         <!-- Footer -->
-        <footer class="footer " style="border-top-style: solid; ">
-            <div class="container ">
-                <div class="row ">
-                    <div class="col-md-4 ">
-                        <span class="copyright ">Copyright KVA Corporate 2019</span>
+        <footer class="footer" style="border-top-style: solid;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="copyright">Copyright KVA Corporate 2019</span>
                     </div>
-                    <div class="col-md-4 ">
-                        <ul class="list-inline social-buttons ">
-                            <li class="list-inline-item ">
-                                <a href="# ">
-                                    <i class="fab fa-twitter "></i>
+                    <div class="col-md-4">
+                        <ul class="list-inline social-buttons">
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fab fa-twitter"></i>
                                 </a>
                             </li>
-                            <li class="list-inline-item ">
-                                <a href="# ">
-                                    <i class="fab fa-facebook-f "></i>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
-                            <li class="list-inline-item ">
-                                <a href="# ">
-                                    <i class="fab fa-linkedin-in "></i>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fab fa-linkedin-in"></i>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-4 ">
-                        <ul class="list-inline quicklinks ">
-                            <li class="list-inline-item ">
-                                <a href="mentions_legales.html ">Mentions légales</a>
+                    <div class="col-md-4">
+                        <ul class="list-inline quicklinks">
+                            <li class="list-inline-item">
+                                <a href="mentions_legales.html">Mentions légales</a>
                             </li>
-                            <li class="list-inline-item ">
-                                <a href="cgu.html ">Conditions d'utilisation</a>
+                            <li class="list-inline-item">
+                                <a href="cgu.html">Conditions d'utilisation</a>
                             </li>
                         </ul>
                     </div>
@@ -223,11 +223,11 @@
             window.location.href = 'index.html';
             return
         }
-        $("body ").show();
+        $("body").show();
         $.ajax({
-            url: '/user/',
+            url: '/me/',
             headers: {
-                "authorization ": tk
+               "authorization": tk
             },
             type: 'GET',
         }).done(function(dt) {
@@ -241,29 +241,30 @@
 <script>
     $(document).ready(function() {
         // on récupère le token depuis le localStorage
-        let tk = localStorage.getItem("token ");
+        let tk = localStorage.getItem("token");
         $.ajax({
             url: '/profiles',
             type: 'GET',
             headers: {
-                "authorization ": tk
+               "authorization": tk
             }
         }).done(function(data) {
-            var container = document.querySelector("#here ");
+            var container = document.querySelector("#here");
             var users = data.message
             for (var i = 0; i < users.length; i++) {
                 var age = calculateAge(users[i].birth_date)
-                var card = ' <div class="col-sm-12 col-lg-6 " id="here ">'
-                var photo = '<div class="card h-100 border-0 shadow " style ="width: 350px; margin-right: 25px ; margin-bottom: 25px " id=" '
+                var card = ' <div class="col-sm-12 col-lg-6" id="here">'
+                var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id=" '
                 photo += users[i].id
-                photo += ' "> '
-                photo += ' <img  class=" " style="height: 400px; width: inherit " id="profilepicture " alt="... " src=" ';
+                photo += '"> '
+                photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
                 photo += users[i].profile_picture;
-                var user = ' "><span id="status " style = "display: none " class="badge badge-pill badge-secondary ">En attente</span><span id="request " style = "display: none " class="badge badge-pill badge-danger ">Plus de demandes? Revenez demain!</span>';
-                user += '<div class="card-body text-center "> <h5 class="card-title mb-0 " id="username-age ">'
+                var user = '"><span id="status" style ="display: none" class="badge badge-pill badge-secondary">En attente</span><span id="request" style ="display: none" class="badge badge-pill badge-danger">Plus de demandes? Revenez demain!</span>';
+                user += '<div class="card-body text-center"> <h5 class="card-title mb-0" id="username-age">'
 
                 if (users[i].School_id == userSchoolId) {
-                    user += ' <i class="fas fa-graduation-cap "></i>'
+                    user += ' <i class="fas fa-graduation-cap"></i>'
+                 user += ' <i class="fas fa-graduation-cap "></i>'
 
                 }
                 user += users[i].first_name + ' ' + users[i].last_name;
@@ -271,24 +272,25 @@
                 user += age;
                 user += ' ans</h5>'
 
-                var city = ' <div class="card-text text-black-50 " id="school-city ">'
+                var city = ' <div class="card-text text-black-50" id="school-city">'
+
                 city += users[i].name
                 city += ', ';
                 city += users[i].cityname;
                 city += '</div>'
-                var bio = '<p class="card-text " id="bio "> <b>Bio</b> '
+                var bio = '<p class="card-text" id="bio"> <b>Bio</b> '
                 bio += users[i].bio
                 bio += '</p>'
-                var myHobby = ' <p class="card-text " id="hobby ">'
-                myHobby += '<i class="fas fa-thumbs-up "></i>   '
+                var myHobby = ' <p class="card-text" id="hobby">'
+                myHobby += '<i class="fas fa-thumbs-up"></i>   '
                 myHobby += users[i].hobby
                 myHobby += '</p>'
-                var rest = '<button class="bouton18 " onclick="sendRequest( '
+                var rest = '<button class="bouton18" onclick="sendRequest( '
                 rest += users[i].id
-                rest += ') " style="height: 76px; padding-right: 170px; "><i class="fa fa-heart fa-4x "></i></button>'
-                rest += ' <button class="bouton17 " onclick="deleteUser( '
+                rest += ')" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>'
+                rest += ' <button class="bouton17" onclick="deleteUser( '
                 rest += myId + ', ' + users[i].id
-                rest += ') "><i class="fa fa-times fa-5x "></i></button>'
+                rest += ')"><i class="fa fa-times fa-5x"></i></button>'
                 rest += '</div></div></div>'
                 container.innerHTML += photo + user + city + bio + myHobby + rest;
             }
@@ -303,20 +305,21 @@
     function sendRequest(id) 
     {
         // on récupère le token depuis le localStorage
-        let tk = localStorage.getItem("token ");
+        let tk = localStorage.getItem("token");
         $.ajax({
             url: '/sendRequest/',
             type: 'POST',
             headers: {
-                "authorization ": tk,
+               "authorization": tk,
             },
             data: {
-                "user_id_receiver ": id
+               "user_id_receiver": id
             },
             statusCode: {
                 200: function() {
-                    $("# " + id + "> span#status.badge").css("display", "block"); }, 
-                401: function() { $("#" + id + "> span#request.badge").css("display", "block"); } 
+                    $("#" + id +"> span#status.badge").css("display","block"); }, 
+                401: function() { $("#" + id +"> span#request.badge").css("display","block"); } 
+
             }}).done(function(data) { 
                 console.log('Sent request!', id) 
             })
@@ -333,11 +336,11 @@
             url: '/rejectUser/',
             type: 'PUT',
             headers: {
-                "authorization": tk,
+               "authorization": tk,
             },
             data: {
-                "user_id_receiver": id_receiver,
-                "user_id_requester": id_requester
+               "user_id_receiver": id_receiver,
+               "user_id_requester": id_requester
 
             }
         }).done(function(data) {
@@ -360,17 +363,17 @@
         // on récupère le token depuis le localStorage
         let tk = localStorage.getItem("token");
         $.ajax({
-            url: '/blockUser/',
+            url: '/sendRequest/',
             type: 'POST',
             headers: {
-                "authorization": tk,
+               "authorization": tk,
             },
             data: {
-                "user_id_receiver": id
+               "user_id_receiver": id
             }
         }).done(function(data) {
             console.log('Sent request!', id)
-            $("#" + id + "> span.badge").css("display", "block");
+            $("#" + id +"> span.badge").css("display","block");
         })
     }
 </script>
@@ -385,7 +388,7 @@
                 url: '/logout/',
                 type: 'DELETE',
                 headers: {
-                    "authorization": tk,
+                   "authorization": tk,
                 }
             }).done(function(data) {
                 console.log('Logged out!')
@@ -405,5 +408,6 @@
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 </script>
+
 
 </html>
