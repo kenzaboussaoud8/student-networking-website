@@ -335,18 +335,20 @@
                 type: 'GET',
             }).done(function(dt) {
                 var users = dt.message;
-                // $("table > tbody").html("")
                 for (var i = 0; i < users.length; i++) {
                     let user_data = users[i];
-                    dataSet.push([user_data.id, dateBDDToDateForm(user_data.creation_date), user_data.first_name,
+                    dataSet.push([user_data.id, "<a href='" + user_data.profile_picture +
+                    "'><img src='" + user_data.profile_picture + "' style='width:100px'></img></a>", dateBDDToDateForm(user_data.creation_date), user_data.first_name,
                     user_data.last_name, user_data.email, user_data.gender,
                     dateBDDToDateForm(user_data.birth_date),
-                    "<a href='" + user_data.student_card + "'><img src='" + user_data.student_card + "' style='width:100px'></img></a>", "<button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>"]);
+                    "<a href=../uploads/" + user_data.student_card + "><img src='../uploads/" + user_data.student_card + "' style='width:100px'></img></a>", "<button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>"]);
+             
                 }
                 $('#users_datatable').DataTable({
                 data: dataSet,
                 columns: [
                 { title: "ID" },
+                { title: "Picture" },
                 { title: "Regisration date" },
                 { title: "First name" },
                 { title: "Last name" },
@@ -362,11 +364,6 @@
         });
     </script>
 
-<script>
-        $(document).ready(function () {
-            console.log("daata", dataSet)
-
-        });</script>
     <!-- On click, accept user -->
     <script>
         function approve(id) {
@@ -377,10 +374,10 @@
                     id: id
                 },
                 success: function(result) {
-                    alert('ok');
+                    alert('Approved');
                 },
                 error: function(result) {
-                    alert('error');
+                    alert('Error. Cannot approve registry');
                 }
             }).done(function(data) {
                 $("#" + id).remove();
@@ -397,13 +394,12 @@
                     id: id
                 },
                 success: function(result) {
-                    alert('ok');
+                    deleteItem(id)
+                    alert('Deleted');
                 },
                 error: function(result) {
                     alert('error');
                 }
-            }).done(function(data) {
-                deleteItem(id)
             })
         };
     </script>
@@ -437,7 +433,7 @@
     </script>
     <script>
         function deleteItem(elementId) {
-            if (confirm("Etes-vous sûr?")) {
+            if (confirm("Are you sure?")) {
                 $("#" + elementId).remove();
             }
             return false;
