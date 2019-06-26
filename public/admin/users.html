@@ -232,8 +232,8 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <table id="datatable" class="table table-striped table-bordered">
-                                        <thead>
+                                    <table id="users_datatable" class="cell-border compact stripe">
+                                        <!-- <thead>
                                             <tr>
                                                 <th class="th-sm" id="id">ID
                                                 </th>
@@ -259,7 +259,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        </tbody>
+                                        </tbody> -->
                                     </table>
                                 </div>
                             </div>
@@ -292,21 +292,9 @@
     <!-- iCheck -->
     <script src="../asset/vendor/iCheck/icheck.min.js"></script>
     <!-- Datatables -->
-    <script src="../asset/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../asset/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../asset/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../asset/vendor/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="../asset/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="../asset/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../asset/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../asset/vendor/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../asset/vendor/jszip/dist/jszip.min.js"></script>
-    <script src="../asset/vendor/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../asset/vendor/pdfmake/build/vfs_fonts.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="build/js/custom.min.js"></script>
@@ -338,28 +326,47 @@
             })
         });
     </script>
+
     <script>
+        var dataSet = []
         $(document).ready(function() {
             $.ajax({
                 url: '/users/',
                 type: 'GET',
             }).done(function(dt) {
                 var users = dt.message;
-                $("table > tbody").html("")
+                // $("table > tbody").html("")
                 for (var i = 0; i < users.length; i++) {
                     let user_data = users[i];
-                    $("table > tbody").append(" <tr id='" + user_data.id + "'> <td class='id'> " + user_data.id +  " </td><td> <a href='" + user_data.profile_picture +
-                    "'><img src='" + user_data.profile_picture + "' style='width:100px'></img></a> </td><td> " + dateBDDToDateForm(user_data.creation_date) + " </td> <td> " + user_data.first_name + " </td> <td> " +
-                    user_data.last_name +
-                    " </td><td> " + user_data.email +
-                    " </td> <td> " + user_data.gender + " </td> <td> " +
-                    dateBDDToDateForm(user_data.birth_date) + " </td><td> <a href='" +
-                    user_data.student_card +
-                    "'><img src='" + user_data.student_card + "' style='width:100px'></img></a> </td><td> " + " <button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>" + "</td></tr>")
+                    dataSet.push([user_data.id, dateBDDToDateForm(user_data.creation_date), user_data.first_name,
+                    user_data.last_name, user_data.email, user_data.gender,
+                    dateBDDToDateForm(user_data.birth_date),
+                    "<a href='" + user_data.student_card + "'><img src='" + user_data.student_card + "' style='width:100px'></img></a>", "<button type='button' onclick ='approve(" + user_data.id + ")' class='btn btn-success' id='accept'><i class='fa fa-check'></i></button>" + "<button type='button' id= 'reject' onclick ='deleteUser(" + user_data.id + ")' class='btn btn-danger'><i class='fa fa-times'></i></button>"]);
                 }
+                $('#users_datatable').DataTable({
+                data: dataSet,
+                columns: [
+                { title: "ID" },
+                { title: "Regisration date" },
+                { title: "First name" },
+                { title: "Last name" },
+                { title: "Email" },
+                { title: "Gender" },
+                { title: "Birth date" },
+                { title: "Student card" },
+                { title: "Action" }
+
+        ]
+            });
             })
         });
     </script>
+
+<script>
+        $(document).ready(function () {
+            console.log("daata", dataSet)
+
+        });</script>
     <!-- On click, accept user -->
     <script>
         function approve(id) {
@@ -436,6 +443,8 @@
             return false;
         }
     </script>
+
+  
 </body>
 
 </html>
