@@ -199,11 +199,18 @@
             var container = document.querySelector("#here");
             var users = data.message
             for (var i = 0; i < users.length; i++) {
+               
                 var age = calculateAge(users[i].birth_date)
-                var card = ' <div class="col-sm-12 col-lg-6" id="here">'
-                var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id="'
+                var card = ' <div class="col-sm-12 col-lg-6" id="here>"'
+                var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px; '
+               
+                if (users[i].request_status == 0)
+                {
+                    photo += 'pointer-events: none; opacity: 0.5; "'
+                }
+                photo += '"id="'
                 photo += users[i].id
-                photo += '"> '
+                photo +='">'
                 photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
                 photo += users[i].profile_picture;
                 var user = '"><span id="status" style ="display: none" class="badge badge-pill badge-secondary">En attente</span><span id="request" style ="display: none" class="badge badge-pill badge-danger">Plus de demandes? Revenez demain!</span>';
