@@ -25,7 +25,10 @@ function getMessages(req, res, next) {
     res.statusCode = 200;
 
     connect.then(db => {
-        Chat.find({ sender: req.body.sender, receiver: req.body.receiver }).then(chat => {
+        Chat.find({$or:[{ sender: req.body.sender, receiver: req.body.receiver } ,{ sender: req.body.receiver, receiver: req.body.sender }]}).then(chat => {
+            chat.sort((a, b) => {
+                return a.createdAt > b.createdAt;
+            })
             console.log("chat", chat)
             res.json(chat);
         });
