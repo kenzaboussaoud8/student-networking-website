@@ -190,8 +190,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src="../asset/vendor/jquery/dist/jquery.min.js"></script>
 <script src="../asset/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
 <!-- Plugin JavaScript -->
 <script src="../asset/js/jquery.easing.min.js"></script>
 
@@ -208,6 +207,7 @@
 <script>
     var userSchoolId = '';
     var myId = '';
+    var myProfilePicture = '';
     var myName = '';
     var openConversationUserId = '';
     var openConversationName = '';
@@ -230,6 +230,7 @@
             var user = dt.message;
             myId = user.id + '';
             myName = user.first_name + ' ' + user.last_name;
+            myProfilePicture = user.profile_picture;
             userSchoolId = user.School_id;
         })
 
@@ -316,9 +317,9 @@
         console.log("AddMessage", message);
         var messageElement = "";
         if (message.sender === myId) {
-            messageElement = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="../asset/images/photo-1524593689594-aae2f26b75ab.jpg" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer_send">' + message.message + '     <span class="msg_time">Datetime post, Dayay </span> </div> </div>'
+            messageElement = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="' + myProfilePicture +'" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer_send">' + message.message + '     <span class="msg_time"></span> </div> </div>'
         } else {
-            messageElement = '<div class="d-flex justify-content-end mb-4"> <div class="msg_cotainer">' + message.message + '     <span class="msg_time">Datetime post, Dayay </span> </div><div class="img_cont_msg"><img src="../asset/images/photo-1527980965255-d3b416303d12.jpg" class="rounded-circle user_img_msg"></div></div>'
+            messageElement = '<div class="d-flex justify-content-end mb-4"> <div class="msg_cotainer">' + message.message + '     <span class="msg_time"></span> </div><div class="img_cont_msg"><img src="' + $("#openConversationImage").attr('src') + '" class="rounded-circle user_img_msg"></div></div>'
         }
         let chatBody = $("#chatBody")
         chatBody.html(chatBody.html() + messageElement)
