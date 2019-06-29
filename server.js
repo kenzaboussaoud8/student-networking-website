@@ -21,7 +21,11 @@ expressApp.use(function(request, response, next) {
 });
 // Set the bodyParser to parse the urlencoded post data
 expressApp.use(bodyParser.urlencoded({ extended: true }));
-
+// Preventing 304 response
+expressApp.use(function(req, res, next) {
+    req.headers['if-none-match'] = 'no-match-for-this';
+    next();    
+  });
 const userRoutes = require("./routes/user/userRoutes")(router);
 const chatRoutes = require("./routes/user/chatRoutes")(router);
 const adminRoutes = require("./routes/admin/adminRoutes")(router);
