@@ -201,7 +201,7 @@
             for (var i = 0; i < users.length; i++) {
                 var age = calculateAge(users[i].birth_date)
                 var card = ' <div class="col-sm-12 col-lg-6" id="here">'
-                var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id=" '
+                var photo = '<div class="card h-100 border-0 shadow" style ="width: 350px; margin-right: 25px ; margin-bottom: 25px" id="'
                 photo += users[i].id
                 photo += '"> '
                 photo += ' <img  class="" style="height: 400px; width: inherit" id="profilepicture" alt="..." src=" ';
@@ -232,7 +232,7 @@
                 myHobby += '<i class="fas fa-thumbs-up"></i>   '
                 myHobby += users[i].hobby
                 myHobby += '</p>'
-                var rest = '<button class="bouton18" onclick="sendRequest( '
+                var rest = '<button class="bouton18" onclick="sendRequest('
                 rest += users[i].id
                 rest += ')" style="height: 76px; padding-right: 170px;"><i class="fa fa-heart fa-4x"></i></button>'
                 rest += ' <button class="bouton17" onclick="deleteUser( '
@@ -264,8 +264,11 @@
             },
             statusCode: {
                 200: function() {
+                    console.log('it s 200');
                     $("#" + id +"> span#status.badge").css("display","block"); }, 
-                401: function() { $("#" + id +"> span#request.badge").css("display","block"); } 
+                401: function() {
+                    console.log('it s 401');
+                $("#" + id +"> span#request.badge").css("display","block"); } 
 
             }}).done(function(data) { 
                 console.log('Sent request!', id) 
@@ -304,26 +307,7 @@
         return false;
     }
 </script>
-<!-- Block user -->
-<script>
-    function sendRequest(id) {
-        // on récupère le token depuis le localStorage
-        let tk = localStorage.getItem("token");
-        $.ajax({
-            url: '/sendRequest/',
-            type: 'POST',
-            headers: {
-               "authorization": tk,
-            },
-            data: {
-               "user_id_receiver": id
-            }
-        }).done(function(data) {
-            console.log('Sent request!', id)
-            $("#" + id +"> span.badge").css("display","block");
-        })
-    }
-</script>
+
 <!-- Script de déconnexion -->
 <script>
     (function() {
