@@ -320,7 +320,7 @@
         if (message.sender === myId) {
             messageElement = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="' + myProfilePicture +'" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer_send">' + message.message + '     <span class="msg_time">' + today.getHours() + ":" + today.getMinutes()  + '</span></div> </div>'
         } else {
-            messageElement = '<div class="d-flex justify-content-end mb-4"> <div class="msg_cotainer">' + message.message + '     <span class="msg_time"></span> </div><div class="img_cont_msg"><img src="' + $("#openConversationImage").attr('src') + '" class="rounded-circle user_img_msg"></div></div>'
+            messageElement = '<div class="d-flex justify-content-end mb-4"><div class="img_cont_msg"><img src="' + $("#openConversationImage").attr('src') + '" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' + message.message + '     <span class="msg_time">' + today.getHours() + ":" + today.getMinutes()  + '</span></div></div>'
         }
         let chatBody = $("#chatBody")
         chatBody.html(chatBody.html() + messageElement)
