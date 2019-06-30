@@ -277,19 +277,6 @@
         }
         $("body").show();
         $.ajax({
-            url: '/userHobby',
-            headers: {
-                "authorization": tk
-            },
-            type: 'GET',
-        }).done(function(dt) {
-            var user = dt.message;
-            $('#hobbies').val(user.Hobbies_id);
-            if (!$('#hobbies').val()) {
-                $('#hobbies')[0]["initialValue"] = user.Hobbies_id
-            }
-        })
-        $.ajax({
             url: '/me/',
             headers: {
                 "authorization": tk
@@ -309,68 +296,64 @@
             var max_slider_value = user.interest_age.split('-')[1];
             $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
             $('#city').val(user.interest_city_id);
-            if (!$('#city').val()) {
-                $('#city')[0]["initialValue"] = user.interest_city_id
-            }
-
+            $('#city')[0]["initialValue"] = user.interest_city_id
+            $.ajax({
+                type: "GET",
+                url: '/hobbies',
+                success: function(data) {
+                    var hobby = data.message
+                    buildDropdown(jQuery.parseJSON(JSON.stringify(hobby)),          "hobby",
+                        $('#hobbies'),
+                        'Select an option', 
+                        true
+                    );
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: '/cities',
+                success: function(data) {
+                    var city = data.message
+                    buildDropdown(jQuery.parseJSON(JSON.stringify(city)),           "cityname",
+                        $('#city'),
+                        'Select an option');
+                }
+            });
         })
 
     });
 </script>
 <!-- Dropdown build function -->
 <script>
-    function buildDropdown(result, value, dropdown, emptyMessage) {
+    function buildDropdown(result, value, dropdown, emptyMessage, hasMultiSelect = false) {
         {
             var initialValue = dropdown[0]["initialValue"];
+            console.log("Build dropdown for with initial value", value, initialValue)
             // Check result isnt empty
             if (result != '') {
                 // Remove current options
                 dropdown.html('');
                 // Add the empty option with the empty message
-                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                if (!initialValue) {
+                    dropdown.append('<option value="">' + emptyMessage + '</option>');
+                }
                 // Loop through each of the results and append the option to the dropdown
                 $.each(result, function(k, v) {
                     dropdown.append('<option value="' + v.id + '">' + v[value] + '</option>');
                 });
                 // 
                 if (initialValue) {
-                    dropdown.val(initialValue);
+                    if (hasMultiSelect) {
+                        var values = initialValue.split(",");
+                        console.log("MultiSelectDropdown adding value ", values);
+                        dropdown.val(values);
+                    } else {
+                        dropdown.val(initialValue);
+                    }
                 }
             }
         }
     }
-</script>
-<!-- Get list of hobbies and fill dropdown -->
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            type: "GET",
-            url: '/hobbies',
-            success: function(data) {
-                var hobby = data.message
-                buildDropdown(jQuery.parseJSON(JSON.stringify(hobby)), "hobby",
-                    $('#hobbies'),
-                    'Select an option'
-
-                );
-            }
-        });
-    });
-</script>
-<!-- Get list of cities and fill dropdown -->
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            type: "GET",
-            url: '/cities',
-            success: function(data) {
-                var city = data.message
-                buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
-                    $('#city'),
-                    'Select an option');
-            }
-        });
-    });
 </script>
 <!-- Modify info -->
 <script>
