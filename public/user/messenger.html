@@ -109,13 +109,6 @@
                                         <span>Chat with <span id="openConversationUsername">Anonymous</span></span>
                                     </div>
                                 </div>
-                                <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
-                                <div class="action_menu">
-                                    <ul>
-                                        <li><i class="fas fa-user-circle"></i> View profile</li>
-                                        <li><i class="fas fa-ban"></i> Block</li>
-                                    </ul>
-                                </div>
                             </div>
                             <!-- End header chat -->
 
@@ -271,6 +264,7 @@
     });
 
     function openNewConversation(id, full_name, img) {
+        $("#chatBody").html('')
         console.log("openNewConversation", id, full_name, img);
         openConversationUserId = id;
         $("#openConversationUsername").html(full_name);
@@ -316,11 +310,17 @@
     function addMessages(message) {
         var today = new Date();
         console.log("AddMessage", message);
+        var createdAt = message.createdAt
+        if (!createdAt) {
+            createdAt = today.toLocaleString();
+        } else {
+            createdAt = new Date(createdAt).toLocaleString();
+        }
         var messageElement = "";
         if (message.sender === myId) {
-            messageElement = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="' + myProfilePicture +'" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer_send">' + message.message + '     <span class="msg_time">' + today.getHours() + ":" + today.getMinutes()  + '</span></div> </div>'
+            messageElement = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="' + myProfilePicture +'" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer_send">' + message.message + '     <span class="msg_time">' + createdAt + '</span></div> </div>'
         } else {
-            messageElement = '<div class="d-flex justify-content-end mb-4"><div class="img_cont_msg"><img src="' + $("#openConversationImage").attr('src') + '" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' + message.message + '     <span class="msg_time">' + today.getHours() + ":" + today.getMinutes()  + '</span></div></div>'
+            messageElement = '<div class="d-flex justify-content-end mb-4"><div class="img_cont_msg"><img src="' + $("#openConversationImage").attr('src') + '" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' + message.message + '     <span class="msg_time">' + createdAt  + '</span></div></div>'
         }
         let chatBody = $("#chatBody")
         chatBody.html(chatBody.html() + messageElement)

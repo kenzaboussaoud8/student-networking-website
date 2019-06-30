@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt"),
     jwt = require("jsonwebtoken"),
     config = require("../config.js"),
     mySqlConnection = require("./mysqlWrapper.js"),
-    amazon = require("../amazon"),
     utils = require("../routes/user/utils");
 
 module.exports = {
@@ -580,7 +579,7 @@ function getUserHobby(userId, callback) {
     var userId = userId;
     var data = [userId];
     const getHobbyQuery = {
-        sql: "SELECT * FROM User_has_hobbies WHERE User_id = ? "
+        sql: "SELECT * FROM User_has_Hobbies WHERE User_id = ? "
     };
     //holds the results  from the query
     const sqlCallback = dataResponseObject => {
