@@ -308,12 +308,15 @@
     function buildDropdown(result, value, dropdown, emptyMessage) {
         {
             var initialValue = dropdown[0]["initialValue"];
+            console.log("Build dropdown for with initial value", value, initialValue)
             // Check result isnt empty
             if (result != '') {
                 // Remove current options
                 dropdown.html('');
                 // Add the empty option with the empty message
-                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                if (!initialValue) {
+                    dropdown.append('<option value="">' + emptyMessage + '</option>');
+                }
                 // Loop through each of the results and append the option to the dropdown
                 $.each(result, function(k, v) {
                     dropdown.append('<option value="' + v.id + '">' + v[value] + '</option>');
@@ -352,51 +355,37 @@
             $('#bio').val(user.bio);
             $('#profilepicture').attr('src', user.profile_picture );
             $('#school').val(user.School_id);
-            if (!$('#school').val()) {
-                $('#school')[0]["initialValue"] = user.School_id
-            }
+            $('#school')[0]["initialValue"] = user.School_id
             $('#username').innerText = user.first_name + ' ' + user.last_name;
             $('#city').val(user.City_id);
-            if (!$('#city').val()) {
-                $('#city')[0]["initialValue"] = user.City_id
-            }
+            $('#city')[0]["initialValue"] = user.City_id
+            $.ajax({
+                type: "GET",
+                url: '/schools',
+                success: function(data) {
+                    var school = data.message;
+                    buildDropdown(jQuery.parseJSON(JSON.stringify(school)), "name",
+                        $('#school'),
+                        'Select an option')
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: '/cities',
+                success: function(data) {
+                    var city = data.message;
+                    buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
+                        $('#city'),
+                        'Select an option')
+
+                }
+            });
         })
 
     });
 </script>
 
 <!-- Getting the list of schools and cities available-->
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            type: "GET",
-            url: '/schools',
-            success: function(data) {
-                var school = data.message;
-                buildDropdown(jQuery.parseJSON(JSON.stringify(school)), "name",
-                    $('#school'),
-                    'Select an option')
-            }
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-
-        $.ajax({
-            type: "GET",
-            url: '/cities',
-            success: function(data) {
-                var city = data.message;
-                buildDropdown(jQuery.parseJSON(JSON.stringify(city)), "cityname",
-                    $('#city'),
-                    'Select an option')
-
-            }
-        });
-    });
-</script>
 
 <!-- Modify info -->
 <script>
