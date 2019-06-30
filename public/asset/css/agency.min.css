@@ -957,6 +957,8 @@ ul.social-buttons li a:hover {
     bottom: -15px;
     color:black;
     font-size: 10px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .msg_head {
