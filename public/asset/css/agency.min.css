@@ -953,12 +953,21 @@ ul.social-buttons li a:hover {
 
 .msg_time {
     position: absolute;
-    left: 0;
     bottom: -15px;
     color:black;
     font-size: 10px;
     overflow: hidden;
     white-space: nowrap;
+    position: absolute;
+    min-width: 105px;
+}
+
+.msg_time_right {
+    right: 0;
+}
+
+.msg_time_left {
+    left: 0;
 }
 
 .msg_head {
