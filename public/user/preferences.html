@@ -283,7 +283,7 @@
             },
             type: 'GET',
         }).done(function(dt) {
-            var user = dt.message[0];
+            var user = dt.message;
             $('#hobbies').val(user.Hobbies_id);
             if (!$('#hobbies').val()) {
                 $('#hobbies')[0]["initialValue"] = user.Hobbies_id
@@ -304,7 +304,7 @@
                 $('#hobbies')[0]["initialValue"] = user.list_of_hobbies
             }
             $('#bio').val(user.bio);
-            $('#profilepicture').src = user.profile_picture;
+            $('#profilepicture').attr('src', user.profile_picture );
             var min_slider_value = user.interest_age.split('-')[0];
             var max_slider_value = user.interest_age.split('-')[1];
             $("#age").val(min_slider_value + " ans - " + max_slider_value + " ans");
@@ -400,8 +400,6 @@
                 // hobby
             $('select').on('select2:select', function(e) {
                 var data = e.params.data;
-                console.log('ghr kanjerb')
-                console.log(data);
                 $.ajax({
                     url: '/addHobby',
                     type: 'POST',
