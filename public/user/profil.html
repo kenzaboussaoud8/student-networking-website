@@ -350,7 +350,7 @@
             $('#birthdate').val(dateBDDToDateForm(user.birth_date));
             $("input[name=sexe][value=" + user.gender + "]").prop('checked', true);
             $('#bio').val(user.bio);
-            $('#profilepicture').src = user.profile_picture;
+            $('#profilepicture').attr('src', user.profile_picture );
             $('#school').val(user.School_id);
             if (!$('#school').val()) {
                 $('#school')[0]["initialValue"] = user.School_id
