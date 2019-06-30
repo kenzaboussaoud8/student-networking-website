@@ -271,6 +271,7 @@
     });
 
     function openNewConversation(id, full_name, img) {
+        $("#chatBody").html('')
         console.log("openNewConversation", id, full_name, img);
         openConversationUserId = id;
         $("#openConversationUsername").html(full_name);
