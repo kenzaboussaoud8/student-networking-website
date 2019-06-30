@@ -1,83 +1,137 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Mon Compte</ion-title>
-      <ion-buttons slot="start">
-        <ion-menu-button autoHide="false"></ion-menu-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title>Mon Compte</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
-  <ion-avatar>
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-avatar>
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-avatar>
+      </ion-col>
+      <ion-col>
+        <ion-button size="small" (click)="goaccountpreference()">Mes Préférences</ion-button>
+      </ion-col>
+    </ion-row>
     <ion-item>
-        <ion-list>
-    <ion-label>{{last_name}}</ion-label>
-    <ion-label>{{first_name}}</ion-label>
-    <ion-label>Email: {{email}}</ion-label>
-    <ion-text>Mot de passe: <ion-button size="small" (click)="goPassword_lost()">Modifier</ion-button></ion-text>
-    </ion-list>
-  </ion-item>
-
-    <ion-item>
-        <ion-label position="stacked">Bio :</ion-label>
-        <ion-textarea  autocapitalize="true" placeholder="Décrivez-vous...." value="" type="text" [(ngModel)]="bio">{{bio}}</ion-textarea>
-      </ion-item>
-    
-      
-
-    <ion-list>
-        <ion-list-header>Sexe :</ion-list-header>
-        <ion-radio-group>
-        
-        <ion-item>
-          <ion-label>Homme</ion-label>
-          <ion-radio slot='end' value='homme'  checked="gender === 'homme' ? true : false"></ion-radio>
-        </ion-item>
-    
-        <ion-item>
-          <ion-label>Femme</ion-label>
-          <ion-radio slot='end' [value]='femme' checked="gender === 'femme' ? true : false"></ion-radio>
-        </ion-item>
-        
-      </ion-radio-group>
-      </ion-list>
-
-    
-
-  <ion-list>
-      <ion-list-header>Votre école</ion-list-header>
-    <ion-item>
-      <ion-label>Ecole</ion-label>
-      <ion-select placeholder="Select One">
-        <ion-select-option *ngFor="let school of schools">{{school.name}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-  </ion-list>
-
-      
-
       <ion-list>
-          <ion-list-header>Votre ville</ion-list-header>
-      <ion-item>
-        <ion-label>Ville</ion-label>
-        <ion-select placeholder="Select One">
-          <ion-select-option *ngFor="let city of cities">{{city.cityname}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-    </ion-list>        
-     
-          <ion-list>
+        <ion-row>
+          <ion-col>
+            <ion-label>{{last_name}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label>{{first_name}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label>Email: {{email}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-text>Mot de passe:</ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-button size="small" (click)="goPassword_lost()">Modifier</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Bio :</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-textarea  autocapitalize="true" placeholder="Décrivez-vous...." value="" type="text" [(ngModel)]="bio">{{bio}}</ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-list>
+      <ion-row>
+        <ion-col>
+          <ion-list-header>Sexe :</ion-list-header>
+        </ion-col>
+      </ion-row>
+      <ion-radio-group>
+        <ion-row>
+          <ion-col>
             <ion-item>
-              <ion-label>Notifications :</ion-label>
-              <ion-toggle [(ngModel)]="notification_all"></ion-toggle>
+              <ion-label>Homme</ion-label>
+              <ion-radio slot='end' value='homme'  checked="gender === 'homme' ? true : false"></ion-radio>
             </ion-item>
-            </ion-list>
-
-            </ion-content>
+          </ion-col>            
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Femme</ion-label>
+              <ion-radio slot='end' [value]='femme' checked="gender === 'femme' ? true : false"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-radio-group>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>Votre école</ion-list-header>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Ecole</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-select placeholder="Select One">
+            <ion-select-option *ngFor="let school of schools" [value]="school.id">{{school.name}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>Votre ville</ion-list-header>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Ville</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-select placeholder="Select One">
+            <ion-select-option *ngFor="let city of cities">{{city.cityname}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Notifications :</ion-label>
+            <ion-toggle [(ngModel)]="notification_all"></ion-toggle>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>        
+  </ion-grid>
+  <ion-button expand="full" (click)="saveaccount()">Sauvegarder modifications</ion-button>
+</ion-content>
              
           
         

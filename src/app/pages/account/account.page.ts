@@ -69,4 +69,19 @@ export class AccountPage implements OnInit {
     this.navCtrl.navigateForward('/accountpreference');
   }
 
+  saveaccount(){
+    this.storage.get('token').then((val) => {
+      this.token = val;
+      this.userService.UpdateUserInfo(this.token, this.bio, this.city_user, this.school_user, this.gender).then(({data}) => {
+        console.log(data);
+        console.log(this.token);
+        alert("info updated");
+        this.navCtrl.navigateForward('/account');
+      }).catch(error => {
+        console.log(error);
+      });
+    }).catch(error => {
+      console.log(error);
+    });
+  }
 }

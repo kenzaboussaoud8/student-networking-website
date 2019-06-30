@@ -9,26 +9,76 @@
 
 <ion-content padding center text-center>
     <ion-list>
+      <form [formGroup]="registerForm">
       <ion-item>
-        <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>
+          <ion-label position="stacked">Mail</ion-label>
+        <ion-input formControlName="email" type="email" [(ngModel)]="email"></ion-input>
       </ion-item>
+      <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.email">
+            <div class="error-message" *ngIf="registerForm.get('email').hasError(error.type) && (registerForm.get('email').dirty || registerForm.get('email').touched)">
+              {{ error.message }}
+            </div>
+          </ng-container>
+        </div>
       <ion-item>
-          <ion-input placeholder="Prénom" [(ngModel)]="first_name"></ion-input>
+          <ion-label position="stacked">Prénom</ion-label>
+          <ion-input formControlName="first_name" type="text" [(ngModel)]="first_name"></ion-input>
         </ion-item>
+        <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.first_name">
+              <div class="error-message" *ngIf="registerForm.get('first_name').hasError(error.type) && (registerForm.get('first_name').dirty || registerForm.get('first_name').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
         <ion-item>
-            <ion-input placeholder="Nom" [(ngModel)]="last_name"></ion-input>
+            <ion-label position="stacked">Nom</ion-label>
+            <ion-input formControlName="last_name" type="text" [(ngModel)]="last_name"></ion-input>
           </ion-item>
+          <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.last_name">
+                <div class="error-message" *ngIf="registerForm.get('last_name').hasError(error.type) && (registerForm.get('last_name').dirty || registerForm.get('last_name').touched)">
+                  {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
       <ion-item>
-        <ion-input placeholder="Mot de passe" type="password" [(ngModel)]="password"></ion-input>
+        <ion-label position="stacked">Mot de passe</ion-label>
+        <ion-input formControlName="password" type="password" [(ngModel)]="password"></ion-input>
       </ion-item>
+      <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.password">
+            <div class="error-message" *ngIf="registerForm.get('password').hasError(error.type) && (registerForm.get('password').dirty || registerForm.get('password').touched)">
+              {{ error.message }}
+            </div>
+          </ng-container>
+        </div>
       <ion-item>
-          <ion-input placeholder="Date de naissance" [(ngModel)]="birth_date"></ion-input>
+          <ion-label position="stacked">Date de naissance</ion-label>
+          <ion-input formControlName="birth_date" type="date" [(ngModel)]="birth_date"></ion-input>
         </ion-item>
+        <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.birth_date">
+              <div class="error-message" *ngIf="registerForm.get('birth_date').hasError(error.type) && (registerForm.get('birth_date').dirty || registerForm.get('birth_date').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
         <ion-item>
-            <ion-input placeholder="Carte étudiant" [(ngModel)]="student_card"></ion-input>
+            <ion-label position="stacked">Carte étudiant</ion-label>
+            <ion-input formControlName="student_card" type="file" [(ngModel)]="student_card"></ion-input>
           </ion-item>
+          <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.first_name">
+                <div class="error-message" *ngIf="registerForm.get('student_card').hasError(error.type) && (registerForm.get('student_card').dirty || registerForm.get('student_card').touched)">
+                  {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
+      </form>
     </ion-list>
 
-    <ion-button size="full" (click)="Register()">S'inscrire</ion-button>
+    <ion-button [disabled]="!registerForm.valid" size="full" (click)="Register()">S'inscrire</ion-button>
 
     </ion-content>

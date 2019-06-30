@@ -13,15 +13,31 @@
 
     <ion-content padding center text-center>
       <ion-list>
+        <form [formGroup]="loginForm">
         <ion-item>
-          <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>
+          <ion-input formControlName="email" placeholder="Email" type="email" [(ngModel)]="email"></ion-input>
         </ion-item>
+        <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.email">
+              <div class="error-message" *ngIf="loginForm.get('email').hasError(error.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
         <ion-item>
-          <ion-input placeholder="Mot de passe" type="password" [(ngModel)]="password"></ion-input>
+          <ion-input formControlName="password" placeholder="Mot de passe" type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
+        <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.password">
+              <div class="error-message" *ngIf="loginForm.get('password').hasError(error.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+        </form>
       </ion-list>
 
-      <ion-button size="full" (click)="login()">Connexion</ion-button> 
+      <ion-button [disabled]="!loginForm.valid" size="full" (click)="login()">Connexion</ion-button> 
       <ion-button size="full" color="light" (click)="goRegister()">Inscription</ion-button>
 
       </ion-content>

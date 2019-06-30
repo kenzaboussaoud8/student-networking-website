@@ -37,4 +37,9 @@ export class UserService {
   UpdatePassword(token: string, password: string, newPassword: string, confirmPassword: string){
     return this.http.put("http://192.168.1.14:8080/modifyPassword",{password: password, newPassword: newPassword, confirmPassword: confirmPassword},{authorization: token})
   }
+
+  UpdateUserInfo(token: string, bio: string, City_id: string, School_id: string, gender: string ){
+    return this.http.put("http://192.168.1.14:8080/modifyUserInfo",{bio: bio,City_id: City_id, School_id: School_id, gender: gender},{authorization: token})
+  }
+  
 }
